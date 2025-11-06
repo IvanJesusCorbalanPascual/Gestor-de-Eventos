@@ -17,17 +17,23 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>80</x>
       <y>290</y>
       <width>1031</width>
       <height>441</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Palatino Linotype</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabListaDeParticipantes">
      <attribute name="title">
@@ -63,6 +69,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Segoe UI</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -197,19 +204,6 @@
        <string>Asignacion Automática</string>
       </property>
      </widget>
-     <widget class="QSlider" name="verticalSlider">
-      <property name="geometry">
-       <rect>
-        <x>980</x>
-        <y>80</y>
-        <width>22</width>
-        <height>311</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tabDistribucionDeMesas">
      <attribute name="title">
@@ -276,7 +270,7 @@
       </property>
       <property name="font">
        <font>
-        <family>Noto Serif Armenian</family>
+        <family>MS Shell Dlg 2</family>
         <pointsize>10</pointsize>
         <italic>false</italic>
        </font>
@@ -334,13 +328,13 @@
        <string>Distribución de Mesas</string>
       </property>
      </widget>
-     <widget class="QTreeWidget" name="treeWidget">
+     <widget class="QListWidget" name="listWidget">
       <property name="geometry">
        <rect>
-        <x>760</x>
-        <y>90</y>
-        <width>256</width>
-        <height>311</height>
+        <x>20</x>
+        <y>130</y>
+        <width>171</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="layoutDirection">
@@ -349,93 +343,339 @@
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
-      <property name="verticalScrollMode">
-       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      <property name="styleSheet">
+       <string notr="true">/* ========================================= */
+/* ESTILO GENERAL DE LAS LISTAS (QListWidget) */
+/* ========================================= */
+QListWidget {
+    background: #f7f7f7;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px;
+    /* Opción 1: Alinear el contenido general de la vista (a veces necesario) */
+    qproperty-alignment: AlignCenter; 
+}
+
+/* ----------------------------------------- */
+/* 1. LISTA MAESTRO (NAVEGACIÓN DE MESAS) */
+/* ----------------------------------------- */
+QListWidget#listWidget_Mesas::item { /* Reemplaza si es necesario */
+    padding: 8px 10px;
+    border-bottom: 1px solid #eeeeee;
+    /* Opción 2: Alinear el texto dentro del ítem */
+    text-align: center;
+}
+
+QListWidget#listWidget_Mesas::item:hover {
+    background: #e0f2f1;
+    color: #00796b;
+}
+
+QListWidget#listWidget_Mesas::item:selected {
+    background: #00796b;
+    color: white;
+    border-radius: 3px;
+    font-weight: bold;
+}</string>
       </property>
-      <attribute name="headerVisible">
+      <property name="dragEnabled">
        <bool>false</bool>
-      </attribute>
-      <column>
+      </property>
+      <item>
        <property name="text">
         <string>Mesa 1</string>
        </property>
-      </column>
-      <column>
+      </item>
+      <item>
        <property name="text">
         <string>Mesa 2</string>
        </property>
-      </column>
-      <column>
+      </item>
+      <item>
        <property name="text">
         <string>Mesa 3</string>
        </property>
-      </column>
+      </item>
       <item>
        <property name="text">
-        <string>a</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="text">
-        <string/>
+        <string>Mesa 4</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>b</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="text">
-        <string>Hlas</string>
+        <string>Mesa 5</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>c</string>
+        <string>Mesa 6</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 7</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 8</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 9</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 10</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 11</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 12</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 13</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 14</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 15</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 16</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 17</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 18</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 19</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mesa 20</string>
        </property>
       </item>
      </widget>
-     <widget class="QToolBox" name="toolBox">
+     <widget class="QListWidget" name="listWidget_2">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>80</y>
-        <width>131</width>
-        <height>147</height>
+        <x>220</x>
+        <y>130</y>
+        <width>256</width>
+        <height>271</height>
        </rect>
       </property>
-      <property name="currentIndex">
-       <number>0</number>
+      <property name="acceptDrops">
+       <bool>false</bool>
       </property>
-      <widget class="QWidget" name="page">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>131</width>
-         <height>85</height>
-        </rect>
+      <property name="styleSheet">
+       <string notr="true">/* ========================================= */
+/* ESTILO GENERAL DE LAS LISTAS (QListWidget) */
+/* ========================================= */
+QListWidget {
+    background: #f7f7f7;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px;
+    /* Opción 1: Alinear el contenido general de la vista (a veces necesario) */
+    qproperty-alignment: AlignCenter; 
+}
+
+/* ----------------------------------------- */
+/* 2. LISTA DETALLE (PARTICIPANTES) */
+/* ----------------------------------------- */
+QListWidget#listWidget_Participantes::item { /* Reemplaza si es necesario */
+    /* Opción 2: Alinear el texto dentro del ítem */
+    text-align: center;
+}
+
+QListWidget#listWidget_Participantes::item:hover {
+    background: #f0f0f0; 
+}
+
+QListWidget#listWidget_Participantes::item:selected {
+    background: #b2dfdb;
+    color: black;
+}</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Antonio López Cortés</string>
        </property>
-       <attribute name="label">
-        <string>Page 1</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="page_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>131</width>
-         <height>85</height>
-        </rect>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hugo Romero Morales</string>
        </property>
-       <attribute name="label">
-        <string>Page 2</string>
-       </attribute>
-      </widget>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pepo</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Fran</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QListWidget" name="listWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>130</y>
+        <width>256</width>
+        <height>271</height>
+       </rect>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* ========================================= */
+/* ESTILO GENERAL DE LAS LISTAS (QListWidget) */
+/* ========================================= */
+QListWidget {
+    background: #f7f7f7;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px;
+    /* Opción 1: Alinear el contenido general de la vista (a veces necesario) */
+    qproperty-alignment: AlignCenter; 
+}
+
+/* ----------------------------------------- */
+/* 2. LISTA DETALLE (PARTICIPANTES) */
+/* ----------------------------------------- */
+QListWidget#listWidget_Participantes::item { /* Reemplaza si es necesario */
+    /* Opción 2: Alinear el texto dentro del ítem */
+    text-align: center;
+}
+
+QListWidget#listWidget_Participantes::item:hover {
+    background: #f0f0f0; 
+}
+
+QListWidget#listWidget_Participantes::item:selected {
+    background: #b2dfdb;
+    color: black;
+}</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Antonio López Cortés</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hugo Romero Morales</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pepo</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Fran</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="lblDistribucionDeMesas_2">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>70</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Palatino Linotype</family>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Mesas</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblDistribucionDeMesas_3">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>80</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Palatino Linotype</family>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Participantes</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblDistribucionDeMesas_4">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>80</y>
+        <width>271</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Palatino Linotype</family>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Participantes sin mesa</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </widget>
    </widget>
@@ -447,6 +687,11 @@
       <width>1031</width>
       <height>231</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: rgb(224, 247, 250); /* Equivalente RGB de #e0f7fa */
+}</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -493,9 +738,15 @@
        <rect>
         <x>40</x>
         <y>70</y>
-        <width>91</width>
+        <width>141</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Palatino Linotype</family>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Organizador:</string>
@@ -506,9 +757,15 @@
        <rect>
         <x>40</x>
         <y>100</y>
-        <width>61</width>
+        <width>111</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Palatino Linotype</family>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Ubicación:</string>
@@ -517,11 +774,17 @@
      <widget class="QLabel" name="lblFecha">
       <property name="geometry">
        <rect>
-        <x>400</x>
+        <x>370</x>
         <y>70</y>
-        <width>61</width>
-        <height>16</height>
+        <width>91</width>
+        <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Palatino Linotype</family>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Fecha:</string>
@@ -530,11 +793,17 @@
      <widget class="QLabel" name="lblMesas">
       <property name="geometry">
        <rect>
-        <x>400</x>
+        <x>370</x>
         <y>100</y>
-        <width>61</width>
-        <height>16</height>
+        <width>91</width>
+        <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Palatino Linotype</family>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Nº Mesas:</string>
@@ -559,6 +828,16 @@
        <string>Boda Antonio</string>
       </property>
      </widget>
+     <widget class="QDateTimeEdit" name="dateTimeEdit">
+      <property name="geometry">
+       <rect>
+        <x>444</x>
+        <y>68</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QPushButton" name="btnVolver">
      <property name="geometry">
@@ -578,7 +857,7 @@
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: rgb(130, 255, 130); /* Un verde muy pálido, casi menta */
+    background-color: rgb(230,230, 230);
 }</string>
      </property>
      <property name="text">

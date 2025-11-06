@@ -44,6 +44,11 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: rgb(255, 168, 165); /* Un rojo pastel o rosa muy claro */
+}</string>
+    </property>
     <property name="text">
      <string>BORRAR</string>
     </property>

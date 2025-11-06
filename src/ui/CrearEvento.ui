@@ -202,6 +202,11 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
+}</string>
+    </property>
     <property name="text">
      <string>Crear</string>
     </property>
@@ -214,6 +219,11 @@
       <width>121</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: rgb(225, 225, 225); /* Un azul cian o turquesa muy pálido */
+}</string>
     </property>
     <property name="text">
      <string>Adjuntar CSV</string>

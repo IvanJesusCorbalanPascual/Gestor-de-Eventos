@@ -3,5 +3,7 @@
     <file>boda.jpg</file>
     <file>papus.png</file>
   </qresource>
-  <qresource prefix="/icons"/>
+  <qresource prefix="/icons">
+    <file>logoGT.png</file>
+  </qresource>
 </RCC>

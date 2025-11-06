@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>495</width>
-    <height>528</height>
+    <width>491</width>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -154,6 +154,11 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: rgb(255, 230, 204); /* Un naranja muy pálido o melocotón claro */
+}</string>
+    </property>
     <property name="text">
      <string>Actualizar</string>
     </property>
@@ -222,13 +227,29 @@
      <string>(nombre del evento)</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>390</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Cancelar</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>495</width>
+     <width>491</width>
      <height>26</height>
     </rect>
    </property>

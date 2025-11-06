@@ -61,6 +61,11 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
+}</string>
+    </property>
     <property name="text">
      <string>Crear</string>
     </property>
@@ -140,6 +145,22 @@
     </property>
     <property name="placeholderText">
      <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>300</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Cancelar</string>
     </property>
    </widget>
   </widget>
