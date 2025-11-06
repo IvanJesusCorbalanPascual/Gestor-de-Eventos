@@ -29,7 +29,7 @@
     <property name="currentIndex">
      <number>1</number>
     </property>
-    <widget class="QWidget" name="ListaMesas">
+    <widget class="QWidget" name="tabListaDeParticipantes">
      <attribute name="title">
       <string>Lista de Participantes</string>
      </attribute>
