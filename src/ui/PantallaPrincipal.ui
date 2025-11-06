@@ -14,12 +14,12 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="tablaWidget">
+   <widget class="QTableWidget" name="tablaEventos">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>1011</width>
+      <width>1021</width>
       <height>381</height>
      </rect>
     </property>
@@ -44,7 +44,7 @@
      </property>
     </column>
    </widget>
-   <widget class="QPushButton" name="btnDelEvento_2">
+   <widget class="QPushButton" name="btnActualizarEvento">
     <property name="geometry">
      <rect>
       <x>666</x>
@@ -93,7 +93,7 @@
      <string>Buscar Eventos...</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnAddTarea">
+   <widget class="QPushButton" name="btnCrearEvento">
     <property name="geometry">
      <rect>
       <x>810</x>
@@ -109,7 +109,7 @@
      <string>Crear Evento</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnDelEvento">
+   <widget class="QPushButton" name="btnEliminarEvento">
     <property name="geometry">
      <rect>
       <x>920</x>
@@ -125,7 +125,7 @@
      <string>Eliminar Evento</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnDelEvento_3">
+   <widget class="QPushButton" name="btnConsultarEvento">
     <property name="geometry">
      <rect>
       <x>540</x>
