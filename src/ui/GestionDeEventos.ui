@@ -29,7 +29,7 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="ListaMesas">
+    <widget class="QWidget" name="tabListaDeParticipantes">
      <attribute name="title">
       <string>Lista de Participantes</string>
      </attribute>
@@ -211,7 +211,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="Tab2">
+    <widget class="QWidget" name="tabDistribucionDeMesas">
      <attribute name="title">
       <string>Distribución de Mesas</string>
      </attribute>
