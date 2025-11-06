@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1047</width>
+    <height>499</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTableWidget" name="tablaWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>1011</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Nombre</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Fecha</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Organizador</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Ubicación</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="btnDelEvento_2">
+    <property name="geometry">
+     <rect>
+      <x>666</x>
+      <y>10</y>
+      <width>131</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Actualizar evento</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="boxTema">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>70</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Claro</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Oscuro</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lneBuscador">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>10</y>
+      <width>431</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Buscar Eventos...</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAddTarea">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>10</y>
+      <width>97</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Crear Evento</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelEvento">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>10</y>
+      <width>97</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Eliminar Evento</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelEvento_3">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>10</y>
+      <width>121</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Consultar evento</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1047</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuCargar_Lista">
+    <property name="title">
+     <string>Cargar Lista</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuSubir_Lista">
+    <property name="title">
+     <string>Subir Lista</string>
+    </property>
+   </widget>
+   <addaction name="menuCargar_Lista"/>
+   <addaction name="menuSubir_Lista"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
