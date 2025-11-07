@@ -36,7 +36,7 @@
      <string>Crear Evento</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="txtNombreEventoCrear">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -49,7 +49,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_3">
+   <widget class="QTextEdit" name="txtUbicacionEventoActualizar">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -62,7 +62,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_4">
+   <widget class="QTextEdit" name="txtOrganizadorCrear">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -113,7 +113,7 @@
      <string>Nombre del evento:</string>
     </property>
    </widget>
-   <widget class="QDateTimeEdit" name="dateTimeEdit">
+   <widget class="QDateTimeEdit" name="dateTimeEventoCrear">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -180,7 +180,7 @@
      <string>Nº de Mesas:</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_5">
+   <widget class="QTextEdit" name="txtNumMesasCrear">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -193,7 +193,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btnCrear">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -211,7 +211,7 @@
      <string>Crear</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="btnActualizarCSVCrear">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -236,7 +236,7 @@
      <x>0</x>
      <y>0</y>
      <width>495</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

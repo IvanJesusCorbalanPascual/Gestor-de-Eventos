@@ -52,7 +52,7 @@
      <string>Organizador:</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_2">
+   <widget class="QTextEdit" name="txtNombreEventoActualizar">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -65,7 +65,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_6">
+   <widget class="QTextEdit" name="txtOrganizadorActualizar">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -97,7 +97,7 @@
      <string>Fecha del evento:</string>
     </property>
    </widget>
-   <widget class="QDateTimeEdit" name="dateTimeEdit_2">
+   <widget class="QDateTimeEdit" name="dateTimeEventoActualizar">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -145,7 +145,7 @@
      <string>Ubicación del evento:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="btnActualizarEvento">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -182,7 +182,7 @@
      <string>Actualizar Evento</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_8">
+   <widget class="QTextEdit" name="txtUbicacionEventoActualizar">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -195,7 +195,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_7">
+   <widget class="QTextEdit" name="txtNumMesasActualizar">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -227,7 +227,7 @@
      <string>(nombre del evento)</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="btnCancelarActualizacion">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -250,7 +250,7 @@
      <x>0</x>
      <y>0</y>
      <width>491</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

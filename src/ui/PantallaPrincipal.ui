@@ -90,12 +90,12 @@
         </property>
         <item>
          <property name="text">
-          <string>Oscuro</string>
+          <string>Claro</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Claro</string>
+          <string>Oscuro</string>
          </property>
         </item>
        </widget>
