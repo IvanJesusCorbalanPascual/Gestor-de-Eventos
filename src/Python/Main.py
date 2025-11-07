@@ -8,6 +8,7 @@ def main():
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
+    print("Abriendo el progama...")
 
 if __name__ == "__main__":
     main()

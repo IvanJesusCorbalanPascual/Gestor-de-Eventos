@@ -21,6 +21,7 @@ class CrearEvento(QtWidgets.QMainWindow):
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "CrearEvento.ui")
         uic.loadUi(ui_path, self)
+        print("Creando evento...")
 
 class EliminarEvento(QtWidgets.QMainWindow):
     def __init__(self):
