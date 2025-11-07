@@ -6,73 +6,81 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>362</width>
-    <height>177</height>
+    <width>478</width>
+    <height>243</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label_18">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>0</y>
-      <width>371</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Palatino Linotype</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>¿Seguro que quieres BORRAR (nombre del evento) ?</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnBorrar">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>70</y>
-      <width>131</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QWidget {
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_18">
+        <property name="font">
+         <font>
+          <family>Palatino Linotype</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>¿Seguro que quieres BORRAR (nombre del evento) ?</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>30</number>
+        </property>
+        <property name="leftMargin">
+         <number>30</number>
+        </property>
+        <property name="rightMargin">
+         <number>30</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="btnBorrar">
+          <property name="styleSheet">
+           <string notr="true">QWidget {
     background-color: rgb(255, 168, 165); /* Un rojo pastel o rosa muy claro */
+	padding:20px;
 }</string>
-    </property>
-    <property name="text">
-     <string>BORRAR</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnCancelarEliminar">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>70</y>
-      <width>131</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>CANCELAR</string>
-    </property>
-   </widget>
+          </property>
+          <property name="text">
+           <string>BORRAR</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnCancelarEliminar">
+          <property name="styleSheet">
+           <string notr="true">padding:20px;</string>
+          </property>
+          <property name="text">
+           <string>CANCELAR</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>495</width>
+     <width>478</width>
      <height>21</height>
     </rect>
    </property>

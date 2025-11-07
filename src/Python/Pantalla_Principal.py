@@ -3,6 +3,7 @@ import os
 from PyQt5 import QtWidgets, uic
 from PopUp_evento import EliminarEvento, ActualizarEvento, CrearEvento
 
+# Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
 TEMA_OSCURO=("""
                 QMainWindow{background-color:#2d2d2d;}
                 QWidget{background-color:#2d2d2d;color:#ffffff;}

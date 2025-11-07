@@ -6,7 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width> <height>613</height>
+    <width>492</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,8 +36,17 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_2">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -49,7 +59,27 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txtNomobreEvento"> <property name="placeholderText">
+       <widget class="QTextEdit" name="txtNomobreEvento">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="placeholderText">
          <string/>
         </property>
        </widget>
@@ -72,13 +102,33 @@
        </widget>
       </item>
       <item>
-       <widget class="QDateTimeEdit" name="dateFechaEvento"/> </item>
+       <widget class="QDateTimeEdit" name="dateFechaEvento">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLabel" name="label_4">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -91,7 +141,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txtUbicacion"> <property name="placeholderText">
+       <widget class="QTextEdit" name="txtUbicacion">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="placeholderText">
          <string/>
         </property>
        </widget>
@@ -102,6 +159,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="label">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -114,7 +177,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txtOrganizador"> <property name="placeholderText">
+       <widget class="QTextEdit" name="txtOrganizador">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="placeholderText">
          <string/>
         </property>
        </widget>
@@ -125,6 +195,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
        <widget class="QLabel" name="label_5">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -137,7 +213,24 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txtNumMesas"> <property name="placeholderText">
+       <widget class="QTextEdit" name="txtNumMesas">
+        <property name="maximumSize">
+         <size>
+          <width>10000</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="placeholderText">
          <string/>
         </property>
        </widget>
@@ -146,8 +239,31 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <property name="spacing">
+       <number>30</number>
+      </property>
       <item>
-       <widget class="QPushButton" name="btnAdjuntarCSV"> <property name="styleSheet">
+       <widget class="QPushButton" name="btnCancelar">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Cancelar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnAdjuntarCSV">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
          <string notr="true">QWidget {
 	background-color: rgb(225, 225, 225); /* Se toma el color del segundo bloque (btnActualizarCSVCrear) */
 }</string>
@@ -158,7 +274,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnCrearEvento"> <property name="styleSheet">
+       <widget class="QPushButton" name="btnCrearEvento">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
          <string notr="true">QWidget {
 	background-color: rgb(200, 255, 190); /* Se toma el color del segundo bloque (btnCrear) */
 }</string>
@@ -177,7 +300,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>572</width> <height>21</height>
+     <width>492</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

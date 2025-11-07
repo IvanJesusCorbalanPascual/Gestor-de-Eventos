@@ -19,6 +19,18 @@
      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>10</number>
+        </property>
+        <property name="topMargin">
+         <number>10</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
         <item>
          <widget class="QPushButton" name="btnVolver">
           <property name="font">
@@ -31,6 +43,7 @@
           <property name="styleSheet">
            <string notr="true">QWidget {
     background-color: rgb(230,230, 230);
+	padding: 20px;
 }</string>
           </property>
           <property name="text">
@@ -149,7 +162,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0">
               <item>
-               <widget class="QLabel" name="label_5">
+               <widget class="QLabel" name="Organizador">
                 <property name="font">
                  <font>
                   <family>Palatino Linotype</family>
@@ -173,7 +186,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
               <item>
-               <widget class="QLabel" name="label_2">
+               <widget class="QLabel" name="Fecha">
                 <property name="font">
                  <font>
                   <family>Palatino Linotype</family>
@@ -203,7 +216,7 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_11">
                 <item>
-                 <widget class="QLabel" name="label">
+                 <widget class="QLabel" name="Ubicacion">
                   <property name="font">
                    <font>
                     <family>Palatino Linotype</family>
@@ -227,7 +240,7 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_12">
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="NumMesas">
                   <property name="font">
                    <font>
                     <family>Palatino Linotype</family>
@@ -270,7 +283,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabListaDeParticipantes">
        <attribute name="title">
@@ -459,9 +472,9 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <layout class="QHBoxLayout" name="LayoutDistribucionDeMesas">
           <item>
-           <widget class="QLabel" name="lblDistribucionDeMesas">
+           <widget class="QLabel" name="DistribucionDeMesas">
             <property name="font">
              <font>
               <family>Palatino Linotype</family>
@@ -474,7 +487,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_4">
+           <spacer name="spacerDistribucionDeMesas">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -575,9 +588,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
+           <layout class="QVBoxLayout" name="VerticalLayoutMesas">
             <item>
-             <widget class="QLabel" name="lblDistribucionDeMesas_2">
+             <widget class="QLabel" name="Mesas">
               <property name="font">
                <font>
                 <family>Palatino Linotype</family>
@@ -744,9 +757,9 @@ QListWidget#listWidget_Mesas::item:selected {
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_9">
+           <layout class="QVBoxLayout" name="VerticalLayoutParticipantes">
             <item>
-             <widget class="QLabel" name="lblDistribucionDeMesas_3">
+             <widget class="QLabel" name="Participantes">
               <property name="font">
                <font>
                 <family>Palatino Linotype</family>
@@ -822,9 +835,9 @@ QListWidget#listWidget_Participantes::item:selected {
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_10">
+           <layout class="QVBoxLayout" name="VerticalLayoutParticipantesSinMesa">
             <item>
-             <widget class="QLabel" name="lblDistribucionDeMesas_4">
+             <widget class="QLabel" name="ParticipantesSinMesa">
               <property name="font">
                <font>
                 <family>Palatino Linotype</family>
