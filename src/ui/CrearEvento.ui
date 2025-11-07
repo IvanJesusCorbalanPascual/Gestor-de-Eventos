@@ -6,8 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width>
-    <height>613</height>
+    <width>572</width> <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,8 +49,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txtNomobreEvento">
-        <property name="placeholderText">
+       <widget class="QTextEdit" name="txtNomobreEvento"> <property name="placeholderText">
          <string/>
         </property>
        </widget>
@@ -74,8 +72,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QDateTimeEdit" name="dateFechaEvento"/>
-      </item>
+       <widget class="QDateTimeEdit" name="dateFechaEvento"/> </item>
      </layout>
     </item>
     <item>
@@ -94,8 +91,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txtUbicacion">
-        <property name="placeholderText">
+       <widget class="QTextEdit" name="txtUbicacion"> <property name="placeholderText">
          <string/>
         </property>
        </widget>
@@ -118,8 +114,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txtOrganizador">
-        <property name="placeholderText">
+       <widget class="QTextEdit" name="txtOrganizador"> <property name="placeholderText">
          <string/>
         </property>
        </widget>
@@ -142,8 +137,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txtNumMesas">
-        <property name="placeholderText">
+       <widget class="QTextEdit" name="txtNumMesas"> <property name="placeholderText">
          <string/>
         </property>
        </widget>
@@ -153,10 +147,9 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
-       <widget class="QPushButton" name="btnAdjuntarCSV">
-        <property name="styleSheet">
+       <widget class="QPushButton" name="btnAdjuntarCSV"> <property name="styleSheet">
          <string notr="true">QWidget {
-    background-color: rgb(225, 225, 225); /* Un azul cian o turquesa muy pálido */
+	background-color: rgb(225, 225, 225); /* Se toma el color del segundo bloque (btnActualizarCSVCrear) */
 }</string>
         </property>
         <property name="text">
@@ -165,10 +158,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnCrearEvento">
-        <property name="styleSheet">
+       <widget class="QPushButton" name="btnCrearEvento"> <property name="styleSheet">
          <string notr="true">QWidget {
-    background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
+	background-color: rgb(200, 255, 190); /* Se toma el color del segundo bloque (btnCrear) */
 }</string>
         </property>
         <property name="text">
@@ -185,8 +177,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>572</width>
-     <height>21</height>
+     <width>572</width> <height>21</height>
     </rect>
    </property>
   </widget>

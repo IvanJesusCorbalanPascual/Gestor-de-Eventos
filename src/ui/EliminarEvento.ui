@@ -35,7 +35,7 @@
      <string>¿Seguro que quieres BORRAR (nombre del evento) ?</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="btnBorrar">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -53,7 +53,7 @@
      <string>BORRAR</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_7">
+   <widget class="QPushButton" name="btnCancelarEliminar">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -72,7 +72,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>362</width>
+     <width>495</width>
      <height>21</height>
     </rect>
    </property>
