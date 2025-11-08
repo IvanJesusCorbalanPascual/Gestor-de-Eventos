@@ -191,7 +191,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lneMesas">
+       <widget class="QLineEdit" name="lneNumMesas">
         <property name="minimumSize">
          <size>
           <width>0</width>

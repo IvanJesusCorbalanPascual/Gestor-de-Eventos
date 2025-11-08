@@ -32,11 +32,11 @@ class CrearEvento(QtWidgets.QMainWindow):
 
     def crear_nuevo_evento(self):
         # Obtener los datos del UI
-        nombre = self.txtNomobreEvento.toPlainText() 
+        nombre = self.lneNombreEvento.text()
         fecha_obj = self.dateFechaEvento.dateTime().toString("yyyy-MM-dd hh:mm:ss")
-        ubicacion = self.txtUbicacion.toPlainText()
-        organizador = self.txtOrganizador.toPlainText()
-        num_mesas = self.txtNumMesas.toPlainText()
+        ubicacion = self.lneUbicacion.text()
+        organizador = self.lneOrganizador.text()
+        num_mesas = self.lneNumMesas.text()
         
         # Error si no estan los datos
         if not all([nombre, ubicacion, organizador]):
@@ -51,7 +51,7 @@ class CrearEvento(QtWidgets.QMainWindow):
             self.main_window.cargar_eventos_en_tabla()
             
             # Cerrar la ventana después de crear el evento
-            QtWidgets.QMessageBox.information(self, f"Evento '{nombre}' creado y guardado.")
+            QtWidgets.QMessageBox.information(self, "Evento Creado", f"Evento '{nombre}' creado y guardado.")
             self.close()
         else:
             QtWidgets.QMessageBox.critical(self, "Error de Guardado")
