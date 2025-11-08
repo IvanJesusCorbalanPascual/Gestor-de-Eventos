@@ -40,6 +40,9 @@
             <italic>false</italic>
            </font>
           </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="styleSheet">
            <string notr="true">QWidget {
     background-color: rgb(230,230, 230);
@@ -149,6 +152,9 @@
                 <family>Palatino Linotype</family>
                 <pointsize>24</pointsize>
                </font>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
               </property>
               <property name="text">
                <string>Boda Antonio</string>
@@ -337,6 +343,9 @@
                   <italic>false</italic>
                  </font>
                 </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">QWidget {
     background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
@@ -357,6 +366,9 @@
                   <italic>false</italic>
                  </font>
                 </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">QWidget {
     background-color: rgb(255, 230, 204); /* Un naranja muy pálido o melocotón claro */
@@ -376,6 +388,9 @@
                   <pointsize>10</pointsize>
                   <italic>false</italic>
                  </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">QWidget {
@@ -398,7 +413,7 @@
                  </font>
                 </property>
                 <property name="cursor">
-                 <cursorShape>OpenHandCursor</cursorShape>
+                 <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">QWidget {
@@ -456,6 +471,21 @@
                 <font>
                  <pointsize>10</pointsize>
                 </font>
+               </property>
+              </item>
+              <item row="0" column="1">
+               <property name="text">
+                <string>Ibai Llanos Garatea, Ibai Llanos Garatea</string>
+               </property>
+              </item>
+              <item row="0" column="2">
+               <property name="text">
+                <string>Ibai Llanos Garatea, Ibai Llanos Garatea</string>
+               </property>
+              </item>
+              <item row="0" column="3">
+               <property name="text">
+                <string>4</string>
                </property>
               </item>
              </widget>
@@ -519,26 +549,6 @@
             </property>
             <property name="text">
              <string>Agregar Participante</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnActualizarMesa">
-            <property name="font">
-             <font>
-              <family>Noto Serif Armenian</family>
-              <pointsize>10</pointsize>
-              <italic>false</italic>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QWidget {
-    background-color: rgb(255, 230, 204); /* Un naranja muy pálido o melocotón claro */
-	padding:10px;
-}</string>
-            </property>
-            <property name="text">
-             <string>Actualizar</string>
             </property>
            </widget>
           </item>
@@ -618,6 +628,7 @@
 /* ESTILO GENERAL DE LAS LISTAS (QListWidget) */
 /* ========================================= */
 QListWidget {
+	background-color: #f1f8e9;
     background: #f7f7f7;
     border: 1px solid #cccccc;
     border-radius: 5px;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
-    <height>254</height>
+    <width>940</width>
+    <height>476</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,10 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,8">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,10">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
@@ -122,6 +125,9 @@
           <width>200</width>
           <height>40</height>
          </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius:20px;</string>
         </property>
         <property name="placeholderText">
          <string>Buscar Eventos...</string>
@@ -270,6 +276,11 @@
       <column>
        <property name="text">
         <string>Ubicación</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Mesas</string>
        </property>
       </column>
      </widget>
