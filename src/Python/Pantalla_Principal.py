@@ -2,6 +2,8 @@ import sys
 import os
 from PyQt5 import QtWidgets, uic
 from PopUp_evento import EliminarEvento, ActualizarEvento, CrearEvento
+from EventoManager import event_manager
+from Gestion_Evento import GestionEvento 
 
 # Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
 TEMA_OSCURO=("""
@@ -9,7 +11,7 @@ TEMA_OSCURO=("""
                 QWidget{background-color:#2d2d2d;color:#ffffff;}
                 QTableWidget{background-color:#3c3c3c;color:#ffffff;}
                 QHeaderView::section{background-color:#404040;color:#ffffff;}
-                QPushButton{background-color:#555555;color:#ffffff;}
+                QPushButton{background-color:#e0e0e0;color:#000000;}
                 QComboBox{background-color:#404040;color:#ffffff;}
                 QLineEdit{background-color:#404040;color:#ffffff;}
                 QMenuBar{background-color:#404040;color:#ffffff;}
@@ -43,6 +45,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.btnActualizarEvento.clicked.connect(self.abrir_Actualizar_Evento)
         self.btnCrearEvento.clicked.connect(self.abrir_Crear_Evento)
         self.btnEliminarEvento.clicked.connect(self.abrir_Eliminar_Evento)
+        
+        # Cargar eventos al iniciar la aplicacion
+        self.cargar_eventos_en_tabla() 
 
     def cambiar_tema(self, tema):
         if tema == "Oscuro":
@@ -51,19 +56,41 @@ class MainWindow(QtWidgets.QMainWindow):
             self.setStyleSheet(TEMA_CLARO)
 
     def abrir_gestion_eventos(self):
-        from Gestion_Evento import GestionEvento
         self.gestion_window = GestionEvento()
         self.gestion_window.show()
         self.close()
 
     def abrir_Actualizar_Evento(self):
-        self.gestion_window = ActualizarEvento()
+        self.gestion_window = ActualizarEvento(main_window=self) 
         self.gestion_window.show()
 
     def abrir_Crear_Evento(self):
-        self.gestion_window = CrearEvento()
+        # Pasa la referencia de la ventana principal para que el pop-up pueda actualizar la tabla
+        self.gestion_window = CrearEvento(main_window=self) 
         self.gestion_window.show()
 
     def abrir_Eliminar_Evento(self):
         self.gestion_window = EliminarEvento()
         self.gestion_window.show()
+
+    def cargar_eventos_en_tabla(self):
+        # Lee los eventos del CSV y los muestra en la tablaEventos
+        datos = event_manager.cargar_eventos()
+        
+        # Configurar la tabla
+        self.tablaEventos.setRowCount(len(datos))
+        self.tablaEventos.setColumnCount(4) 
+        
+        # Llenar la tabla con los datos
+        for row_index, row_data in enumerate(datos):
+            # Nombre
+            self.tablaEventos.setItem(row_index, 0, QtWidgets.QTableWidgetItem(row_data[0]))
+            # Fecha
+            self.tablaEventos.setItem(row_index, 1, QtWidgets.QTableWidgetItem(row_data[1]))
+            # Organizador
+            self.tablaEventos.setItem(row_index, 2, QtWidgets.QTableWidgetItem(row_data[3]))
+            # Ubicacion
+            self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(row_data[2]))
+            
+        self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion'])
+        self.tablaEventos.resizeColumnsToContents()
