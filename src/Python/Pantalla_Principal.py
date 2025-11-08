@@ -70,7 +70,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.gestion_window.show()
 
     def abrir_Eliminar_Evento(self):
-        self.gestion_window = EliminarEvento()
+        # Comprueba y obtiene la fila seleccionada en tablaEventos
+        filaSeleccionada = self.tablaEventos.currentRow()
+
+        # Verifica si ha seleccionado un evento
+        if filaSeleccionada == -1:
+            QtWidgets.QMessageBox.warning(self, "Advertencia, Selección Requerida", "Seleccione un evento de la tabla que desee eliminar.")
+            return
+        
+        # Obtiene el nombre del evento
+        try:
+            nombreEvento = self.tablaEventos.item(filaSeleccionada, 0).text()
+        except AttributeError:
+            QtWidgets.QMessageBox.critical(self, "Error", "No se ha podido encontrar el nombre del evento seleccionado.")
+            return
+
+        self.gestion_window = EliminarEvento(nombreEvento=nombreEvento, mainWindow=self)
         self.gestion_window.show()
 
     def cargar_eventos_en_tabla(self):

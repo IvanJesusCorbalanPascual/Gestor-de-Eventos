@@ -45,6 +45,33 @@ class EventoManager:
         except FileNotFoundError:
             pass
         return eventos
+    
+    def eliminar_evento(self, nombre_evento):
+        eventos_mantenidos = []
+        try:
+            with open(CSV_FILE, mode='r', newline='', encoding='utf-8') as file:
+                reader = csv.reader(file)
 
+                # Guarda el encabezado
+                try:
+                    eventos_mantenidos.append(next(reader))
+                except StopIteration:
+                    return False # El archivo vacio o contenido incorrecto
+                
+                # Guardamos las filas que no coincidan con el nombre
+                for row in reader:
+                    if row and row[0] != nombre_evento:
+                        eventos_mantenidos.append(row)
+
+                # Hacemos que el archivo CSV se sobrescriba con los eventos mantenidos
+                with open(CSV_FILE, mode='w', newline='', encoding='utf-8') as file:
+                    writer = csv.writer(file)
+                    writer.writerows(eventos_mantenidos)
+                return True
+            
+        except (IOError, FileNotFoundError) as e:
+            print(f"Error encontrado al eliminar un evento: {e}")
+            return False
+                
 # Instancia global del manager para usar en el resto de los modulos
 event_manager = EventoManager()
