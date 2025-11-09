@@ -35,6 +35,8 @@ class MainWindow(QtWidgets.QMainWindow):
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "PantallaPrincipal.ui")
         uic.loadUi(ui_path, self)
+        self.setWindowTitle("Gestor de Eventos")
+        # self.setWindowIcon(QIcon("../Imagenes/papus.png")) # Icono de ventana
         
         # Asignando el tema claro al iniciar la pantalla
         self.setStyleSheet(TEMA_CLARO)
