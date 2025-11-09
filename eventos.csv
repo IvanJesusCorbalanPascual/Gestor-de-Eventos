@@ -1,11 +1,4 @@
 Nombre,Fecha,Ubicacion,Organizador,Num_Mesas
 jose,2000-01-01 00:00:00,a,a,10
 hola,2000-01-01 00:00:00,a,a,10
-aaaaaaa,2000-01-01 00:00:00,aaaaaaaa,aaaaaaa,10
-<PyQt5.QtWidgets.QLineEdit object at 0x00000177DF75F2E0>,2000-01-01 00:00:00,<PyQt5.QtWidgets.QLineEdit object at 0x00000177DF75F640>,<PyQt5.QtWidgets.QLineEdit object at 0x00000177DF75F7F0>,<PyQt5.QtWidgets.QLineEdit object at 0x00000177DF75F9A0>
-<PyQt5.QtWidgets.QLineEdit object at 0x000001C1F35736D0>,2000-01-01 00:00:00,<PyQt5.QtWidgets.QLineEdit object at 0x000001C1F3573A30>,<PyQt5.QtWidgets.QLineEdit object at 0x000001C1F3573BE0>,<PyQt5.QtWidgets.QLineEdit object at 0x000001C1F3573D90>
-a,2000-01-01 00:00:00,a,a,2
-nombre del evento,2000-01-01 00:00:00,ubicacion,oranizador,1
-Boda antoio,2000-01-01 00:00:00,altorreal,losp ibves,90
-a,2000-01-01 00:00:00,a,a,1
-a,2000-01-01 00:00:00,a,a,1
+bbbbbb,2000-01-01 00:00:00,Valencia,Sergio,2
