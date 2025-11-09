@@ -2,11 +2,8 @@ import sys
 import os
 from PyQt5 import QtWidgets, uic
 from EventoManager import event_manager
-<<<<<<< Updated upstream
 from PopUp_evento import ActualizarParticipante
-=======
 from PopUp_participante import CrearParticipante 
->>>>>>> Stashed changes
 
 class GestionEvento(QtWidgets.QMainWindow):
     
