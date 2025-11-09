@@ -2,7 +2,11 @@ import sys
 import os
 from PyQt5 import QtWidgets, uic
 from EventoManager import event_manager
+<<<<<<< Updated upstream
 from PopUp_evento import ActualizarParticipante
+=======
+from PopUp_participante import CrearParticipante 
+>>>>>>> Stashed changes
 
 class GestionEvento(QtWidgets.QMainWindow):
     
@@ -21,6 +25,9 @@ class GestionEvento(QtWidgets.QMainWindow):
 
         self.btnActualizarParticipante.clicked.connect(self.abrir_actualizar_participante)
 
+        
+        # Conexiones para gestion de participantes (boton Añadir)
+        self.btnAnyadirParticipante.clicked.connect(self.abrir_crear_participante)
         
         # Cargar la informacion del evento al iniciar
         self.cargar_info_evento()
@@ -43,6 +50,12 @@ class GestionEvento(QtWidgets.QMainWindow):
         else:
             QtWidgets.QMessageBox.critical(self, "Error de Carga", "No se ha podido encontrar la informacion del evento")
             self.volver_principal()
+            
+    # Metodo para abrir la ventana de creacion de participantes
+    def abrir_crear_participante(self):
+        # Abre la ventana emergente para crear un participante
+        self.crear_participante_window = CrearParticipante(gestion_evento_window=self, nombreEvento=self.nombreEvento)
+        self.crear_participante_window.show()
         
     # Metodo para volver a la pantalla principal    
     def volver_principal(self):
