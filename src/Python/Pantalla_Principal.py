@@ -36,11 +36,14 @@ class MainWindow(QtWidgets.QMainWindow):
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "PantallaPrincipal.ui")
         uic.loadUi(ui_path, self)
+        self.setWindowTitle("Gestor de Eventos")
+        # self.setWindowIcon(QIcon("../Imagenes/papus.png")) # Icono de ventana
         
         # Asignando el tema claro al iniciar la pantalla
         self.setStyleSheet(TEMA_CLARO)
         
         # Mapeo de botones
+        self.lneBuscador.textChanged.connect(self.buscar_evento)
         self.boxTema.currentTextChanged.connect(self.cambiar_tema)
         
         # Conectamos la tabla para que verifique la seleccion y active o desactive el boton
@@ -87,6 +90,27 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error", "No se ha podido encontrar el nombre del evento seleccionado")
             return None
 
+    # Metodo para buscar eventos con el buscador
+    def buscar_evento(self,consulta):
+        tabla = self.tablaEventos
+        consultaToLow = consulta.lower().strip()
+
+        """
+         Bucle for que recorre todos los Eventos (Filas) buscando un texto que coincida
+         con el de la consulta realizada por el usuario, si coincide lo deja visible, sino
+         lo esconde 
+        """
+
+        for fila in range(tabla.rowCount()):
+            itemTarea = tabla.item(fila,0)
+
+            if itemTarea:
+                consulta = itemTarea.text().lower()
+                esVisible = consultaToLow in consulta
+                tabla.setRowHidden(fila, not esVisible)
+            else:
+                tabla.setRowHidden(fila, True)
+        
     def abrir_gestion_eventos(self):
         # Obtenemos el nombre del evento
         nombreEvento = self.obtener_evento_seleccionado()
@@ -98,7 +122,19 @@ class MainWindow(QtWidgets.QMainWindow):
             self.close()
 
     def abrir_Actualizar_Evento(self):
-        self.gestion_window = ActualizarEvento(main_window=self) 
+        filaSeleccionada = self.tablaEventos.currentRow()
+
+        if filaSeleccionada == -1:
+            QtWidgets.QMessageBox.warning(self, "Advertencia", "Seleccione un evento de la tabla que desee actualizar.")
+            return
+        
+        try:
+            nombreEvento = self.tablaEventos.item(filaSeleccionada, 0).text()
+        except AttributeError:
+            QtWidgets.QMessageBox.critical(self, "Error", "No se ha podido encontrar el nombre del evento seleccionado.")
+            return
+        
+        self.gestion_window = ActualizarEvento(main_window=self, nombreEvento=nombreEvento) 
         self.gestion_window.show()
 
     def abrir_Crear_Evento(self):
@@ -120,7 +156,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # Configurar la tabla
         self.tablaEventos.setRowCount(len(datos))
-        self.tablaEventos.setColumnCount(4) 
+        self.tablaEventos.setColumnCount(5) 
         
         # Llenar la tabla con los datos
         for row_index, row_data in enumerate(datos):
@@ -129,11 +165,11 @@ class MainWindow(QtWidgets.QMainWindow):
             # Fecha
             self.tablaEventos.setItem(row_index, 1, QtWidgets.QTableWidgetItem(row_data[1]))
             # Organizador
-            self.tablaEventos.setItem(row_index, 2, QtWidgets.QTableWidgetItem(row_data[3]))
+            self.tablaEventos.setItem(row_index, 2, QtWidgets.QTableWidgetItem(row_data[2]))
             # Ubicacion
-            self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(row_data[2]))
+            self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(row_data[3]))
             # Mesas
-            self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem("Sin Asignar"))
+            self.tablaEventos.setItem(row_index, 4, QtWidgets.QTableWidgetItem(row_data[4]))
             
-        self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion'])
+        self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion', 'Mesas'])
         self.tablaEventos.resizeColumnsToContents()

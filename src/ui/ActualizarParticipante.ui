@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>602</width>
-    <height>427</height>
+    <width>598</width>
+    <height>418</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,20 +16,46 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label_15">
-      <property name="font">
-       <font>
-        <family>Palatino Linotype</family>
-        <pointsize>14</pointsize>
-       </font>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="leftMargin">
+       <number>30</number>
       </property>
-      <property name="text">
-       <string>Actualizar Participante</string>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_15">
+        <property name="font">
+         <font>
+          <family>Palatino Linotype</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Actualizar Participante</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="styleSheet">
+       <string notr="true">margin:30;</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_13">
         <property name="minimumSize">
@@ -68,7 +94,23 @@
      </layout>
     </item>
     <item>
+     <widget class="Line" name="line_2">
+      <property name="styleSheet">
+       <string notr="true">margin:30;</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_16">
         <property name="minimumSize">
@@ -107,7 +149,23 @@
      </layout>
     </item>
     <item>
+     <widget class="Line" name="line_3">
+      <property name="styleSheet">
+       <string notr="true">margin:30;</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_17">
         <property name="minimumSize">
@@ -144,6 +202,16 @@
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_4">
+      <property name="styleSheet">
+       <string notr="true">margin:30;</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -202,7 +270,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>602</width>
+     <width>598</width>
      <height>21</height>
     </rect>
    </property>

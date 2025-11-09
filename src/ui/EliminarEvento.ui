@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>478</width>
-    <height>243</height>
+    <width>474</width>
+    <height>234</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,6 +61,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="btnCancelarEliminar">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="styleSheet">
            <string notr="true">padding:20px;</string>
           </property>
@@ -80,8 +83,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>478</width>
-     <height>21</height>
+     <width>474</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>

@@ -6,17 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1007</width>
-    <height>760</height>
+    <width>950</width>
+    <height>746</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,7">
+   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,7">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0,0">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <property name="spacing">
@@ -35,7 +35,7 @@
          <widget class="QPushButton" name="btnVolver">
           <property name="font">
            <font>
-            <family>Noto Serif Armenian</family>
+            <family>Alef</family>
             <pointsize>10</pointsize>
             <italic>false</italic>
            </font>
@@ -70,7 +70,14 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,3">
+       <widget class="Line" name="line_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,0,3">
         <property name="spacing">
          <number>10</number>
         </property>
@@ -126,7 +133,14 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="3,1,1">
+         <widget class="Line" name="line_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="3,0,1,0,1">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_7">
             <item>
@@ -164,7 +178,14 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,0,1">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0">
               <item>
@@ -188,6 +209,13 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -216,9 +244,16 @@
            </layout>
           </item>
           <item>
+           <widget class="Line" name="line_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0">
+             <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0">
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_11">
                 <item>
@@ -242,6 +277,13 @@
                  </widget>
                 </item>
                </layout>
+              </item>
+              <item>
+               <widget class="Line" name="line_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -278,22 +320,60 @@
      </layout>
     </item>
     <item>
+     <widget class="Line" name="line_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="font">
        <font>
         <family>Palatino Linotype</family>
-        <pointsize>10</pointsize>
+        <pointsize>14</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Triangular</enum>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>false</bool>
+      </property>
       <widget class="QWidget" name="tabListaDeParticipantes">
+       <attribute name="icon">
+        <iconset resource="../Imagenes/imagenes.qrc">
+         <normaloff>:/icons/logoGT.png</normaloff>:/icons/logoGT.png</iconset>
+       </attribute>
        <attribute name="title">
-        <string>Lista de Participantes</string>
+        <string>Participantes</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <item>
@@ -335,10 +415,17 @@
                </spacer>
               </item>
               <item>
+               <widget class="Line" name="line_16">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="btnAsignacionAutomatica">
                 <property name="font">
                  <font>
-                  <family>Noto Serif Armenian</family>
+                  <family>Alef</family>
                   <pointsize>10</pointsize>
                   <italic>false</italic>
                  </font>
@@ -361,7 +448,7 @@
                <widget class="QPushButton" name="btnActualizarParticipante">
                 <property name="font">
                  <font>
-                  <family>Noto Serif Armenian</family>
+                  <family>Alef</family>
                   <pointsize>10</pointsize>
                   <italic>false</italic>
                  </font>
@@ -384,7 +471,7 @@
                <widget class="QPushButton" name="btnAnyadirParticipante">
                 <property name="font">
                  <font>
-                  <family>Noto Serif Armenian</family>
+                  <family>Alef</family>
                   <pointsize>10</pointsize>
                   <italic>false</italic>
                  </font>
@@ -407,7 +494,7 @@
                <widget class="QPushButton" name="btnEliminarParticipante">
                 <property name="font">
                  <font>
-                  <family>Noto Serif Armenian</family>
+                  <family>Alef</family>
                   <pointsize>10</pointsize>
                   <italic>false</italic>
                  </font>
@@ -429,6 +516,13 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_15">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QTableWidget" name="tablaParticipantes">
@@ -497,12 +591,19 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabDistribucionDeMesas">
+       <attribute name="icon">
+        <iconset resource="../Imagenes/imagenes.qrc">
+         <normaloff>:/images/boda.jpg</normaloff>:/images/boda.jpg</iconset>
+       </attribute>
        <attribute name="title">
-        <string>Distribución de Mesas</string>
+        <string>Mesas</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
          <layout class="QHBoxLayout" name="LayoutDistribucionDeMesas">
+          <property name="leftMargin">
+           <number>30</number>
+          </property>
           <item>
            <widget class="QLabel" name="DistribucionDeMesas">
             <property name="font">
@@ -531,6 +632,13 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="Line" name="line_14">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="btnAgregarParticipante">
@@ -596,7 +704,21 @@
          </layout>
         </item>
         <item>
+         <widget class="Line" name="line_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="Line" name="line_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
           <item>
            <layout class="QVBoxLayout" name="VerticalLayoutMesas">
             <item>
@@ -768,6 +890,13 @@ QListWidget#listWidget_Mesas::item:selected {
            </layout>
           </item>
           <item>
+           <widget class="Line" name="line_9">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QVBoxLayout" name="VerticalLayoutParticipantes">
             <item>
              <widget class="QLabel" name="Participantes">
@@ -846,6 +975,13 @@ QListWidget#listWidget_Participantes::item:selected {
            </layout>
           </item>
           <item>
+           <widget class="Line" name="line_10">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QVBoxLayout" name="VerticalLayoutParticipantesSinMesa">
             <item>
              <widget class="QLabel" name="ParticipantesSinMesa">
@@ -922,7 +1058,21 @@ QListWidget#listWidget_Participantes::item:selected {
             </item>
            </layout>
           </item>
+          <item>
+           <widget class="Line" name="line_12">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
          </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_13">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
