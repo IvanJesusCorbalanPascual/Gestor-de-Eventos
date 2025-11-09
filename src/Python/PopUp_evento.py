@@ -157,3 +157,27 @@ class EliminarEvento(QtWidgets.QMainWindow):
 
         else:
             QtWidgets.QMessageBox.critical(self, "Error al eliminar", f"No se ha podido borrar el evento.")
+
+class ActualizarParticipante(QtWidgets.QMainWindow):
+    def __init__(self, gestion_window, nombre_participante):
+        super(ActualizarParticipante, self).__init__()
+
+        self.gestion_window = gestion_window
+        self.nombre_participante_original = nombre_participante
+
+        # Carga la UI de ActualizarParticipante
+        dir_actual = os.path.dirname(os.path.abspath(__file__))
+        dir_padre = os.path.dirname(dir_actual)
+        ui_path = os.path.join(dir_padre, "ui", "ActualizarParticipante.ui")
+        uic.loadUi(ui_path, self)
+
+        # Conexión de los botones
+        self.btnPopupCancelarActualizacionParticipante.clicked.connect(self.volver_gestion)
+        self.btnPopupActualizarParticipante.clicked.connect(self.confirmar_actualizacion)
+
+    def volver_gestion(self):
+            self.close()
+
+    def confirmar_actualizacion(self):
+        QtWidgets.QMessageBox.information(self, "Pendiente", "Lógica para actualizar participante aún no implementada.")
+        self.close()
