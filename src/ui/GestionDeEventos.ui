@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1007</width>
-    <height>760</height>
+    <width>1021</width>
+    <height>751</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -164,7 +164,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,1">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0">
               <item>
@@ -285,11 +285,14 @@
         <pointsize>10</pointsize>
        </font>
       </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabListaDeParticipantes">
        <attribute name="title">
@@ -503,6 +506,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
          <layout class="QHBoxLayout" name="LayoutDistribucionDeMesas">
+          <property name="leftMargin">
+           <number>30</number>
+          </property>
           <item>
            <widget class="QLabel" name="DistribucionDeMesas">
             <property name="font">

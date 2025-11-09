@@ -10,7 +10,7 @@ class ActualizarEvento(QtWidgets.QMainWindow):
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "ActualizarEvento.ui")
         uic.loadUi(ui_path, self)
-        self.btnCancelarActualizacion.clicked.connect(self.volver_principal)
+        self.btnPopupCancelarActualizacionEvento.clicked.connect(self.volver_principal)
 
     def volver_principal(self):
         self.close()
@@ -40,7 +40,7 @@ class CrearEvento(QtWidgets.QMainWindow):
         
         # Error si no estan los datos
         if not all([nombre, ubicacion, organizador]):
-            QtWidgets.QMessageBox.warning(self, "Error de Datos", "Por favor, complete los datos")
+            QtWidgets.QMessageBox.warning(self, "Error", "Por favor, complete todos los campos")
             return
 
         # Guardar los datos en el CSV

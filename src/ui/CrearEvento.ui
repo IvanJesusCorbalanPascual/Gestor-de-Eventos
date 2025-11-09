@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
-    <height>543</height>
+    <width>840</width>
+    <height>1179</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,21 +22,59 @@
      <number>30</number>
     </property>
     <item>
-     <widget class="QLabel" name="lblCrearEvento">
-      <property name="font">
-       <font>
-        <family>Palatino Linotype</family>
-        <pointsize>16</pointsize>
-       </font>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <property name="spacing">
+       <number>0</number>
       </property>
-      <property name="text">
-       <string>Crear Evento</string>
+      <property name="leftMargin">
+       <number>30</number>
       </property>
-     </widget>
+      <item>
+       <widget class="QLabel" name="lblCrearEvento">
+        <property name="font">
+         <font>
+          <family>Palatino Linotype</family>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Crear Evento</string>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../Imagenes/imagenes.qrc">:/icons/logoGT.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
+       <number>30</number>
+      </property>
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
@@ -72,6 +110,15 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>30</number>
+      </property>
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_3">
         <property name="font">
@@ -105,6 +152,15 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="spacing">
+       <number>30</number>
+      </property>
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_4">
         <property name="maximumSize">
@@ -138,6 +194,15 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <property name="spacing">
+       <number>30</number>
+      </property>
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
       <item>
        <widget class="QLabel" name="label">
         <property name="maximumSize">
@@ -171,6 +236,15 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="spacing">
+       <number>30</number>
+      </property>
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_5">
         <property name="maximumSize">
@@ -215,6 +289,9 @@
           <height>40</height>
          </size>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Cancelar</string>
         </property>
@@ -227,6 +304,9 @@
           <width>0</width>
           <height>40</height>
          </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
@@ -245,6 +325,9 @@
           <width>0</width>
           <height>40</height>
          </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
@@ -265,13 +348,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>527</width>
-     <height>21</height>
+     <width>840</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../Imagenes/imagenes.qrc"/>
+ </resources>
  <connections/>
 </ui>

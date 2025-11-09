@@ -40,6 +40,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setStyleSheet(TEMA_CLARO)
         
         # Mapeo de botones
+        self.lneBuscador.textChanged.connect(self.buscar_evento)
         self.boxTema.currentTextChanged.connect(self.cambiar_tema)
         self.btnConsultarEvento.clicked.connect(self.abrir_gestion_eventos)
         self.btnActualizarEvento.clicked.connect(self.abrir_Actualizar_Evento)
@@ -55,6 +56,27 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.setStyleSheet(TEMA_CLARO)
 
+    # Metodo para buscar eventos con el buscador
+    def buscar_evento(self,consulta):
+        tabla = self.tablaEventos
+        consultaToLow = consulta.lower().strip()
+
+        """
+         Bucle for que recorre todos los Eventos (Filas) buscando un texto que coincida
+         con el de la consulta realizada por el usuario, si coincide lo deja visible, sino
+         lo esconde 
+        """
+
+        for fila in range(tabla.rowCount()):
+            itemTarea = tabla.item(fila,0)
+
+            if itemTarea:
+                consulta = itemTarea.text().lower()
+                esVisible = consultaToLow in consulta
+                tabla.setRowHidden(fila, not esVisible)
+            else:
+                tabla.setRowHidden(fila, True)
+        
     def abrir_gestion_eventos(self):
         self.gestion_window = GestionEvento()
         self.gestion_window.show()
@@ -79,7 +101,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # Configurar la tabla
         self.tablaEventos.setRowCount(len(datos))
-        self.tablaEventos.setColumnCount(4) 
+        self.tablaEventos.setColumnCount(5) 
         
         # Llenar la tabla con los datos
         for row_index, row_data in enumerate(datos):
@@ -88,9 +110,11 @@ class MainWindow(QtWidgets.QMainWindow):
             # Fecha
             self.tablaEventos.setItem(row_index, 1, QtWidgets.QTableWidgetItem(row_data[1]))
             # Organizador
-            self.tablaEventos.setItem(row_index, 2, QtWidgets.QTableWidgetItem(row_data[3]))
+            self.tablaEventos.setItem(row_index, 2, QtWidgets.QTableWidgetItem(row_data[2]))
             # Ubicacion
-            self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(row_data[2]))
+            self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(row_data[3]))
+            # Mesas
+            self.tablaEventos.setItem(row_index, 4, QtWidgets.QTableWidgetItem(row_data[4]))
             
-        self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion'])
+        self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion', 'Mesas'])
         self.tablaEventos.resizeColumnsToContents()

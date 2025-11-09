@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
-    <height>348</height>
+    <width>517</width>
+    <height>339</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -151,7 +151,7 @@
        <number>20</number>
       </property>
       <property name="bottomMargin">
-       <number>20</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QPushButton" name="btnCancelar">
@@ -187,8 +187,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>521</width>
-     <height>21</height>
+     <width>517</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
