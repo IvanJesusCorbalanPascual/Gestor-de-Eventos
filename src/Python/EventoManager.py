@@ -46,6 +46,21 @@ class EventoManager:
             pass
         return eventos
     
+    # Metodo para buscar y devolver los datos de un evento por su nombre
+    def buscar_evento_por_nombre(self, nombre_evento):
+        try:
+            with open(CSV_FILE, mode='r', newline='', encoding='utf-8') as file:
+                reader = csv.reader(file)
+                next(reader, None) # Saltar encabezados
+                for row in reader:
+                    if row and row[0] == nombre_evento:
+                        # Devuelve la lista completa de datos del evento
+                        return row
+        except FileNotFoundError:
+            pass
+        # Devuelve None si no se encuentra el evento o hay error
+        return None
+    
     def eliminar_evento(self, nombre_evento):
         eventos_mantenidos = []
         try:
