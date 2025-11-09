@@ -73,7 +73,7 @@ class EventoManager:
             print(f"Error encontrado al eliminar un evento: {e}")
             return False
         
-    # Lee el CSV para buscar un evento por su nombre
+    # Metodo para buscar y devolver los datos de un evento por su nombre
     def buscar_evento(self, nombre_evento):
         try:
             with open(CSV_FILE, mode='r', newline='', encoding='utf-8') as file:
