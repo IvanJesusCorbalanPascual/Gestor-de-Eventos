@@ -1,10 +1,68 @@
 import sys
 import os
 from PyQt5 import QtWidgets, uic
+from PyQt5.QtGui import QIcon
 from PopUp_evento import EliminarEvento, ActualizarEvento, CrearEvento
 from EventoManager import event_manager
 from Gestion_Evento import GestionEvento 
+TEMA_PANTALLA_PRINCIPAL=("""
+                         /* Color de Fondo de la Ventana Principal */
+QMainWindow, QWidget#centralwidget {
+    background-color: #B0E0E6; /* Azul claro suave para el fondo general (como el Aqua Pale) */
+}
 
+/* -------------------------------------- */
+/* 1. ESTILO DE LA TABLA (QTableWidget) */
+/* -------------------------------------- */
+QTableWidget {
+    background-color: #D2F0FF; /* Azul Cielo más intenso para el fondo de la tabla */
+    border: none;
+    gridline-color: #6495ED; /* Color de las líneas de la cuadrícula */
+}
+
+/* Estilo de la Cabecera Horizontal (NOMBRE DEL EVENTO, ORGANIZADOR, etc.) */
+QHeaderView::section {
+    background-color: #00CED1; /* Azul Cian brillante */
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+    border: 1px solid #48D1CC; /* Borde para separar secciones */
+}
+
+/* Estilo para las Filas de la Tabla (ItemView) */
+QTableWidget::item {
+    background-color: #87CEFA; /* Fondo de las celdas (Azul Cielo) */
+    padding: 5px;
+}
+/* Estilo para las Filas Seleccionadas */
+QTableWidget::item:selected {
+    background-color: #4682B4; /* Azul Acero para la selección */
+    color: white;
+}
+
+/* -------------------------------------- */
+/* 2. ESTILO DEL BUSCADOR (QLineEdit) */
+/* -------------------------------------- */
+QLineEdit#lneBuscador { /* Usa tu objectName real */
+    background-color: #E0FFFF; /* Azul Celeste muy claro */
+    border: 2px solid #87CEFA; /* Borde sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 5px;
+    margin-right: 10px; /* Margen para separarlo de los botones */
+}
+
+/* -------------------------------------- */
+/* 3. ESTILO DE LOS BOTONES DE ACCIÓN */
+/* -------------------------------------- */
+QPushButton {
+    /* Estilos base comunes */
+    border: none;
+    border-radius: 12px; /* Bordes Redondeados para todos los botones */
+    padding: 8px 15px;
+    font-weight: bold;
+    color: black;
+}
+""")
 # Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
 TEMA_OSCURO=("""
                 QMainWindow{background-color:#2d2d2d;}
@@ -33,10 +91,14 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path)) # Icono de ventana
         ui_path = os.path.join(parent_dir, "ui", "PantallaPrincipal.ui")
         uic.loadUi(ui_path, self)
         self.setWindowTitle("Gestor de Eventos")
-        # self.setWindowIcon(QIcon("../Imagenes/papus.png")) # Icono de ventana
+        self.setStyleSheet(TEMA_PANTALLA_PRINCIPAL)
+       
+        
         
         # Asignando el tema claro al iniciar la pantalla
         self.setStyleSheet(TEMA_CLARO)
@@ -146,4 +208,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.tablaEventos.setItem(row_index, 4, QtWidgets.QTableWidgetItem(row_data[4]))
             
         self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion', 'Mesas'])
+        # Ocultando el indice vertical (los numeros de fila)
+        self.tablaEventos.verticalHeader().setVisible(False)
         self.tablaEventos.resizeColumnsToContents()

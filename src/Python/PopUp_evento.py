@@ -17,6 +17,7 @@ class ActualizarEvento(QtWidgets.QMainWindow):
         ui_path = os.path.join(parent_dir, "ui", "ActualizarEvento.ui")
         uic.loadUi(ui_path, self)
         self.btnPopupCancelarActualizacionEvento.clicked.connect(self.volver_principal)
+        self.setWindowTitle("Actualizar evento")
 
         self.lblNombreEvento.setText(self.nombre_evento_original)
         

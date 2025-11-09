@@ -119,6 +119,9 @@
           <pointsize>10</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="maxVisibleItems">
          <number>10</number>
         </property>
@@ -150,7 +153,17 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-radius:20px;</string>
+         <string notr="true">QLineEdit#lneBuscador {
+    background-color: #E0FFFF; /* Azul Celeste muy claro */
+    border: 2px solid #87CEFA; /* Borde sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 5px;
+    margin-right: 10px; /* Margen para separarlo de los botones */
+}
+QLineEdit#lneBuscador:hover {
+    background-color: #B9FFFF;
+}
+</string>
         </property>
         <property name="placeholderText">
          <string>Buscar Eventos...</string>
@@ -177,6 +190,9 @@
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
+}
+QPushButton#btnConsultarEvento:hover {
+    background-color: #4AEDFF;
 }</string>
         </property>
         <property name="text">
@@ -204,6 +220,9 @@
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(255, 230, 204); /* Un naranja muy pálido o melocotón claro */
+}
+QPushButton#btnActualizarEvento:hover {
+    background-color: #FFCC9A; 
 }</string>
         </property>
         <property name="text">
@@ -223,6 +242,8 @@
          <font>
           <family>Alef</family>
           <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="cursor">
@@ -231,6 +252,18 @@
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
+	padding:10px;	
+/* Estilos base comunes */
+    border: none;
+    border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #81E59C; /* Borde sutil */
+    padding: 8px 15px;
+    font-weight: bold;
+    color: black;
+}
+
+QPushButton#btnCrearEvento:hover {
+    background-color: #81E59C;
 }</string>
         </property>
         <property name="text">
@@ -258,6 +291,9 @@
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(255, 168, 165); /* Un rojo pastel o rosa muy claro */
+}
+QPushButton#btnEliminarEvento:hover {
+    background-color: #F08080;
 }</string>
         </property>
         <property name="text">
@@ -287,6 +323,9 @@
         <family>MS Shell Dlg 2</family>
         <pointsize>10</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <column>
        <property name="text">
