@@ -46,6 +46,37 @@ class ParticipanteManager:
         except FileNotFoundError:
             pass
         return participantes
+    
+    def buscar_participante(self, nombre_evento, nombre_participante):
+        try:
+            with open(CSV_FILE_PARTICIPANTES, mode='r', newline='', encoding='utf-8') as file:
+                reader = csv.reader(file)
+                next(reader, None)
+                for row in reader:
+                    if row and row[0] == nombre_evento and row[1] == nombre_participante:
+                        return row
+        except FileNotFoundError:
+            pass
+        return None
+    
+    def actualizar_participante(self, nombre_evento, nombre_original, nuevos_datos_completos):
+        filas_actualizadas = []
+        try:
+            with open(CSV_FILE_PARTICIPANTES, mode='r', newline='', encoding='utf-8') as file:
+                reader = csv.reader(file)
+                filas_actualizadas.append(next(reader))
 
+                for row in reader:
+                    if row and row[0] == nombre_evento and row[1] == nombre_original:
+                        filas_actualizadas.append(nuevos_datos_completos)
+                    else:
+                        filas_actualizadas.append(row)
+
+            with open(CSV_FILE_PARTICIPANTES, mode='w', newline='', encoding='utf-8') as file:
+                writer = csv.writer(file)
+                writer.writerows(filas_actualizadas)
+            return True
+        except (IOError, FileNotFoundError):
+            return False
 # Instancia global del manager para usar en el resto de los modulos
 participante_manager = ParticipanteManager()
