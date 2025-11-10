@@ -201,6 +201,12 @@
       </property>
       <item>
        <widget class="QPushButton" name="btnCancelar">
+        <property name="font">
+         <font>
+          <family>Alef</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
 	padding:10px;
@@ -213,10 +219,38 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnCrear">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Alef</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
 	padding:10px;
+}QWidget {
+    background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
+	padding:10px;	
+/* Estilos base comunes */
+    border: none;
+    border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #81E59C; /* Borde sutil */
+    padding: 8px 15px;
+    font-weight: bold;
+    color: black;
+}
+
+QPushButton#btnCrear:hover {
+    background-color: #81E59C;
 }</string>
         </property>
         <property name="text">

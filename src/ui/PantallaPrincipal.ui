@@ -182,6 +182,8 @@ QLineEdit#lneBuscador:hover {
          <font>
           <family>Alef</family>
           <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="cursor">
@@ -190,6 +192,10 @@ QLineEdit#lneBuscador:hover {
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
+	font-weight: bold;
+border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #4AEDFF; /* Borde sutil */
+font-weight: bold;
 }
 QPushButton#btnConsultarEvento:hover {
     background-color: #4AEDFF;
@@ -212,6 +218,8 @@ QPushButton#btnConsultarEvento:hover {
          <font>
           <family>Alef</family>
           <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="cursor">
@@ -220,6 +228,9 @@ QPushButton#btnConsultarEvento:hover {
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(255, 230, 204); /* Un naranja muy pálido o melocotón claro */
+border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #FFCC9A; /* Borde sutil */
+font-weight: bold;
 }
 QPushButton#btnActualizarEvento:hover {
     background-color: #FFCC9A; 
@@ -283,6 +294,8 @@ QPushButton#btnCrearEvento:hover {
          <font>
           <family>Alef</family>
           <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="cursor">
@@ -291,6 +304,9 @@ QPushButton#btnCrearEvento:hover {
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(255, 168, 165); /* Un rojo pastel o rosa muy claro */
+	border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #F08080; /* Borde sutil */
+	font-weight: bold;
 }
 QPushButton#btnEliminarEvento:hover {
     background-color: #F08080;
@@ -321,7 +337,7 @@ QPushButton#btnEliminarEvento:hover {
       <property name="font">
        <font>
         <family>MS Shell Dlg 2</family>
-        <pointsize>10</pointsize>
+        <pointsize>24</pointsize>
        </font>
       </property>
       <property name="styleSheet">

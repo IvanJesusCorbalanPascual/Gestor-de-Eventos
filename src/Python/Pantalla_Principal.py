@@ -6,8 +6,14 @@ from PyQt5.QtCore import Qt
 from PopUp_evento import EliminarEvento, ActualizarEvento, CrearEvento
 from EventoManager import event_manager
 from Gestion_Evento import GestionEvento 
-TEMA_PANTALLA_PRINCIPAL=("""
-                         /* Color de Fondo de la Ventana Principal */
+
+                        
+# Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
+TEMA_OSCURO=("""
+            """)
+
+TEMA_CLARO=("""
+             /* Color de Fondo de la Ventana Principal */
 QMainWindow, QWidget#centralwidget {
     background-color: #B0E0E6; /* Azul claro suave para el fondo general (como el Aqua Pale) */
 }
@@ -23,7 +29,7 @@ QTableWidget {
 
 /* Estilo de la Cabecera Horizontal (NOMBRE DEL EVENTO, ORGANIZADOR, etc.) */
 QHeaderView::section {
-    background-color: #00CED1; /* Azul Cian brillante */
+    background-color: #00B6B8; /* Azul Cian brillante */
     color: white;
     font-weight: bold;
     padding: 6px;
@@ -32,12 +38,12 @@ QHeaderView::section {
 
 /* Estilo para las Filas de la Tabla (ItemView) */
 QTableWidget::item {
-    background-color: #87CEFA; /* Fondo de las celdas (Azul Cielo) */
+    background-color: #B0E1FF; /* Fondo de las celdas (Azul Cielo) */
     padding: 5px;
 }
 /* Estilo para las Filas Seleccionadas */
 QTableWidget::item:selected {
-    background-color: #4682B4; /* Azul Acero para la selección */
+    background-color: #87CEFA; /* Azul Acero para la selección */
     color: white;
 }
 
@@ -46,7 +52,7 @@ QTableWidget::item:selected {
 /* -------------------------------------- */
 QLineEdit#lneBuscador { /* Usa tu objectName real */
     background-color: #E0FFFF; /* Azul Celeste muy claro */
-    border: 2px solid #87CEFA; /* Borde sutil */
+    border: 2px solid #B0E1FF; /* Borde sutil */
     border-radius: 10px; /* Bordes redondeados */
     padding: 5px;
     margin-right: 10px; /* Margen para separarlo de los botones */
@@ -63,28 +69,6 @@ QPushButton {
     font-weight: bold;
     color: black;
 }
-""")
-# Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
-TEMA_OSCURO=("""
-                QMainWindow{background-color:#2d2d2d;}
-                QWidget{background-color:#2d2d2d;color:#ffffff;}
-                QTableWidget{background-color:#3c3c3c;color:#ffffff;}
-                QHeaderView::section{background-color:#404040;color:#ffffff;}
-                QPushButton{background-color:#e0e0e0;color:#000000;}
-                QComboBox{background-color:#404040;color:#ffffff;}
-                QLineEdit{background-color:#404040;color:#ffffff;}
-                QMenuBar{background-color:#404040;color:#ffffff;}
-            """)
-
-TEMA_CLARO=("""
-                QMainWindow{background-color:#ffffff;}
-                QWidget{background-color:#ffffff;color:#000000;}
-                QTableWidget{background-color:#ffffff;color:#000000;}
-                QHeaderView::section{background-color:#e0e0e0;color:#000000;}
-                QPushButton{background-color:#e0e0e0;color:#000000;}
-                QComboBox{background-color:#ffffff;color:#000000;}
-                QLineEdit{background-color:#ffffff;color:#000000;}
-                QMenuBar{background-color:#f0f0f0;color:#000000;}
             """)
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -97,9 +81,8 @@ class MainWindow(QtWidgets.QMainWindow):
         ui_path = os.path.join(parent_dir, "ui", "PantallaPrincipal.ui")
         uic.loadUi(ui_path, self)
         self.setWindowTitle("Gestor de Eventos")
-        self.setStyleSheet(TEMA_PANTALLA_PRINCIPAL)
+        self.setStyleSheet(TEMA_CLARO)
        
-        
         
         # Asignando el tema claro al iniciar la pantalla
         self.setStyleSheet(TEMA_CLARO)

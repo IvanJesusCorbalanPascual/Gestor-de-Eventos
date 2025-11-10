@@ -232,6 +232,12 @@
           <height>40</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Alef</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -248,12 +254,26 @@
           <height>40</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Alef</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
     background-color: rgb(255, 230, 204); /* Un naranja muy pálido o melocotón claro */
+border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #FFCC9A; /* Borde sutil */
+font-weight: bold;
+}
+QPushButton#btnPopupActualizarParticipante:hover {
+    background-color: #FFCC9A; 
 }</string>
         </property>
         <property name="text">

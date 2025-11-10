@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>655</width>
-    <height>567</height>
+    <width>711</width>
+    <height>586</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -352,6 +352,19 @@
         </property>
        </widget>
       </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10000</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
     </item>
     <item>
@@ -383,8 +396,17 @@
           <height>40</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Alef</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>Cancelar</string>
@@ -399,12 +421,29 @@
           <height>40</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Alef</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
 	background-color: rgb(225, 225, 225); /* Se toma el color del segundo bloque (btnActualizarCSVCrear) */
+	border: 2px solid #CECECE; /* Borde sutil */
+	border-radius:12px;
+    padding: 8px 15px;
+    font-weight: bold;
+    color: black;
+}
+
+QPushButton#btnAdjuntarCSV:hover {
+    background-color: #CECECE;
 }</string>
         </property>
         <property name="text">
@@ -420,12 +459,32 @@
           <height>40</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Alef</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
-	background-color: rgb(200, 255, 190); /* Se toma el color del segundo bloque (btnCrear) */
+    background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
+	padding:10px;	
+/* Estilos base comunes */
+    border: none;
+    border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #81E59C; /* Borde sutil */
+    padding: 8px 15px;
+    font-weight: bold;
+    color: black;
+}
+
+QPushButton#btnCrearEvento:hover {
+    background-color: #81E59C;
 }</string>
         </property>
         <property name="text">
@@ -442,7 +501,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>655</width>
+     <width>711</width>
      <height>21</height>
     </rect>
    </property>

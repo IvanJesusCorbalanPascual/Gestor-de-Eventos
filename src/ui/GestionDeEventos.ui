@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>950</width>
-    <height>746</height>
+    <width>948</width>
+    <height>809</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,11 +33,19 @@
         </property>
         <item>
          <widget class="QPushButton" name="btnVolver">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>40</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Alef</family>
             <pointsize>10</pointsize>
+            <weight>75</weight>
             <italic>false</italic>
+            <bold>true</bold>
            </font>
           </property>
           <property name="cursor">
@@ -45,8 +53,13 @@
           </property>
           <property name="styleSheet">
            <string notr="true">QWidget {
-    background-color: rgb(230,230, 230);
-	padding: 20px;
+    background-color: rgb(122, 192, 232); /* Un rojo pastel o rosa muy claro */
+	border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #00D0FB; /* Borde sutil */
+	font-weight: bold;
+}
+QPushButton#btnVolver:hover {
+    background-color: #00D0FB;
 }</string>
           </property>
           <property name="text">
@@ -347,7 +360,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -423,11 +436,19 @@
               </item>
               <item>
                <widget class="QPushButton" name="btnAsignacionAutomatica">
+                <property name="minimumSize">
+                 <size>
+                  <width>180</width>
+                  <height>40</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <family>Alef</family>
                   <pointsize>10</pointsize>
+                  <weight>75</weight>
                   <italic>false</italic>
+                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="cursor">
@@ -436,7 +457,13 @@
                 <property name="styleSheet">
                  <string notr="true">QWidget {
     background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
-	padding:10px;
+	font-weight: bold;
+border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #4AEDFF; /* Borde sutil */
+font-weight: bold;
+}
+QPushButton#btnAsignacionAutomatica:hover {
+    background-color: #4AEDFF;
 }</string>
                 </property>
                 <property name="text">
@@ -446,11 +473,19 @@
               </item>
               <item>
                <widget class="QPushButton" name="btnActualizarParticipante">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>40</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <family>Alef</family>
                   <pointsize>10</pointsize>
+                  <weight>75</weight>
                   <italic>false</italic>
+                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="cursor">
@@ -459,7 +494,12 @@
                 <property name="styleSheet">
                  <string notr="true">QWidget {
     background-color: rgb(255, 230, 204); /* Un naranja muy pálido o melocotón claro */
-	padding:10px;
+border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #FFCC9A; /* Borde sutil */
+font-weight: bold;
+}
+QPushButton#btnActualizarParticipante:hover {
+    background-color: #FFCC9A; 
 }</string>
                 </property>
                 <property name="text">
@@ -469,11 +509,19 @@
               </item>
               <item>
                <widget class="QPushButton" name="btnAnyadirParticipante">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <family>Alef</family>
                   <pointsize>10</pointsize>
+                  <weight>75</weight>
                   <italic>false</italic>
+                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="cursor">
@@ -482,7 +530,18 @@
                 <property name="styleSheet">
                  <string notr="true">QWidget {
     background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
-	padding:10px;
+	padding:10px;	
+/* Estilos base comunes */
+    border: none;
+    border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #81E59C; /* Borde sutil */
+    padding: 8px 15px;
+    font-weight: bold;
+    color: black;
+}
+
+QPushButton#btnAnyadirParticipante:hover {
+    background-color: #81E59C;
 }</string>
                 </property>
                 <property name="text">
@@ -492,11 +551,19 @@
               </item>
               <item>
                <widget class="QPushButton" name="btnEliminarParticipante">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>40</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <family>Alef</family>
                   <pointsize>10</pointsize>
+                  <weight>75</weight>
                   <italic>false</italic>
+                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="cursor">
@@ -505,10 +572,13 @@
                 <property name="styleSheet">
                  <string notr="true">QWidget {
     background-color: rgb(255, 168, 165); /* Un rojo pastel o rosa muy claro */
-	padding: 10px;
-	margin-right: 10px;
+	border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #F08080; /* Borde sutil */
+	font-weight: bold;
 }
-</string>
+QPushButton#btnEliminarParticipante:hover {
+    background-color: #F08080;
+}</string>
                 </property>
                 <property name="text">
                  <string>Eliminar</string>
@@ -528,8 +598,8 @@
              <widget class="QTableWidget" name="tablaParticipantes">
               <property name="font">
                <font>
-                <family>Segoe UI</family>
-                <pointsize>10</pointsize>
+                <family>Microsoft JhengHei UI Light</family>
+                <pointsize>14</pointsize>
                </font>
               </property>
               <row>
@@ -642,17 +712,34 @@
           </item>
           <item>
            <widget class="QPushButton" name="btnAgregarParticipante">
+            <property name="minimumSize">
+             <size>
+              <width>180</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="font">
              <font>
-              <family>Noto Serif Armenian</family>
+              <family>Alef</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
               <italic>false</italic>
+              <bold>true</bold>
              </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
              <string notr="true">QWidget {
     background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
-	padding:10px;
+	font-weight: bold;
+border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #4AEDFF; /* Borde sutil */
+font-weight: bold;
+}
+QPushButton#btnAgregarParticipante:hover {
+    background-color: #4AEDFF;
 }</string>
             </property>
             <property name="text">
@@ -662,17 +749,39 @@
           </item>
           <item>
            <widget class="QPushButton" name="btnAnyadirMesa">
+            <property name="minimumSize">
+             <size>
+              <width>180</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="font">
              <font>
-              <family>Noto Serif Armenian</family>
+              <family>Alef</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
               <italic>false</italic>
+              <bold>true</bold>
              </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
              <string notr="true">QWidget {
     background-color: rgb(200, 255, 190); /* Un verde muy pálido, casi menta */
-	padding:10px;
+	padding:10px;	
+/* Estilos base comunes */
+    border: none;
+    border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #81E59C; /* Borde sutil */
+    padding: 8px 15px;
+    font-weight: bold;
+    color: black;
+}
+
+QPushButton#btnAnyadirMesa:hover {
+    background-color: #81E59C;
 }</string>
             </property>
             <property name="text">
@@ -682,18 +791,33 @@
           </item>
           <item>
            <widget class="QPushButton" name="btnEliminarMesa">
+            <property name="minimumSize">
+             <size>
+              <width>180</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="font">
              <font>
-              <family>MS Shell Dlg 2</family>
+              <family>Alef</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
               <italic>false</italic>
+              <bold>true</bold>
              </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
              <string notr="true">QWidget {
     background-color: rgb(255, 168, 165); /* Un rojo pastel o rosa muy claro */
-	padding:10px;
-	margin-right: 10px;
+	border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #F08080; /* Borde sutil */
+	font-weight: bold;
+}
+QPushButton#btnEliminarMesa:hover {
+    background-color: #F08080;
 }</string>
             </property>
             <property name="text">
@@ -739,6 +863,11 @@
             </item>
             <item>
              <widget class="QListWidget" name="listWidgetMesas">
+              <property name="font">
+               <font>
+                <pointsize>-1</pointsize>
+               </font>
+              </property>
               <property name="layoutDirection">
                <enum>Qt::LeftToRight</enum>
               </property>
@@ -788,6 +917,38 @@ QListWidget#listWidget_Mesas::item:selected {
               <item>
                <property name="text">
                 <string>Mesa 1</string>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>11</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <kerning>true</kerning>
+                </font>
+               </property>
+               <property name="textAlignment">
+                <set>AlignCenter</set>
+               </property>
+               <property name="background">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="255">
+                  <red>85</red>
+                  <green>255</green>
+                  <blue>255</blue>
+                 </color>
+                </brush>
+               </property>
+               <property name="foreground">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="255">
+                  <red>0</red>
+                  <green>0</green>
+                  <blue>0</blue>
+                 </color>
+                </brush>
+               </property>
+               <property name="flags">
+                <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                </property>
               </item>
               <item>
