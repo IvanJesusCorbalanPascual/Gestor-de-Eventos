@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets, uic
 from EventoManager import event_manager
 from PopUp_evento import ActualizarParticipante
 from PopUp_participante import CrearParticipante 
+from ParticipanteManager import participante_manager
 
 class GestionEvento(QtWidgets.QMainWindow):
     
@@ -19,7 +20,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.nombreEvento = nombreEvento
         
         self.btnVolver.clicked.connect(self.volver_principal)
-
+        
         self.btnActualizarParticipante.clicked.connect(self.abrir_actualizar_participante)
 
         
@@ -66,6 +67,24 @@ class GestionEvento(QtWidgets.QMainWindow):
     def cargar_participantes_en_tabla(self):
         # Falta añadir la logica para leer el CSV con los participantes
         print("Cargando la lista de los participantes..")
+
+        datos = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
+
+        # Obtiene la cantidad de elementos en la lista y cambia cuantas filas tiene la tabla
+        self.tablaParticipantes.setRowCount(len(datos))
+        self.tablaParticipantes.setColumnCount(3) # 3 columnas Nombre, Acompañantes, NoSentarCon
+
+        # Inserta la información en la tabla
+        for row_index, row_data in enumerate(datos):
+            # Empezamos en row_data 1 porque corresponde a nombre, 0 es evento
+            self.tablaParticipantes.setItem(row_index, 0, QtWidgets.QTableWidgetItem(row_data[1]))
+            self.tablaParticipantes.setItem(row_index, 1, QtWidgets.QTableWidgetItem(row_data[2]))
+            self.tablaParticipantes.setItem(row_index, 2, QtWidgets.QTableWidgetItem(row_data[3]))
+
+        self.tablaParticipantes.setHorizontalHeaderLabels(['PARTICIPANTE', 'ACOMPAÑANTES', 'INCOMPATIBILIDADES'])
+        self.tablaParticipantes.resizeColumnsToContents()
+
+
         self.tablaParticipantes.resizeColumnsToContents()
 
     def abrir_actualizar_participante(self):
@@ -82,7 +101,7 @@ class GestionEvento(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error", "No ha sido posible obtener el nombre del participante.")
             return
         
-        self.popup_actualizar = ActualizarParticipante(gestion_window=self, nombre_participante=nombreParticipante)
+        self.popup_actualizar = ActualizarParticipante(gestion_window=self,nombre_evento = self.nombreEvento, nombre_participante=nombreParticipante)
         self.popup_actualizar.show()
 
     

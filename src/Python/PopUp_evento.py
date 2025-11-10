@@ -3,6 +3,8 @@ import os
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtCore import QDateTime
 from EventoManager import event_manager
+from ParticipanteManager import participante_manager
+
 
 class ActualizarEvento(QtWidgets.QMainWindow):
     # Permite modificar un evento existente
@@ -160,10 +162,11 @@ class EliminarEvento(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error al eliminar", f"No se ha podido borrar el evento.")
 
 class ActualizarParticipante(QtWidgets.QMainWindow):
-    def __init__(self, gestion_window, nombre_participante):
+    def __init__(self, gestion_window, nombre_evento, nombre_participante):
         super(ActualizarParticipante, self).__init__()
 
         self.gestion_window = gestion_window
+        self.nombre_evento_original = nombre_evento
         self.nombre_participante_original = nombre_participante
 
         # Carga la UI de ActualizarParticipante
@@ -176,9 +179,34 @@ class ActualizarParticipante(QtWidgets.QMainWindow):
         self.btnPopupCancelarActualizacionParticipante.clicked.connect(self.volver_gestion)
         self.btnPopupActualizarParticipante.clicked.connect(self.confirmar_actualizacion)
 
+        self.cargar_datos_participante()
+
     def volver_gestion(self):
             self.close()
 
+    def cargar_datos_participante(self):
+        datos = participante_manager.buscar_participante(self.nombre_evento_original, self.nombre_participante_original)
+
+        if datos:
+            self.lneActualizarNombreParticipante.setText(datos[1])
+            self.lneActualizarAcompanyantes.setText(datos[2])
+            self.lneActualizarNoSentarCon.setText(datos[3])
+        else:
+            QtWidgets.QMessageBox.critical(self, "Error", "No se han podido cargar los datos del participante")
+            self.close()
+
     def confirmar_actualizacion(self):
-        QtWidgets.QMessageBox.information(self, "Pendiente", "Lógica para actualizar participante aún no implementada.")
-        self.close()
+        # Almacena los datos de los QLineEdit
+        nombreNuevo = self.lneActualizarNombreParticipante.text()
+        acompNuevo = self.lneActualizarAcompanyantes.text()
+        noSentarNuevo = self.lneActualizarNoSentarCon.text()
+
+        datos_actualizados = [self.nombre_evento_original, nombreNuevo, acompNuevo, noSentarNuevo]
+
+        if participante_manager.actualizar_participante(self.nombre_evento_original, self.nombre_participante_original, datos_actualizados):
+            self.gestion_window.cargar_participantes_en_tabla()
+            QtWidgets.QMessageBox.information(self, "Actualizado", "Participante actualizado exitosamente.")
+            self.close()
+        else:
+            QtWidgets.QMessageBox.information(self, "Error", "No ha sido posible actualizar el participante.")
+        
