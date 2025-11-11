@@ -1,18 +1,20 @@
 import csv
 import os
+from Participante import Participante # Importamos la clase Participante
 
 CSV_FILE_PARTICIPANTES = 'participantes.csv'
-HEADERS_PARTICIPANTES = ['Evento', 'Nombre', 'Acompanyantes', 'NoSentarCon']
+# Se añade 'Mesa_Asignada' al HEADER
+HEADERS_PARTICIPANTES = ['Evento', 'Nombre', 'Acompanyantes', 'NoSentarCon', 'Mesa_Asignada'] 
 
 class ParticipanteManager:
     # Clase para manejar la logica de datos CSV de los participantes
     def __init__(self):
-        # Asegura que el archivo CSV exista con los encabezados al iniciar
         if not os.path.exists(CSV_FILE_PARTICIPANTES):
             self._crear_csv_inicial()
+        # Nota: Idealmente, aquí deberías verificar si la columna 'Mesa_Asignada'
+        # existe en el CSV si ya existe el archivo, y añadirla si no está.
             
     def _crear_csv_inicial(self):
-        # Crea el archivo CSV si no existe
         try:
             with open(CSV_FILE_PARTICIPANTES, mode='w', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
@@ -20,9 +22,9 @@ class ParticipanteManager:
         except IOError:
             pass
 
-    def guardar_participante(self, nombre_evento, nombre, acompanyantes, no_sentar_con):
-        # Añade un nuevo participante al archivo CSV
-        data = [nombre_evento, nombre, acompanyantes, no_sentar_con]
+    def guardar_participante(self, nuevo_participante: Participante):
+        # Añade un nuevo participante al archivo CSV usando el método to_list()
+        data = nuevo_participante.to_list() 
         try:
             with open(CSV_FILE_PARTICIPANTES, mode='a', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
@@ -31,8 +33,8 @@ class ParticipanteManager:
         except IOError:
             return False
 
-    def cargar_participantes_por_evento(self, nombre_evento):
-        # Lee y devuelve todos los participantes de un evento especifico
+    def cargar_participantes_por_evento(self, nombre_evento) -> list[Participante]:
+        # Lee y devuelve todos los participantes de un evento especifico como objetos Participante
         participantes = []
         try:
             with open(CSV_FILE_PARTICIPANTES, mode='r', newline='', encoding='utf-8') as file:
@@ -40,43 +42,58 @@ class ParticipanteManager:
                 # Saltar los encabezados
                 next(reader, None)  
                 for row in reader:
-                    # Verifica que el participante pertenezca al evento
-                    if len(row) == len(HEADERS_PARTICIPANTES) and row[0] == nombre_evento:
-                         participantes.append(row)
+                    # Se verifica que el participante pertenezca al evento y la longitud mínima
+                    if len(row) >= 4 and row[0] == nombre_evento:
+                         # Creamos un objeto Participante a partir de la fila del CSV
+                         participante_obj = Participante.from_csv_row(row)
+                         if participante_obj:
+                            participantes.append(participante_obj)
         except FileNotFoundError:
             pass
         return participantes
     
+    # Nuevo método para buscar un solo participante por nombre y evento
     def buscar_participante(self, nombre_evento, nombre_participante):
         try:
             with open(CSV_FILE_PARTICIPANTES, mode='r', newline='', encoding='utf-8') as file:
                 reader = csv.reader(file)
-                next(reader, None)
+                next(reader, None)  
                 for row in reader:
-                    if row and row[0] == nombre_evento and row[1] == nombre_participante:
-                        return row
+                    # Comprueba Evento (Columna 0) y Nombre (Columna 1)
+                    if len(row) >= 4 and row[0] == nombre_evento and row[1] == nombre_participante:
+                         return Participante.from_csv_row(row)
         except FileNotFoundError:
             pass
-        return None
+        return None 
     
-    def actualizar_participante(self, nombre_evento, nombre_original, nuevos_datos_completos):
-        filas_actualizadas = []
+    # Nuevo método para actualizar los datos de un participante
+    def actualizar_participante(self, nombre_evento, nombre_original, nuevos_datos_list):
+        participantes_actualizados = []
+        actualizado = False
+        
         try:
             with open(CSV_FILE_PARTICIPANTES, mode='r', newline='', encoding='utf-8') as file:
                 reader = csv.reader(file)
-                filas_actualizadas.append(next(reader))
+                # Guarda el encabezado
+                participantes_actualizados.append(next(reader))
 
                 for row in reader:
+                    # Identifica el participante por su Evento y su Nombre original
                     if row and row[0] == nombre_evento and row[1] == nombre_original:
-                        filas_actualizadas.append(nuevos_datos_completos)
+                        participantes_actualizados.append(nuevos_datos_list)
+                        actualizado = True
                     else:
-                        filas_actualizadas.append(row)
+                        participantes_actualizados.append(row)
 
-            with open(CSV_FILE_PARTICIPANTES, mode='w', newline='', encoding='utf-8') as file:
-                writer = csv.writer(file)
-                writer.writerows(filas_actualizadas)
-            return True
+            # Sobrescribir el archivo solo si se encontró y actualizó el participante
+            if actualizado:
+                with open(CSV_FILE_PARTICIPANTES, mode='w', newline='', encoding='utf-8') as file:
+                    writer = csv.writer(file)
+                    writer.writerows(participantes_actualizados)
+                return True
+            return False # No se encontró el participante original
         except (IOError, FileNotFoundError):
             return False
+
 # Instancia global del manager para usar en el resto de los modulos
 participante_manager = ParticipanteManager()
