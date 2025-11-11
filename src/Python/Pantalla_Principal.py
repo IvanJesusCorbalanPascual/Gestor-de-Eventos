@@ -6,14 +6,11 @@ from PyQt5.QtCore import Qt
 from PopUp_evento import EliminarEvento, ActualizarEvento, CrearEvento
 from EventoManager import event_manager
 from Gestion_Evento import GestionEvento 
+# Importamos la clase Evento para referencia, aunque el manager ya la devuelve
+from Evento import Evento 
 
-                        
-# Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
-TEMA_OSCURO=("""
-            """)
-
-TEMA_CLARO=("""
-             /* Color de Fondo de la Ventana Principal */
+TEMA_PANTALLA_PRINCIPAL=("""
+                         /* Color de Fondo de la Ventana Principal */
 QMainWindow, QWidget#centralwidget {
     background-color: #B0E0E6; /* Azul claro suave para el fondo general (como el Aqua Pale) */
 }
@@ -29,7 +26,7 @@ QTableWidget {
 
 /* Estilo de la Cabecera Horizontal (NOMBRE DEL EVENTO, ORGANIZADOR, etc.) */
 QHeaderView::section {
-    background-color: #00B6B8; /* Azul Cian brillante */
+    background-color: #00CED1; /* Azul Cian brillante */
     color: white;
     font-weight: bold;
     padding: 6px;
@@ -38,12 +35,12 @@ QHeaderView::section {
 
 /* Estilo para las Filas de la Tabla (ItemView) */
 QTableWidget::item {
-    background-color: #B0E1FF; /* Fondo de las celdas (Azul Cielo) */
+    background-color: #87CEFA; /* Fondo de las celdas (Azul Cielo) */
     padding: 5px;
 }
 /* Estilo para las Filas Seleccionadas */
 QTableWidget::item:selected {
-    background-color: #87CEFA; /* Azul Acero para la selección */
+    background-color: #4682B4; /* Azul Acero para la selección */
     color: white;
 }
 
@@ -52,7 +49,7 @@ QTableWidget::item:selected {
 /* -------------------------------------- */
 QLineEdit#lneBuscador { /* Usa tu objectName real */
     background-color: #E0FFFF; /* Azul Celeste muy claro */
-    border: 2px solid #B0E1FF; /* Borde sutil */
+    border: 2px solid #87CEFA; /* Borde sutil */
     border-radius: 10px; /* Bordes redondeados */
     padding: 5px;
     margin-right: 10px; /* Margen para separarlo de los botones */
@@ -69,6 +66,28 @@ QPushButton {
     font-weight: bold;
     color: black;
 }
+""")
+# Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
+TEMA_OSCURO=("""
+                QMainWindow{background-color:#2d2d2d;}
+                QWidget{background-color:#2d2d2d;color:#ffffff;}
+                QTableWidget{background-color:#3c3c3c;color:#ffffff;}
+                QHeaderView::section{background-color:#404040;color:#ffffff;}
+                QPushButton{background-color:#e0e0e0;color:#000000;}
+                QComboBox{background-color:#404040;color:#ffffff;}
+                QLineEdit{background-color:#404040;color:#ffffff;}
+                QMenuBar{background-color:#404040;color:#ffffff;}
+            """)
+
+TEMA_CLARO=("""
+                QMainWindow{background-color:#ffffff;}
+                QWidget{background-color:#ffffff;color:#000000;}
+                QTableWidget{background-color:#ffffff;color:#000000;}
+                QHeaderView::section{background-color:#e0e0e0;color:#000000;}
+                QPushButton{background-color:#e0e0e0;color:#000000;}
+                QComboBox{background-color:#ffffff;color:#000000;}
+                QLineEdit{background-color:#ffffff;color:#000000;}
+                QMenuBar{background-color:#f0f0f0;color:#000000;}
             """)
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -81,8 +100,10 @@ class MainWindow(QtWidgets.QMainWindow):
         ui_path = os.path.join(parent_dir, "ui", "PantallaPrincipal.ui")
         uic.loadUi(ui_path, self)
         self.setWindowTitle("Gestor de Eventos")
-        self.setStyleSheet(TEMA_CLARO)
+        # El tema inicial se sobrescribe después, pero lo dejo por si quieres cambiarlo
+        # self.setStyleSheet(TEMA_PANTALLA_PRINCIPAL) 
        
+        
         
         # Asignando el tema claro al iniciar la pantalla
         self.setStyleSheet(TEMA_CLARO)
@@ -127,7 +148,7 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(self, "Advertencia", "Seleccione un evento de la tabla")
             return None
         
-        # Obtiene el nombre del evento
+        # Obtiene el nombre del evento (columna 0)
         try:
             nombreEvento = self.tablaEventos.item(filaSeleccionada, 0).text()
             return nombreEvento
@@ -196,25 +217,26 @@ class MainWindow(QtWidgets.QMainWindow):
             self.gestion_window.show()
 
     def cargar_eventos_en_tabla(self):
-        # Lee los eventos del CSV y los muestra en la tablaEventos
-        datos = event_manager.cargar_eventos()
+        # Lee los eventos del CSV y los muestra en la tablaEventos. Devuelve lista de objetos Evento
+        eventos_lista = event_manager.cargar_eventos()
         
         # Configurar la tabla
-        self.tablaEventos.setRowCount(len(datos))
+        self.tablaEventos.setRowCount(len(eventos_lista))
         self.tablaEventos.setColumnCount(5) 
         
         # Llenar la tabla con los datos
-        for row_index, row_data in enumerate(datos):
+        for row_index, evento_obj in enumerate(eventos_lista):
+            # Usamos los atributos del objeto Evento (el orden es el que definiste en la UI)
             # Nombre
-            self.tablaEventos.setItem(row_index, 0, QtWidgets.QTableWidgetItem(row_data[0]))
+            self.tablaEventos.setItem(row_index, 0, QtWidgets.QTableWidgetItem(evento_obj.nombre))
             # Fecha
-            self.tablaEventos.setItem(row_index, 1, QtWidgets.QTableWidgetItem(row_data[1]))
+            self.tablaEventos.setItem(row_index, 1, QtWidgets.QTableWidgetItem(evento_obj.fecha))
             # Organizador
-            self.tablaEventos.setItem(row_index, 2, QtWidgets.QTableWidgetItem(row_data[2]))
+            self.tablaEventos.setItem(row_index, 2, QtWidgets.QTableWidgetItem(evento_obj.organizador))
             # Ubicacion
-            self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(row_data[3]))
+            self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(evento_obj.ubicacion))
             # Mesas
-            self.tablaEventos.setItem(row_index, 4, QtWidgets.QTableWidgetItem(row_data[4]))
+            self.tablaEventos.setItem(row_index, 4, QtWidgets.QTableWidgetItem(evento_obj.num_mesas))
             
         self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion', 'Mesas'])
         # Ocultando el indice vertical (los numeros de fila)
