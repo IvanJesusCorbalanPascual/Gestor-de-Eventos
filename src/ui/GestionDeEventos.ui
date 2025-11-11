@@ -360,7 +360,7 @@ QPushButton#btnVolver:hover {
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -1111,26 +1111,6 @@ QListWidget#listWidget_Participantes::item:selected {
     color: black;
 }</string>
               </property>
-              <item>
-               <property name="text">
-                <string>Antonio López Cortés</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Hugo Romero Morales</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Pepo</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Fran</string>
-               </property>
-              </item>
              </widget>
             </item>
            </layout>
@@ -1195,26 +1175,6 @@ QListWidget#listWidget_Participantes::item:selected {
     color: black;
 }</string>
               </property>
-              <item>
-               <property name="text">
-                <string>Antonio López Cortés</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Hugo Romero Morales</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Pepo</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Fran</string>
-               </property>
-              </item>
              </widget>
             </item>
            </layout>

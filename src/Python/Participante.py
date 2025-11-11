@@ -23,7 +23,7 @@ class Participante:
     @staticmethod
     def from_csv_row(row):
         """
-        Crea un objeto Participante a partir de una fila (lista) leída del CSV.
+        Creando un objeto Participante a partir de una fila del CSV.
         """
         # Debe manejar 5 o 4 columnas si el CSV es antiguo o no tiene la columna de mesa
         if len(row) >= 4:

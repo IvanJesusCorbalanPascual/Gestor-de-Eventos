@@ -7,7 +7,7 @@ from Evento import Evento
 from ParticipanteManager import participante_manager 
 from Participante import Participante
 
-# La clase ActualizarEvento sigue usando Evento.DATE_FORMAT
+
 class ActualizarEvento(QtWidgets.QMainWindow):
     # Permite modificar un evento existente
     def __init__(self, main_window, nombreEvento):
@@ -68,7 +68,6 @@ class ActualizarEvento(QtWidgets.QMainWindow):
 
         # Comprueba que los campos no estan vacios
         if not all([nuevoNombre, nuevaUbicacion, nuevoOrganizador]):
-            # Si falta un campo. muestra una advertencia y detiene la ejecucion
             QtWidgets.QMessageBox.warning(self, "Error", "Debes completar todos los campos, intentalo de nuevo.")
             return
         
@@ -84,6 +83,7 @@ class ActualizarEvento(QtWidgets.QMainWindow):
             self.close()
         else:
             QtWidgets.QMessageBox.critical(self, "Error", "No ha sido posible actualizar el evento.")
+
 
 class CrearEvento(QtWidgets.QMainWindow):
     def __init__(self, main_window):
@@ -111,7 +111,20 @@ class CrearEvento(QtWidgets.QMainWindow):
         fecha_obj = self.dateFechaEvento.dateTime().toString(Evento.DATE_FORMAT) 
         ubicacion = self.lneUbicacion.text()
         organizador = self.lneOrganizador.text()
-        num_mesas = self.lneNumMesas.text()
+        num_mesas_str = self.lneNumMesas.text().strip()
+        try:
+            # Intentamos convertir el texto a un número entero
+            num_mesas = int(num_mesas_str)
+ 
+            if num_mesas <= 0:
+                raise ValueError("El número debe ser positivo")
+            print(f"Número de mesas válido: {num_mesas}")
+
+        except ValueError:
+
+            QtWidgets.QMessageBox.warning(self, "Error de validación", 
+                                          "Por favor, introduce un número de mesas válido")
+            return
 
         # Error si no estan los datos
         if not all([nombre, ubicacion, organizador]):
@@ -169,55 +182,12 @@ class EliminarEvento(QtWidgets.QMainWindow):
         else:
             QtWidgets.QMessageBox.critical(self, "Error al eliminar", f"No se ha podido borrar el evento.")
 
-class ActualizarParticipante(QtWidgets.QMainWindow):
+
+class ActualizarParticipante(QtWidgets.QDialog):
     def __init__(self, gestion_window, nombre_participante):
         super(ActualizarParticipante, self).__init__()
 
-        self.gestion_window = gestion_window
-        self.nombre_participante_original = nombre_participante
-        # Obtenemos el nombre del evento desde la ventana de gestión
-        self.nombre_evento = gestion_window.nombreEvento
-
-        # Carga la UI de ActualizarParticipante
-        dir_actual = os.path.dirname(os.path.abspath(__file__))
-        dir_padre = os.path.dirname(dir_actual)
-        ui_path = os.path.join(dir_padre, "ui", "ActualizarParticipante.ui")
-        uic.loadUi(ui_path, self)
-
-        # 1. Cargamos los datos actuales al iniciar
-        self.cargar_datos_actuales()
-        
-        # Conexión de los botones
-        self.btnPopupCancelarActualizacionParticipante.clicked.connect(self.volver_gestion)
-        self.btnPopupActualizarParticipante.clicked.connect(self.confirmar_actualizacion)
-
-    # Nuevo método para cargar los datos del participante
-    def cargar_datos_actuales(self):
-        participante_obj = participante_manager.buscar_participante(
-            self.nombre_evento, 
-            self.nombre_participante_original
-        )
-        
-        if participante_obj:
-            # Asumiendo que tu UI tiene lneNombreParticipante, lneAcompanyantes, lneNoSentarCon
-            self.lneNombreParticipante.setText(participante_obj.nombre)
-            self.lneAcompanyantes.setText(participante_obj.acompanyantes)
-            self.lneNoSentarCon.setText(participante_obj.no_sentar_con)
-            # Guardamos el objeto para referencia futura si fuera necesario
-            self.participante_actual = participante_obj 
-        else:
-            QtWidgets.QMessageBox.critical(self, "Error de Carga", "No se encontró el participante para actualizar.")
-            self.close()
-
-    def volver_gestion(self):
-            self.close()
-
-    # Lógica de actualización implementada
-class ActualizarParticipante(QtWidgets.QMainWindow):
-    def __init__(self, gestion_window, nombre_participante):
-        super(ActualizarParticipante, self).__init__()
-
-        self.gestion_window = gestion_window
+        self.gestion_evento_window = gestion_window
         self.nombre_participante_original = nombre_participante
         # Obtenemos el nombre del evento desde la ventana de gestión
         self.nombre_evento = gestion_window.nombreEvento
@@ -288,7 +258,8 @@ class ActualizarParticipante(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.information(self, "Actualización Exitosa", f"Participante '{self.nombre_participante_original}' actualizado a '{nuevoNombre}'.")
             
             # Recargar la tabla en la ventana de gestión de eventos
-            self.gestion_window.cargar_participantes_en_tabla()
+            self.gestion_evento_window.cargar_participantes_en_tabla()
+            self.gestion_evento_window.refrescar_listas_mesas_tab()
             
             self.close()
         else:

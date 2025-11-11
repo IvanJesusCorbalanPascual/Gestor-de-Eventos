@@ -26,6 +26,7 @@ class ParticipanteManager:
         # Añade un nuevo participante al archivo CSV usando el método to_list()
         data = nuevo_participante.to_list() 
         try:
+            # mode 'a' viene de append, que añade lineas en vez de sobreescribirlas
             with open(CSV_FILE_PARTICIPANTES, mode='a', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
                 writer.writerow(data)
@@ -52,7 +53,7 @@ class ParticipanteManager:
             pass
         return participantes
     
-    # Nuevo método para buscar un solo participante por nombre y evento
+    # Método para buscar un solo participante por nombre y evento
     def buscar_participante(self, nombre_evento, nombre_participante):
         try:
             with open(CSV_FILE_PARTICIPANTES, mode='r', newline='', encoding='utf-8') as file:

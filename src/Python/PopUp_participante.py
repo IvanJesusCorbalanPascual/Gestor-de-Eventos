@@ -2,9 +2,9 @@ import sys
 import os
 from PyQt5 import QtWidgets, uic
 from ParticipanteManager import participante_manager
-from Participante import Participante # Importamos la clase Participante
+from Participante import Participante # Importando la clase Participante
 
-class CrearParticipante(QtWidgets.QMainWindow):
+class CrearParticipante(QtWidgets.QDialog):
     # Pop-up para añadir un nuevo participante a un evento
     def __init__(self, gestion_evento_window, nombreEvento):
         super(CrearParticipante, self).__init__()
@@ -19,7 +19,7 @@ class CrearParticipante(QtWidgets.QMainWindow):
         ui_path = os.path.join(parent_dir, "ui", "AñadirParticipante.ui")
         uic.loadUi(ui_path, self)
         
-        # Conexiones de botones
+        # Mapeo de botones
         self.btnCrear.clicked.connect(self.crear_nuevo_participante)
         self.btnCancelar.clicked.connect(self.volver_gestion_evento)
 
@@ -28,17 +28,17 @@ class CrearParticipante(QtWidgets.QMainWindow):
         self.close()
 
     def crear_nuevo_participante(self):
-        # Obtener los datos del UI
+        # Obtener los datos pasados por el usuario
         nombre = self.lneNombreParticipante.text().strip()
         acompanyantes = self.lneAcompanyantes.text().strip()
         no_sentar_con = self.lneNoSentarCon.text().strip()
 
-        # Comprobacion minima de campos requeridos Nombre
+        # Comprobacion minima de campos requeridos: Nombre
         if not nombre:
             QtWidgets.QMessageBox.warning(self, "Error", "El nombre del participante no puede estar vacio")
             return
 
-        # 1. Creamos el objeto Participante (mesa_asignada es None por defecto)
+        # 1. Crea el objeto Participante (mesa_asignada es None por defecto)
         nuevo_participante = Participante(
             evento=self.nombreEvento, 
             nombre=nombre, 
@@ -52,8 +52,9 @@ class CrearParticipante(QtWidgets.QMainWindow):
             # Mostrar mensaje y actualizar la tabla en la ventana de gestion
             QtWidgets.QMessageBox.information(self, "Participante Creado", f"Participante '{nombre}' añadido al evento '{self.nombreEvento}'")
             
-            # Llama al metodo de recarga de la ventana de gestion
+            # Recargando la tabla con los participantes tras cada operacion
             self.gestion_evento_window.cargar_participantes_en_tabla()
+            self.gestion_evento_window.refrescar_listas_mesas_tab()  
             
             self.close()
         else:
