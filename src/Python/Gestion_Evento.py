@@ -5,6 +5,8 @@ from EventoManager import event_manager
 from PopUp_evento import ActualizarParticipante
 from PopUp_participante import CrearParticipante 
 from ParticipanteManager import participante_manager
+from PyQt5.QtWidgets import QTableWidgetItem 
+from Evento import Evento # Importamos Evento para tipado si fuera necesario
 
 class GestionEvento(QtWidgets.QMainWindow):
     
@@ -20,7 +22,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.nombreEvento = nombreEvento
         
         self.btnVolver.clicked.connect(self.volver_principal)
-        
+
         self.btnActualizarParticipante.clicked.connect(self.abrir_actualizar_participante)
 
         
@@ -34,16 +36,16 @@ class GestionEvento(QtWidgets.QMainWindow):
         
     # Metodo para cargar la informacion del evento
     def cargar_info_evento(self):
-        # Buscamos el evento usando el manager
-        evento = event_manager.buscar_evento(self.nombreEvento)
+        # Buscamos el evento usando el manager, devuelve un objeto Evento o None
+        evento_obj = event_manager.buscar_evento(self.nombreEvento)
         
-        if evento:
-            # Asignar los valores a los labels de la UI
-            self.lblTituloEvento.setText(evento[0])  # Nombre
-            self.lblFecha.setText(evento[1])        # Fecha
-            self.lblUbicacion.setText(evento[2])    # Ubicacion
-            self.lblOrganizador.setText(evento[3])  # Organizador
-            self.lblMesas.setText(evento[4])        # Num_Mesas
+        if evento_obj:
+            # Asignar los valores a los labels de la UI usando los atributos del objeto
+            self.lblTituloEvento.setText(evento_obj.nombre)      # Nombre
+            self.lblFecha.setText(evento_obj.fecha)            # Fecha
+            self.lblUbicacion.setText(evento_obj.ubicacion)      # Ubicacion
+            self.lblOrganizador.setText(evento_obj.organizador)  # Organizador
+            self.lblMesas.setText(evento_obj.num_mesas)          # Num_Mesas
             print(f"Informacion del evento '{self.nombreEvento}' cargada correctamente")
         else:
             QtWidgets.QMessageBox.critical(self, "Error de Carga", "No se ha podido encontrar la informacion del evento")
@@ -65,32 +67,41 @@ class GestionEvento(QtWidgets.QMainWindow):
 
 
     def cargar_participantes_en_tabla(self):
-        # Falta añadir la logica para leer el CSV con los participantes
-        print("Cargando la lista de los participantes..")
+        # Leemos los participantes del CSV y los muestra en la tablaParticipantes
+        participantes_lista = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
+        
+        tabla = self.tablaParticipantes
+        tabla.setRowCount(len(participantes_lista))
+        # Ahora hay 5 columnas (Evento, Nombre, Acompañantes, NoSentarCon, Mesa_Asignada)
+        tabla.setColumnCount(5) 
 
-        datos = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
-
-        # Obtiene la cantidad de elementos en la lista y cambia cuantas filas tiene la tabla
-        self.tablaParticipantes.setRowCount(len(datos))
-        self.tablaParticipantes.setColumnCount(3) # 3 columnas Nombre, Acompañantes, NoSentarCon
-
-        # Inserta la información en la tabla
-        for row_index, row_data in enumerate(datos):
-            # Empezamos en row_data 1 porque corresponde a nombre, 0 es evento
-            self.tablaParticipantes.setItem(row_index, 0, QtWidgets.QTableWidgetItem(row_data[1]))
-            self.tablaParticipantes.setItem(row_index, 1, QtWidgets.QTableWidgetItem(row_data[2]))
-            self.tablaParticipantes.setItem(row_index, 2, QtWidgets.QTableWidgetItem(row_data[3]))
-
-        self.tablaParticipantes.setHorizontalHeaderLabels(['PARTICIPANTE', 'ACOMPAÑANTES', 'INCOMPATIBILIDADES'])
+        column_headers = ['Nombre', 'Acompañantes', 'No Sentar Con', 'Mesa Asignada', 'Evento (Oculto)']
+        
+        # Llenar la tabla con los datos
+        for row_index, participante_obj in enumerate(participantes_lista):
+            
+            # Nombre (Columna 0)
+            tabla.setItem(row_index, 0, QTableWidgetItem(participante_obj.nombre))
+            # Acompañantes (Columna 1)
+            tabla.setItem(row_index, 1, QTableWidgetItem(participante_obj.acompanyantes))
+            # No Sentar Con (Columna 2)
+            tabla.setItem(row_index, 2, QTableWidgetItem(participante_obj.no_sentar_con))
+            # Mesa Asignada (Columna 3)
+            mesa_str = str(participante_obj.mesa_asignada) if participante_obj.mesa_asignada else "PENDIENTE"
+            tabla.setItem(row_index, 3, QTableWidgetItem(mesa_str))
+            # Evento (Columna 4)
+            tabla.setItem(row_index, 4, QTableWidgetItem(participante_obj.evento)) 
+            
+        tabla.setHorizontalHeaderLabels(column_headers)
+        # Ocultar la columna de Evento si lo deseas
+        tabla.setColumnHidden(4, True) 
+        
         self.tablaParticipantes.resizeColumnsToContents()
-
-
-        self.tablaParticipantes.resizeColumnsToContents()
+        print("Lista de participantes cargada.")
 
     def abrir_actualizar_participante(self):
         filaSeleccionada = self.tablaParticipantes.currentRow()
 
-        # Comprueba si se ha seleccionado una fila, si no, manda una advertencia al usuario
         if filaSeleccionada == -1:
             QtWidgets.QMessageBox.warning(self, "Selección de fila requerida", "Debes seleccionar un participante de la tabla que desee actualizar.")
             return
@@ -101,7 +112,5 @@ class GestionEvento(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error", "No ha sido posible obtener el nombre del participante.")
             return
         
-        self.popup_actualizar = ActualizarParticipante(gestion_window=self,nombre_evento = self.nombreEvento, nombre_participante=nombreParticipante)
+        self.popup_actualizar = ActualizarParticipante(gestion_window=self, nombre_participante=nombreParticipante)
         self.popup_actualizar.show()
-
-    
