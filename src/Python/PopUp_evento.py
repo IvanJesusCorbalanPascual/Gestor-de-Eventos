@@ -1,7 +1,9 @@
 import sys
 import os
+import csv
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtCore import QDateTime
+from PyQt5.QtWidgets import QFileDialog
 from EventoManager import event_manager
 from Evento import Evento 
 from ParticipanteManager import participante_manager 
@@ -103,6 +105,9 @@ class CrearEvento(QtWidgets.QMainWindow):
         # Guarda main_window para usarlo en otras funciones
         self.main_window = main_window
 
+        # Guarda la ruta del CSV en una variable
+        self.csv_path_adjuntado = None
+
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "CrearEvento.ui")
@@ -111,9 +116,57 @@ class CrearEvento(QtWidgets.QMainWindow):
 
         self.btnCrearEvento.clicked.connect(self.crear_nuevo_evento)
         self.btnCancelar.clicked.connect(self.volver_principal)
+        self.btnAdjuntarCSV.clicked.connect(self.abrir_dialogo_csv)
 
     def volver_principal(self):
         self.close()
+
+    def abrir_dialogo_csv(self):
+        options = QFileDialog.Options()
+        file_path, _ = QFileDialog.getOpenFileName(self, "Seleccionar archivo CSV de Participantes", "", "Archivos CSV (*.csv);;Todos los archivos (*)")
+
+        if file_path:
+            self.csv_path_adjuntado = file_path
+            file_name = os.path.basename(file_path)
+            self.btnAdjuntarCSV.setText(f"Adjuntado: {file_name}")
+            print(f"El archivo CSV adjuntado es: {file_name}")
+
+    def importar_participantes_csv(self, file_path, nombre_evento):
+        contador = 0
+        try:
+            with open(file_path, mode='r', encoding='utf-8') as f:
+                reader = csv.reader(f)
+
+                next(reader, None)
+
+                for row in reader:
+                    if not row: 
+                        continue
+
+                    nombre = row[0].strip()
+                    if not nombre:
+                        continue
+
+                    acompanyantes = row[1].strip() if len(row) > 1 else ""
+                    no_sentar_con = row[2].strip() if len(row) > 2 else ""
+
+                    # Creación del objeto participante
+                    nuevo_participante = Participante(evento=nombre_evento, nombre=nombre, acompanyantes=acompanyantes, no_sentar_con=no_sentar_con)
+
+                    if participante_manager.guardar_participante(nuevo_participante):
+                        contador += 1
+                    else:
+                        print(f"Error al intentar guardar el participante: {nombre}")
+
+        except FileNotFoundError:
+            print(f"Error, no se ha podido encontrar el archivo CSV en {file_path}")
+            return f"Error, no se ha podido encontrar el archivo {os.path.basename(file_path)}]"
+        except Exception as e:
+            print(f"Error de procesamiento en el CSV: {e}")
+            return f"Error de procesamiento en el CSV: {e}"
+        
+        print(f"Se han importado {contador} participantes.")
+        return contador
 
     def crear_nuevo_evento(self):
         # Obtener los datos del UI
@@ -150,11 +203,16 @@ class CrearEvento(QtWidgets.QMainWindow):
         # 2. Guardar el objeto en el CSV a traves del manager
         if event_manager.guardar_evento(nuevo_evento):
 
+            mensaje_csv = ""
+            if self.csv_path_adjuntado:
+                num_importados = self.importar_participantes_csv(self.csv_path_adjuntado, nombre)
+                mensaje_csv = f"\n{num_importados} participantes han sido importados del CSV."
+
             # Actualizar la tabla de la ventana principal
             self.main_window.cargar_eventos_en_tabla()
 
             # Cerrar la ventana despues de crear el evento
-            QtWidgets.QMessageBox.information(self, "Evento Creado", f"Evento '{nombre}' creado y guardado")
+            QtWidgets.QMessageBox.information(self, "Evento Creado", f"Evento '{nombre}' creado y guardado." + mensaje_csv)
             self.close()
         else:
             QtWidgets.QMessageBox.critical(self, "Error de Guardado", "No se pudo guardar el evento en la base de datos")
