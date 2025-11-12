@@ -342,7 +342,7 @@ QPushButton#btnEliminarEvento:hover {
       <property name="font">
        <font>
         <family>MS Shell Dlg 2</family>
-        <pointsize>24</pointsize>
+        <pointsize>18</pointsize>
        </font>
       </property>
       <property name="styleSheet">
