@@ -46,7 +46,7 @@ class CrearParticipante(QtWidgets.QDialog):
             no_sentar_con=no_sentar_con
         )
         
-        # 2. Guardar el objeto en el CSV a través del manager
+        # 2. Guardar el objeto en el CSV a traves del manager
         if participante_manager.guardar_participante(nuevo_participante):
 
             # Mostrar mensaje y actualizar la tabla en la ventana de gestion
@@ -59,3 +59,123 @@ class CrearParticipante(QtWidgets.QDialog):
             self.close()
         else:
             QtWidgets.QMessageBox.critical(self, "Error de Guardado", "No se pudo guardar el participante en la base de datos")
+
+
+class ActualizarParticipante(QtWidgets.QDialog):
+    def __init__(self, gestion_window, nombre_participante):
+        super(ActualizarParticipante, self).__init__()
+
+        self.gestion_evento_window = gestion_window
+        self.nombre_participante_original = nombre_participante
+        # Obtenemos el nombre del evento desde la ventana de gestion
+        self.nombre_evento = gestion_window.nombreEvento
+
+        # Carga la UI de ActualizarParticipante
+        dir_actual = os.path.dirname(os.path.abspath(__file__))
+        dir_padre = os.path.dirname(dir_actual)
+        ui_path = os.path.join(dir_padre, "ui", "ActualizarParticipante.ui")
+        uic.loadUi(ui_path, self)
+
+        # 1. Cargamos los datos actuales al iniciar
+        self.cargar_datos_actuales()
+        
+        # Conexion de los botones
+        self.btnPopupCancelarActualizacionParticipante.clicked.connect(self.volver_gestion)
+        self.btnPopupActualizarParticipante.clicked.connect(self.confirmar_actualizacion)
+
+    def cargar_datos_actuales(self):
+        participante_obj = participante_manager.buscar_participante(
+            self.nombre_evento, 
+            self.nombre_participante_original
+        )
+        
+        if participante_obj:
+            self.lneActualizarNombreParticipante.setText(participante_obj.nombre) 
+            self.lneActualizarAcompanyantes.setText(participante_obj.acompanyantes)
+            self.lneActualizarNoSentarCon.setText(participante_obj.no_sentar_con)
+            
+            # Guardamos el objeto para referencia futura
+            self.participante_actual = participante_obj 
+            
+            self.setWindowTitle(f"Actualizar: {self.nombre_participante_original}")
+        else:
+            QtWidgets.QMessageBox.critical(self, "Error de Carga", "No se encontro el participante para actualizar")
+            self.close()
+
+    def volver_gestion(self):
+            self.close()
+
+    def confirmar_actualizacion(self):
+        # Obtener los nuevos datos del UI
+        nuevoNombre = self.lneActualizarNombreParticipante.text().strip()
+        nuevosAcompanyantes = self.lneActualizarAcompanyantes.text().strip()
+        nuevosNoSentarCon = self.lneActualizarNoSentarCon.text().strip()
+        
+        # Validacion minima
+        if not nuevoNombre:
+            QtWidgets.QMessageBox.warning(self, "Error", "El nombre del participante no puede estar vacio")
+            return
+
+        # Preparamos la lista de datos para el manager
+        # Usamos el objeto existente para obtener el evento y la mesa asignada
+        mesa_asignada_str = str(self.participante_actual.mesa_asignada) if self.participante_actual.mesa_asignada else ''
+        
+        nuevos_datos_list = [
+            self.nombre_evento,            
+            nuevoNombre,                  
+            nuevosAcompanyantes,          
+            nuevosNoSentarCon,            
+            mesa_asignada_str              
+        ]
+        
+        # Llamar al manager para actualizar en el CSV
+        if participante_manager.actualizar_participante(self.nombre_evento, self.nombre_participante_original, nuevos_datos_list):
+            
+            QtWidgets.QMessageBox.information(self, "Actualizacion Exitosa", f"Participante '{self.nombre_participante_original}' actualizado a '{nuevoNombre}'")
+            
+            # Recargar la tabla en la ventana de gestion de eventos
+            self.gestion_evento_window.cargar_participantes_en_tabla()
+            self.gestion_evento_window.refrescar_listas_mesas_tab()
+            
+            self.close()
+        else:
+            QtWidgets.QMessageBox.critical(self, "Error de Actualizacion", "No se pudo actualizar el participante")
+
+
+class EliminarParticipante(QtWidgets.QDialog):
+    def __init__(self, gestion_window, nombre_evento, nombre_participante):
+        super(EliminarParticipante, self).__init__()
+
+        self.gestion_evento_window = gestion_window
+        self.nombre_participante = nombre_participante
+        self.nombre_evento = nombre_evento
+
+        # Carga la UI de EliminarParticipante
+        dir_actual = os.path.dirname(os.path.abspath(__file__))
+        dir_padre = os.path.dirname(dir_actual)
+        ui_path = os.path.join(dir_padre, "ui", "EliminarParticipante.ui")
+        uic.loadUi(ui_path, self)
+
+        self.seguroQueQuieresBorrar.setText(f"¿Seguro que quieres BORRAR a: {self.nombre_participante}?")
+        self.setWindowTitle("Confirmar Eliminacion")
+        
+        # Conexion de los botones
+        self.btnCancelarEliminar.clicked.connect(self.volver_gestion) 
+        self.btnBorrarParticipante.clicked.connect(self.confirmar_eliminacion)
+
+    def volver_gestion(self):
+        self.close()
+
+    def confirmar_eliminacion(self):
+        if participante_manager.eliminar_participante(self.nombre_evento, self.nombre_participante):
+            
+            QtWidgets.QMessageBox.information(self, "Participante Eliminado", f"Ha sido eliminado el participante: '{self.nombre_participante}' exitosamente")
+            
+            # Actualizar la tabla en la ventana de gestion
+            self.gestion_evento_window.cargar_participantes_en_tabla()
+            # Refrescar tambien las listas de Drag&Drop
+            self.gestion_evento_window.refrescar_listas_mesas_tab()
+            
+            self.close()
+        else:
+            QtWidgets.QMessageBox.critical(self, "Error", f"No se ha podido borrar al participante")

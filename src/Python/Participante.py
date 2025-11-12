@@ -1,33 +1,26 @@
 class Participante:
-    """
-    Clase para representar un Participante en un Evento.
-    Define la estructura de los datos del participante y sus preferencias.
-    """
+    # Clase para representar un Participante en un Evento
     def __init__(self, evento, nombre, acompanyantes="", no_sentar_con="", mesa_asignada=None):
         self.evento = evento
         self.nombre = nombre
-        # Las preferencias se guardan como cadenas. Asume que 'acompañantes' es un nombre/lista de nombres
+        # Las preferencias se guardan como cadenas
         self.acompanyantes = acompanyantes 
         self.no_sentar_con = no_sentar_con
-        # Almacena el número de mesa asignado
+        # Almacena el numero de mesa asignado
         self.mesa_asignada = mesa_asignada 
 
     def to_list(self):
-        """
-        Devuelve los datos del participante como una lista para ser guardada en el CSV.
-        Incluimos la mesa asignada para persistencia.
-        """
-        # Se guarda: [Evento, Nombre, Acompañantes, NoSentarCon, MesaAsignada]
-        return [self.evento, self.nombre, self.acompanyantes, self.no_sentar_con, str(self.mesa_asignada)]
+        # Devuelve los datos del participante como una lista para ser guardada en el CSV
+        return [self.evento, self.nombre, self.acompanyantes, self.no_sentar_con, str(self.mesa_asignada) if self.mesa_asignada is not None else '']
 
     @staticmethod
     def from_csv_row(row):
-        """
-        Creando un objeto Participante a partir de una fila del CSV.
-        """
-        # Debe manejar 5 o 4 columnas si el CSV es antiguo o no tiene la columna de mesa
+        # Crea un objeto Participante a partir de una fila del CSV
         if len(row) >= 4:
-            mesa = int(row[4]) if len(row) >= 5 and row[4].isdigit() else None
+            mesa = None
+            if len(row) >= 5 and row[4].strip().isdigit():
+                mesa = int(row[4].strip())
+            
             return Participante(
                 evento=row[0], 
                 nombre=row[1], 
