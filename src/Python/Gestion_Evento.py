@@ -2,8 +2,7 @@ import sys
 import os
 from PyQt5 import QtWidgets, uic, QtCore
 from EventoManager import event_manager
-from PopUp_evento import ActualizarParticipante
-from PopUp_participante import CrearParticipante
+from PopUp_participante import CrearParticipante, ActualizarParticipante, EliminarParticipante
 from ParticipanteManager import participante_manager
 from PyQt5.QtWidgets import QTableWidgetItem, QListWidgetItem
 from PyQt5.QtCore import QDataStream, QIODevice
@@ -31,6 +30,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.btnVolver.clicked.connect(self.volver_principal)
         self.btnActualizarParticipante.clicked.connect(self.abrir_actualizar_participante)
         self.btnAnyadirParticipante.clicked.connect(self.abrir_crear_participante)
+        self.btnEliminarParticipante.clicked.connect(self.abrir_eliminar_participante)
 
         # --- Conexiones de las listas ---
         self.listWidgetMesas.itemClicked.connect(self.refrescar_listas_mesas_tab)
@@ -333,3 +333,24 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.popup_actualizar = ActualizarParticipante(gestion_window=self, nombre_participante=nombreParticipante)
         self.popup_actualizar.finished.connect(self.refrescar_listas_mesas_tab)
         self.popup_actualizar.show()
+
+    def abrir_eliminar_participante(self):
+        filaSeleccionada = self.tablaParticipantes.currentRow()
+        if filaSeleccionada == -1:
+            QtWidgets.QMessageBox.warning(self, "Selección requerida", "Selecciona un participante de la tabla.")
+            return
+        
+        try:
+            nombreParticipante = self.tablaParticipantes.item(filaSeleccionada, 0).text()
+        except AttributeError:
+            QtWidgets.QMessageBox.critical(self, "Error", "No se ha podido obtener el nombre del participante.")
+            return
+        
+        self.popup_eliminar = EliminarParticipante(
+            gestion_window=self, 
+            nombre_evento=self.nombreEvento, 
+            nombre_participante=nombreParticipante
+        )
+
+        self.popup_eliminar.finished.connect(self.refrescar_listas_mesas_tab)
+        self.popup_eliminar.show()
