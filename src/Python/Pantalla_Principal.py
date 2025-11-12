@@ -6,9 +6,9 @@ from PyQt5.QtCore import Qt
 from PopUp_evento import EliminarEvento, ActualizarEvento, CrearEvento
 from EventoManager import event_manager
 from Gestion_Evento import GestionEvento 
-# Importamos la clase Evento para referencia, aunque el manager ya la devuelve
 from Evento import Evento 
 
+# Constantes con los estilos sin tildes
 TEMA_PANTALLA_PRINCIPAL=("""       
 /* Color de Fondo de la Ventana Principal */
 QMainWindow, QWidget#centralwidget {
@@ -19,10 +19,10 @@ QMainWindow, QWidget#centralwidget {
 /* 1. ESTILO DE LA TABLA (QTableWidget) */
 /* -------------------------------------- */
 QTableWidget {
-    background-color: #A5E0FF; /* Azul Cielo más intenso para el fondo de la tabla */
+    background-color: #A5E0FF; /* Azul Cielo mas intenso para el fondo de la tabla */
     border: none;
     color:black;
-    gridline-color: #6495ED; /* Color de las líneas de la cuadrícula */
+    gridline-color: #6495ED; /* Color de las lineas de la cuadricula */
 
 }
 
@@ -42,7 +42,7 @@ QTableWidget::item {
 }
 /* Estilo para las Filas Seleccionadas */
 QTableWidget::item:selected {
-    background-color: #83D4FF; /* Azul Acero para la selección */
+    background-color: #83D4FF; /* Azul Acero para la seleccion */
     color: white;
 }
 
@@ -58,7 +58,7 @@ QLineEdit#lneBuscador { /* Usa tu objectName real */
 }
 
 /* -------------------------------------- */
-/* 3. ESTILO DE LOS BOTONES DE ACCIÓN */
+/* 3. ESTILO DE LOS BOTONES DE ACCION */
 /* -------------------------------------- */
 QPushButton {
     /* Estilos base comunes */
@@ -84,7 +84,7 @@ TEMA_OSCURO=("""
 TEMA_GREENTONIC=("""
 /* Color de Fondo de la Ventana Principal */
 QMainWindow, QWidget#centralwidget {
-    background-color: #E0FFE0; /* Verde muy pálido/Menta para el fondo general */
+    background-color: #E0FFE0; /* Verde muy palido/Menta para el fondo general */
     color: #1E1E1E; /* Texto oscuro */
 }
 
@@ -92,15 +92,15 @@ QMainWindow, QWidget#centralwidget {
 /* 1. ESTILO DE LA TABLA (QTableWidget) */
 /* -------------------------------------- */
 QTableWidget {
-     background-color: #F0FFF0; /* Blanco más puro para el fondo de la tabla */
+     background-color: #F0FFF0; /* Blanco mas puro para el fondo de la tabla */
     border: 1px solid #90EE90; /* Borde verde claro */
     color: black;
-    gridline-color: #ADFF2F; /* Verde Lima (Acento refrescante para las líneas) */
+    gridline-color: #ADFF2F; /* Verde Lima (Acento refrescante para las lineas) */
 }
 
 /* Estilo de la Cabecera Horizontal (Headers) */
 QHeaderView::section {
-    background-color: #3CB371; /* Verde Medio Mar (Un verde más profundo para el contraste) */
+    background-color: #3CB371; /* Verde Medio Mar (Un verde mas profundo para el contraste) */
     color: white;
     font-weight: bold;
     padding: 6px;
@@ -114,8 +114,8 @@ QTableWidget::item {
 }
 /* Estilo para las Filas Seleccionadas */
 QTableWidget::item:selected {
-    background-color: #98FB98; /* Verde Menta Claro para la selección */
-    color: black; /* Texto oscuro sobre selección clara */
+    background-color: #98FB98; /* Verde Menta Claro para la seleccion */
+    color: black; /* Texto oscuro sobre seleccion clara */
 }
 
 /* -------------------------------------- */
@@ -131,7 +131,7 @@ QLineEdit#lneBuscador { /* Usa tu objectName real */
 }
 
 /* -------------------------------------- */
-/* 3. ESTILO DE LOS BOTONES DE ACCIÓN */
+/* 3. ESTILO DE LOS BOTONES DE ACCION */
 /* -------------------------------------- */
 QPushButton {
     /* Estilos base comunes */
@@ -143,7 +143,7 @@ QPushButton {
     font-weight: bold;
 }
 QPushButton:hover {
-    background-color: #8FBC8F; /* Verde Claro al pasar el ratón */
+    background-color: #8FBC8F; /* Verde Claro al pasar el raton */
     color: #1E1E1E; /* Texto oscuro en hover */
     border: 1px solid #3CB371;
 }
@@ -186,6 +186,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # Habilita el boton si hay al menos una celda seleccionada en la tabla
         esta_seleccionado = len(self.tablaEventos.selectedIndexes()) > 0
         self.btnConsultarEvento.setEnabled(esta_seleccionado)
+        # Se asume que el resto de botones de accion deben estar tambien deshabilitados si no hay seleccion
+        self.btnActualizarEvento.setEnabled(esta_seleccionado)
+        self.btnEliminarEvento.setEnabled(esta_seleccionado)
+
 
     def cambiar_tema(self, tema):
         if tema == "Oscuro":
@@ -217,18 +221,15 @@ class MainWindow(QtWidgets.QMainWindow):
         tabla = self.tablaEventos
         consultaToLow = consulta.lower().strip()
 
-        """
-         Bucle for que recorre todos los Eventos (Filas) buscando un texto que coincida
-         con el de la consulta realizada por el usuario, si coincide lo deja visible, sino
-         lo esconde 
-        """
-
+        # Bucle que recorre todos los Eventos (Filas) buscando un texto que coincida
+        # con el de la consulta realizada por el usuario, si coincide lo deja visible, sino
+        # lo esconde 
         for fila in range(tabla.rowCount()):
             itemTarea = tabla.item(fila,0)
 
             if itemTarea:
-                consulta = itemTarea.text().lower()
-                esVisible = consultaToLow in consulta
+                texto_item = itemTarea.text().lower()
+                esVisible = consultaToLow in texto_item
                 tabla.setRowHidden(fila, not esVisible)
             else:
                 tabla.setRowHidden(fila, True)
@@ -245,16 +246,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.close()
 
     def abrir_Actualizar_Evento(self):
-        filaSeleccionada = self.tablaEventos.currentRow()
+        nombreEvento = self.obtener_evento_seleccionado()
 
-        if filaSeleccionada == -1:
-            QtWidgets.QMessageBox.warning(self, "Advertencia", "Seleccione un evento de la tabla que desee actualizar.")
-            return
-        
-        try:
-            nombreEvento = self.tablaEventos.item(filaSeleccionada, 0).text()
-        except AttributeError:
-            QtWidgets.QMessageBox.critical(self, "Error", "No se ha podido encontrar el nombre del evento seleccionado.")
+        if nombreEvento is None:
             return
         
         self.gestion_window = ActualizarEvento(main_window=self, nombreEvento=nombreEvento) 
@@ -280,12 +274,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # Configurar la tabla
         self.tablaEventos.setRowCount(len(eventos_lista))
         self.tablaEventos.setColumnCount(5) 
-        self.tablaEventos.resizeColumnsToContents()
         
         # Llenar la tabla con los datos
         for row_index, evento_obj in enumerate(eventos_lista):
-            # Usamos los atributos del objeto Evento (el orden es el que definiste en la UI)
-            # Nombre
+            # Usamos los atributos del objeto Evento 
             self.tablaEventos.setItem(row_index, 0, QtWidgets.QTableWidgetItem(evento_obj.nombre))
             # Fecha
             self.tablaEventos.setItem(row_index, 1, QtWidgets.QTableWidgetItem(evento_obj.fecha))
@@ -295,12 +287,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(evento_obj.ubicacion))
             # Mesas
             self.tablaEventos.setItem(row_index, 4, QtWidgets.QTableWidgetItem(evento_obj.num_mesas))
-            self.tablaEventos.resizeColumnsToContents()
-            
+              
         self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion', 'Mesas'])
         # Ocultando el indice vertical (los numeros de fila)
         self.tablaEventos.verticalHeader().setVisible(False)
         self.tablaEventos.resizeColumnsToContents()
-
-        
-

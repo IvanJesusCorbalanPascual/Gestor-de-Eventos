@@ -1,3 +1,5 @@
+# ParticipanteManager.py
+
 import csv
 import os
 from Participante import Participante # Importamos la clase Participante
@@ -11,8 +13,6 @@ class ParticipanteManager:
     def __init__(self):
         if not os.path.exists(CSV_FILE_PARTICIPANTES):
             self._crear_csv_inicial()
-        # Nota: Idealmente, aquí deberías verificar si la columna 'Mesa_Asignada'
-        # existe en el CSV si ya existe el archivo, y añadirla si no está.
             
     def _crear_csv_inicial(self):
         try:
@@ -23,7 +23,7 @@ class ParticipanteManager:
             pass
 
     def guardar_participante(self, nuevo_participante: Participante):
-        # Añade un nuevo participante al archivo CSV usando el método to_list()
+        # Añade un nuevo participante al archivo CSV usando el metodo to_list()
         data = nuevo_participante.to_list() 
         try:
             # mode 'a' viene de append, que añade lineas en vez de sobreescribirlas
@@ -43,7 +43,7 @@ class ParticipanteManager:
                 # Saltar los encabezados
                 next(reader, None)  
                 for row in reader:
-                    # Se verifica que el participante pertenezca al evento y la longitud mínima
+                    # Se verifica que el participante pertenezca al evento y la longitud minima
                     if len(row) >= 4 and row[0] == nombre_evento:
                          # Creamos un objeto Participante a partir de la fila del CSV
                          participante_obj = Participante.from_csv_row(row)
@@ -53,7 +53,13 @@ class ParticipanteManager:
             pass
         return participantes
     
-    # Método para buscar un solo participante por nombre y evento
+    def cargar_participantes_por_mesa(self, nombre_evento, numero_mesa: int) -> list[Participante]:
+        # Nuevo metodo: Devuelve todos los participantes asignados a una mesa especifica
+        participantes = self.cargar_participantes_por_evento(nombre_evento)
+        # Filtra los participantes por el numero de mesa
+        return [p for p in participantes if p.mesa_asignada == numero_mesa]
+    
+    # Metodo para buscar un solo participante por nombre y evento
     def buscar_participante(self, nombre_evento, nombre_participante):
         try:
             with open(CSV_FILE_PARTICIPANTES, mode='r', newline='', encoding='utf-8') as file:
@@ -67,7 +73,7 @@ class ParticipanteManager:
             pass
         return None 
     
-    # Nuevo método para actualizar los datos de un participante
+    # Nuevo metodo para actualizar los datos de un participante
     def actualizar_participante(self, nombre_evento, nombre_original, nuevos_datos_list):
         participantes_actualizados = []
         actualizado = False
@@ -86,13 +92,13 @@ class ParticipanteManager:
                     else:
                         participantes_actualizados.append(row)
 
-            # Sobrescribir el archivo solo si se encontró y actualizó el participante
+            # Sobrescribir el archivo solo si se encontro y actualizo el participante
             if actualizado:
                 with open(CSV_FILE_PARTICIPANTES, mode='w', newline='', encoding='utf-8') as file:
                     writer = csv.writer(file)
                     writer.writerows(participantes_actualizados)
                 return True
-            return False # No se encontró el participante original
+            return False # No se encontro el participante original
         except (IOError, FileNotFoundError):
             return False
         

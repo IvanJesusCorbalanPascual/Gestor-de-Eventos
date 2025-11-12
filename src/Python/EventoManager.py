@@ -22,7 +22,7 @@ class EventoManager:
             pass
 
     def guardar_evento(self, nuevo_evento: Evento):
-        # Añade un nuevo evento al archivo CSV usando el método to_list()
+        # Añade un nuevo evento al archivo CSV
         data = nuevo_evento.to_list() 
         try:
             with open(CSV_FILE, mode='a', newline='', encoding='utf-8') as file:
@@ -78,7 +78,7 @@ class EventoManager:
             return False
         
     def buscar_evento(self, nombre_evento) -> Evento | None:
-        # Metodo para buscar y devolver los datos de un evento por su nombre como objeto Evento
+        # Busca y devuelve los datos de un evento por su nombre como objeto Evento
         try:
             with open(CSV_FILE, mode='r', newline='', encoding='utf-8') as file:
                 reader = csv.reader(file)
