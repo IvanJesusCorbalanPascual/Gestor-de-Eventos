@@ -2,11 +2,12 @@
 
 import sys
 import os
+import csv
 from PyQt5 import QtWidgets, uic, QtCore
 from EventoManager import event_manager
 from PopUp_participante import CrearParticipante, ActualizarParticipante, EliminarParticipante
 from ParticipanteManager import participante_manager
-from PyQt5.QtWidgets import QTableWidgetItem, QListWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QTableWidgetItem, QListWidgetItem, QMessageBox, QFileDialog
 from PyQt5.QtCore import QDataStream, QIODevice
 from Evento import Evento
 from Mesas import Mesa
@@ -40,6 +41,9 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.btnAnyadirMesa.clicked.connect(self.abrir_anyadir_mesas)
         self.btnEliminarMesa.clicked.connect(self.abrir_eliminar_mesa)
 
+        # Conexion botón generar informe
+        self.btnGenerarInforme.clicked.connect(self.generar_informe_csv)
+            
         # Conexiones de las listas
         self.listWidgetMesas.currentItemChanged.connect(self._manejar_cambio_mesa_seleccionada)
         
@@ -440,3 +444,76 @@ class GestionEvento(QtWidgets.QMainWindow):
 
         self.popup_eliminar.finished.connect(self.refrescar_listas_mesas_tab)
         self.popup_eliminar.show()
+
+    def generar_informe_csv(self):
+        print("Iniciando a generar el informe de CSV")
+
+        # Comprueba que el objeto evento esta cargado
+        evento = self.evento_obj
+        if not evento:
+            QMessageBox.critical(self, "Error", "No se ha podido cargar la información del evento")
+            return
+        
+        # Carga lista de todos los participantes de este evento
+        todosParticipantes = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
+
+        # Sugiere automáticamente un nombre de archivo facil y descriptivo, como "Informe_Pepe.csv"
+        nombreArchivoPorDefecto = f"Informe__{evento.nombre.replace(' ', '_')}.csv"
+
+        options = QFileDialog.Options()
+        # Permite al usuario elegir donde guardar abriendo dialogo
+        filePath, _ = QFileDialog.getSaveFileName(self, "Guardar Informe CSV", nombreArchivoPorDefecto, "Archivos CSV (*.csv);;Todos los Archivos (*)", options=options)
+            
+        # Si el usuario cancela el diálogo
+        if not filePath:
+            print("La generación del informe ha sido cancelada")
+            return
+            
+        # Escribe el archivo CSV
+        try:
+            with open(filePath, mode='w', newline='', encoding='utf-8') as file:
+                writer = csv.writer(file)
+
+                writer.writerow(['INFORME DEL EVENTO'])
+                writer.writerow(['Nombre del Evento', evento.nombre]) 
+                writer.writerow(['Organizador', evento.organizador]) 
+                writer.writerow(['Fecha', evento.fecha])
+                writer.writerow(['Ubicacion', evento.ubicacion])
+                writer.writerow(['Total Mesas', evento.num_mesas])
+                writer.writerow([])
+
+                writer.writerow(['MESAS ASIGNADAS'])
+                writer.writerow(['Nombre Mesa', 'Participantes Asignados'])
+
+                num_mesas = evento.get_num_mesas()
+                for i in range(1, num_mesas + 1):
+                    # Encuentra los participantes para la mesa
+                    participantes_en_mesa = [p for p in todosParticipantes if p.mesa_asignada == i]
+                    nombres = ", ".join([p.nombre for p in participantes_en_mesa])
+                    writer.writerow([f"Mesa {i}", nombres])    
+
+                # Añade los participantes sin mesa asignada
+                participantes_sin_mesa = [p for p in todosParticipantes if p.mesa_asignada is None or str(p.mesa_asignada).strip() == ""]
+                nombres_sin_mesa = ", ".join([p.nombre for p in participantes_sin_mesa])
+                writer.writerow(['Pendientes (Sin Asignar)', nombres_sin_mesa])
+                writer.writerow([])
+
+                # Preferencias y conflictos
+                writer.writerow(['LISTA DE LAS PREFERENCIAS DE LOS PARTICIPANTES'])
+                writer.writerow(['Participante', 'Preferencias (Acompañantes)', 'Incompatibilidades (No Sentar Con)'])
+
+                for p in todosParticipantes:
+                    writer.writerow([p.nombre, p.acompanyantes, p.no_sentar_con])
+
+            QMessageBox.information(self, "Informe Generado", f"El informe ha sido guardado en:\n{filePath}")
+            print(f"El informe guardado en {filePath}")
+
+        # Captura algunos errores como por ejemplo si el archivo estuviera abierto
+        except IOError as e:
+            QMessageBox.critical(self, "Error al Escribir", f"No se pudo guardar el archivo:\n{e}")
+            print(f"Error al escribir CSV: {e}")
+
+        # Captura cualquier otro error inesperado
+        except Exception as e:
+            QMessageBox.critical(self, "Error Inesperado", f"Ocurrió un error al generar el informe:\n{e}")
+            print(f"Error inesperado: {e}")
