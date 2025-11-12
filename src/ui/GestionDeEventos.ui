@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>948</width>
-    <height>809</height>
+    <width>1093</width>
+    <height>820</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -200,7 +200,7 @@ QPushButton#btnVolver:hover {
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,0,1">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0">
+             <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0,0">
               <item>
                <widget class="QLabel" name="Organizador">
                 <property name="font">
@@ -221,6 +221,19 @@ QPushButton#btnVolver:hover {
                 </property>
                </widget>
               </item>
+              <item>
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </item>
             <item>
@@ -232,6 +245,9 @@ QPushButton#btnVolver:hover {
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <property name="rightMargin">
+               <number>30</number>
+              </property>
               <item>
                <widget class="QLabel" name="Fecha">
                 <property name="font">
@@ -251,6 +267,19 @@ QPushButton#btnVolver:hover {
                  <string>10.12.2026</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </item>
@@ -289,6 +318,19 @@ QPushButton#btnVolver:hover {
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <spacer name="horizontalSpacer_5">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                </layout>
               </item>
               <item>
@@ -319,6 +361,19 @@ QPushButton#btnVolver:hover {
                    <string>50</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_7">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </item>
@@ -360,7 +415,7 @@ QPushButton#btnVolver:hover {
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -438,7 +493,7 @@ QPushButton#btnVolver:hover {
                <widget class="QPushButton" name="btnAsignacionAutomatica">
                 <property name="minimumSize">
                  <size>
-                  <width>180</width>
+                  <width>220</width>
                   <height>40</height>
                  </size>
                 </property>
@@ -475,7 +530,7 @@ QPushButton#btnAsignacionAutomatica:hover {
                <widget class="QPushButton" name="btnActualizarParticipante">
                 <property name="minimumSize">
                  <size>
-                  <width>100</width>
+                  <width>120</width>
                   <height>40</height>
                  </size>
                 </property>
@@ -553,7 +608,7 @@ QPushButton#btnAnyadirParticipante:hover {
                <widget class="QPushButton" name="btnEliminarParticipante">
                 <property name="minimumSize">
                  <size>
-                  <width>100</width>
+                  <width>110</width>
                   <height>40</height>
                  </size>
                 </property>
@@ -711,43 +766,6 @@ QPushButton#btnEliminarParticipante:hover {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnAgregarParticipante">
-            <property name="minimumSize">
-             <size>
-              <width>180</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Alef</family>
-              <pointsize>10</pointsize>
-              <weight>75</weight>
-              <italic>false</italic>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QWidget {
-    background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
-	font-weight: bold;
-border-radius: 12px; /* Bordes Redondeados para todos los botones */
-	border: 2px solid #4AEDFF; /* Borde sutil */
-font-weight: bold;
-}
-QPushButton#btnAgregarParticipante:hover {
-    background-color: #4AEDFF;
-}</string>
-            </property>
-            <property name="text">
-             <string>Agregar Participante</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="btnAnyadirMesa">
             <property name="minimumSize">
              <size>
@@ -785,7 +803,7 @@ QPushButton#btnAnyadirMesa:hover {
 }</string>
             </property>
             <property name="text">
-             <string>Añadir</string>
+             <string>Añadir Mesa</string>
             </property>
            </widget>
           </item>
@@ -821,7 +839,7 @@ QPushButton#btnEliminarMesa:hover {
 }</string>
             </property>
             <property name="text">
-             <string>Eliminar</string>
+             <string>Eliminar Mesa</string>
             </property>
            </widget>
           </item>
