@@ -198,7 +198,7 @@ QPushButton#btnVolver:hover {
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,0,1">
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,0,1">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0,0">
               <item>
@@ -415,7 +415,7 @@ QPushButton#btnVolver:hover {
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -476,8 +476,8 @@ QPushButton#btnVolver:hover {
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>100</width>
-                  <height>20</height>
+                  <width>40</width>
+                  <height>50</height>
                  </size>
                 </property>
                </spacer>
@@ -493,7 +493,7 @@ QPushButton#btnVolver:hover {
                <widget class="QPushButton" name="btnAsignacionAutomatica">
                 <property name="minimumSize">
                  <size>
-                  <width>220</width>
+                  <width>240</width>
                   <height>40</height>
                  </size>
                 </property>
@@ -753,7 +753,7 @@ QPushButton#btnEliminarParticipante:hover {
             <property name="sizeHint" stdset="0">
              <size>
               <width>40</width>
-              <height>20</height>
+              <height>50</height>
              </size>
             </property>
            </spacer>
@@ -871,6 +871,9 @@ QPushButton#btnEliminarMesa:hover {
                 <pointsize>16</pointsize>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:#77D1FF;</string>
+              </property>
               <property name="text">
                <string>Mesas</string>
               </property>
@@ -893,40 +896,38 @@ QPushButton#btnEliminarMesa:hover {
                <bool>false</bool>
               </property>
               <property name="styleSheet">
-               <string notr="true">/* ========================================= */
-/* ESTILO GENERAL DE LAS LISTAS (QListWidget) */
-/* ========================================= */
-QListWidget {
-	background-color: #f1f8e9;
-    background: #f7f7f7;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    font-size: 14px;
+               <string notr="true">/* ESTILO GENERAL DE LAS LISTAS (QListWidget) - Mesas */
+QListWidget#listWidgetMesas { /* Usa el objectName real de tu lista de Mesas */
+    background: #EAF7FF; /* Fondo general azul muy pálido */
+    border: 1px solid #90C0E0; /* Borde azul suave */
+    border-radius: 8px; /* Bordes más suaves */
+    font-size: 15px; /* Ligeramente más grande */
     padding: 5px;
-    /* Opción 1: Alinear el contenido general de la vista (a veces necesario) */
-    qproperty-alignment: AlignCenter; 
+text-align: center;
+
 }
 
-/* ----------------------------------------- */
-/* 1. LISTA MAESTRO (NAVEGACIÓN DE MESAS) */
-/* ----------------------------------------- */
-QListWidget#listWidget_Mesas::item { /* Reemplaza si es necesario */
-    padding: 8px 10px;
-    border-bottom: 1px solid #eeeeee;
-    /* Opción 2: Alinear el texto dentro del ítem */
+/* Centrado del texto en TODOS los ítems de QListWidget (horizontal) */
+QListWidget#listWidgetMesas::item {
     text-align: center;
+    /* Estilo base de los ítems: el color que querías para todas las mesas */
+    background-color: #B0E0E6; /* Azul claro suave (como el de tu imagen) */
+    color: #1E1E1E; /* Texto oscuro para contraste */
+    margin: 2px; /* Pequeño margen entre elementos */
+    border-radius: 4px; /* Bordes redondeados en cada ítem */
 }
 
-QListWidget#listWidget_Mesas::item:hover {
-    background: #e0f2f1;
-    color: #00796b;
+/* Estilo para el hover */
+QListWidget#listWidgetMesas::item:hover {
+    background: #A0D0E0; /* Azul ligeramente más oscuro al pasar el ratón */
 }
 
-QListWidget#listWidget_Mesas::item:selected {
-    background: #00796b;
+/* Estilo para el elemento REALMENTE seleccionado */
+QListWidget#listWidgetMesas::item:selected {
+    background: #4682B4; /* Azul Acero (color de selección fuerte) */
     color: white;
-    border-radius: 3px;
-    font-weight: bold;
+    font-weight: bold; /* Destacar el seleccionado */
+text-align: center;
 }</string>
               </property>
               <property name="dragEnabled">
@@ -969,101 +970,6 @@ QListWidget#listWidget_Mesas::item:selected {
                 <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                </property>
               </item>
-              <item>
-               <property name="text">
-                <string>Mesa 2</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 3</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 4</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 5</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 6</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 7</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 8</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 9</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 10</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 11</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 12</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 13</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 14</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 15</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 16</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 17</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 18</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 19</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Mesa 20</string>
-               </property>
-              </item>
              </widget>
             </item>
            </layout>
@@ -1085,6 +991,9 @@ QListWidget#listWidget_Mesas::item:selected {
                 <pointsize>16</pointsize>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:#C8FFBE;</string>
+              </property>
               <property name="text">
                <string>Participantes</string>
               </property>
@@ -1099,36 +1008,43 @@ QListWidget#listWidget_Mesas::item:selected {
                <bool>false</bool>
               </property>
               <property name="styleSheet">
-               <string notr="true">/* ========================================= */
-/* ESTILO GENERAL DE LAS LISTAS (QListWidget) */
-/* ========================================= */
-QListWidget {
-    background: #f7f7f7;
-    border: 1px solid #cccccc;
+               <string notr="true">/* ESTILO GENERAL DE LAS LISTAS (QListWidget) - Participantes */
+QListWidget#listWidgetParticipantes {
+    background: #EAF7EE; /* Fondo blanco-gris muy claro */
+    border: 1px solid #B0C4DE; /* Borde azul-grisáceo claro */
     border-radius: 5px;
     font-size: 14px;
     padding: 5px;
-    /* Opción 1: Alinear el contenido general de la vista (a veces necesario) */
-    qproperty-alignment: AlignCenter; 
+    /* Removido: qproperty-alignment no es válido para QListWidget */
 }
 
-/* ----------------------------------------- */
-/* 2. LISTA DETALLE (PARTICIPANTES) */
-/* ----------------------------------------- */
-QListWidget#listWidget_Participantes::item { /* Reemplaza si es necesario */
-    /* Opción 2: Alinear el texto dentro del ítem */
+/* Centrado del texto en TODOS los ítems de QListWidget (horizontal) */
+QListWidget#listWidgetParticipantes::item {
     text-align: center;
 }
 
-QListWidget#listWidget_Participantes::item:hover {
-    background: #f0f0f0; 
+/* Estilo para el hover */
+QListWidget#listWidgetParticipantes::item:hover {
+    background: #EFEFEF; /* Gris muy suave en hover */
 }
 
-QListWidget#listWidget_Participantes::item:selected {
-    background: #b2dfdb;
+/* Estilo para el elemento seleccionado */
+QListWidget#listWidgetParticipantes::item:selected {
+    background: #ADD8E6; /* Azul claro (LightBlue) para la selección */
     color: black;
+    border-left: 5px solid #4A90E2; /* Barra de color primario a la izquierda para destacar */
 }</string>
               </property>
+              <item>
+               <property name="text">
+                <string>a</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>s</string>
+               </property>
+              </item>
              </widget>
             </item>
            </layout>
@@ -1150,6 +1066,9 @@ QListWidget#listWidget_Participantes::item:selected {
                 <pointsize>16</pointsize>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:#FFA8A5;</string>
+              </property>
               <property name="text">
                <string>Participantes sin mesa</string>
               </property>
@@ -1164,33 +1083,33 @@ QListWidget#listWidget_Participantes::item:selected {
                <bool>false</bool>
               </property>
               <property name="styleSheet">
-               <string notr="true">
-/* ESTILO GENERAL DE LAS LISTAS (QListWidget) */
-QListWidget {
-    background: #f7f7f7;
-    border: 1px solid #cccccc;
+               <string notr="true">/* ESTILO GENERAL DE LAS LISTAS (QListWidget) - Participantes sin mesa */
+QListWidget#listWidgetParticipantesSinMesas { /* Asegúrate de reemplazar con el objectName de esta lista */
+    background: #FFE6E8; /* Fondo Blanco-Azulado Fantasma */
+    border: 1px solid #B0C4DE;
     border-radius: 5px;
     font-size: 14px;
     padding: 5px;
-    /* Opción 1: Alinear el contenido general de la vista (a veces necesario) */
+    /* Alinear el contenido general de la vista */
     qproperty-alignment: AlignCenter; 
 }
 
-/* ----------------------------------------- */
-/* 2. LISTA DETALLE (PARTICIPANTES) */
-/* ----------------------------------------- */
-QListWidget#listWidget_Participantes::item { /* Reemplaza si es necesario */
+/* 2. LISTA DETALLE (Participantes sin mesa) */
+QListWidget#listWidgetParticipantesSinMesas::item {
     /* Opción 2: Alinear el texto dentro del ítem */
     text-align: center;
 }
 
-QListWidget#listWidget_Participantes::item:hover {
-    background: #f0f0f0; 
+/* Estilo para el hover */
+QListWidget#listWidgetParticipantesSinMesas::item:hover {
+    background: #E5F3FF; /* Un azul muy, muy claro en hover */
 }
 
-QListWidget#listWidget_Participantes::item:selected {
-    background: #b2dfdb;
+/* Estilo para el elemento seleccionado */
+QListWidget#listWidget_SinMesa::item:selected {
+    background: #9BBFEB; /* Un azul un poco más oscuro que el anterior */
     color: black;
+    border-left: 5px solid #0077B6; /* Barra azul más intensa */
 }</string>
               </property>
              </widget>

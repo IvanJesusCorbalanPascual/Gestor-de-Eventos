@@ -111,14 +111,14 @@ class GestionEvento(QtWidgets.QMainWindow):
         
         # Manejo de errores
         if not current_mesa_item:
-            QtWidgets.QMessageBox.warning(self, "Acción Inválida", "Por favor, selecciona una mesa de la lista 'Mesas' primero.")
+            QtWidgets.QMessageBox.warning(self, "Acción Inválida", "Por favor, selecciona una mesa de la lista 'Mesas' primero")
             return
 
         nombre_mesa = current_mesa_item.text().strip().upper()
 
-        # Manejo de errores
+        # Manejo de errores: No se puede asignar un participante al elemento "TODOS LOS PARTICIPANTES"
         if nombre_mesa == "TODOS LOS PARTICIPANTES":
-            QtWidgets.QMessageBox.warning(self, "Acción Inválida", "No puedes asignar un participante a 'TODOS LOS PARTICIPANTES'. Selecciona una mesa específica.")
+            QtWidgets.QMessageBox.warning(self, "Acción Inválida", "No puedes asignar un participante a 'TODOS LOS PARTICIPANTES', Selecciona una mesa válida")
             return
 
         # Finalmente asignando el participante a la mesa con el metodo asignar_participante_a_mesa
@@ -279,11 +279,11 @@ class GestionEvento(QtWidgets.QMainWindow):
     """
         Cargando la tabla de participantes desde el CSV
     """
-    def cargar_tabla_con_participantes(self, participantes_lista, header="PARTICIPANTES TOTALES"):
+    def cargar_tabla_con_participantes(self, participantes_lista, header="Nombre"):
         tabla = self.tablaParticipantes
         tabla.setRowCount(len(participantes_lista))
         tabla.setColumnCount(4)
-        column_headers = [f'{header} Nombre', 'Acompañantes', 'No Sentar Con', 'Mesa']
+        column_headers = [f'{header}', 'Acompañantes', 'No Sentar Con', 'Mesa']
         tabla.setHorizontalHeaderLabels(column_headers)
 
         # Bucle que por cada lista y objeto de la lista de participantes, rellena la tabla con los datos
