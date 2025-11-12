@@ -95,6 +95,38 @@ class ParticipanteManager:
             return False # No se encontró el participante original
         except (IOError, FileNotFoundError):
             return False
+        
+    def eliminar_participante(self, nombre_evento, nombre_participante):
+            participantesMantenidos = []
+            eliminado = False
+            try:
+                with open(CSV_FILE_PARTICIPANTES, mode='r', newline='', encoding='utf-8') as file:
+                    reader = csv.reader(file)
+
+                    # Se encarga de guardar el encabezado, a menos que el archivo este vacio
+                    try:
+                        participantesMantenidos.append(next(reader))
+                    except StopIteration:
+                        return False
+            
+                    for row in reader:
+                            # Si tiene el mismo evento y mismo nombre, lo borra, si no, conservamos la fila
+                            if row[0] == nombre_evento and row[1] == nombre_participante:
+                                eliminado = True
+                            else:
+                                participantesMantenidos.append(row)
+
+                if eliminado:
+                    with open(CSV_FILE_PARTICIPANTES, mode='w', newline='', encoding='utf-8') as file:
+                        writer = csv.writer(file)
+                        writer.writerows(participantesMantenidos)
+                    return True
+            
+                return False
+    
+            except (IOError, FileNotFoundError) as e:
+                print(f"No se ha podido eliminar un participante: {e}")
+                return False
 
 # Instancia global del manager para usar en el resto de los modulos
 participante_manager = ParticipanteManager()

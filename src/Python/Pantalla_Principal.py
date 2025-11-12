@@ -242,3 +242,6 @@ class MainWindow(QtWidgets.QMainWindow):
         # Ocultando el indice vertical (los numeros de fila)
         self.tablaEventos.verticalHeader().setVisible(False)
         self.tablaEventos.resizeColumnsToContents()
+
+        
+
