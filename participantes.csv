@@ -1,4 +1,4 @@
-Evento,Nombre,Acompanyantes,NoSentarCon
+Evento,Nombre,Acompanyantes,NoSentarCon, Mesa
 aaaaaaa,as,aa,dd
 Ceremonia Cibernetica,Maximiliano Dutti,Nagore,"Salvador, Javier",3
 jose,Ivan,"Sergio, Enrique","Pepo, Adriano"
@@ -9,3 +9,6 @@ Ceremonia Cibernetica,so,s,s,
 Ceremonia Cibernetica,ffdf,ff,ff,
 aaaaaaaaa,aaaaaa,a,a,
 aaaaaaaaa,aaaaaaaa,a,a,
+Ceremonia Artesanal,Ceremonia Artesenal,Minimo Cristiano,Antonio,
+FiestaZaragoza,Ceremonia Artesenal,Minimo Cristiano,Antonio,
+evento,Maximo,Antonio,Salvador,1
