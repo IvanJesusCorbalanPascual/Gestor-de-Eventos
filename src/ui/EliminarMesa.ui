@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>617</width>
-    <height>219</height>
+    <width>500</width>
+    <height>220</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Eliminar Mesa</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -27,7 +27,7 @@
         </font>
        </property>
        <property name="text">
-        <string>¿Seguro que quieres ELIMINAR (nombre del participante) ?</string>
+        <string>¿Seguro que quieres BORRAR la Mesa (número) ?</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -46,7 +46,7 @@
         <number>30</number>
        </property>
        <item>
-        <widget class="QPushButton" name="btnBorrarParticipante">
+        <widget class="QPushButton" name="btnBorrarMesa">
          <property name="font">
           <font>
            <family>Alef</family>
@@ -56,12 +56,11 @@
          <property name="styleSheet">
           <string notr="true">QWidget {
     background-color: rgb(255, 168, 165);
- /* Un rojo pastel o rosa muy claro */
 	padding:20px;
 }</string>
          </property>
          <property name="text">
-          <string>ELIMINAR</string>
+          <string>ELIMINAR MESA</string>
          </property>
         </widget>
        </item>

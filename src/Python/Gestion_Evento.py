@@ -9,8 +9,9 @@ from ParticipanteManager import participante_manager
 from PyQt5.QtWidgets import QTableWidgetItem, QListWidgetItem, QMessageBox
 from PyQt5.QtCore import QDataStream, QIODevice
 from Evento import Evento
-from mesas import Mesa
-from PopUp_evento import ActualizarEvento 
+from Mesas import Mesa
+from PopUp_evento import ActualizarEvento
+from PopUp_Mesa import AnyadirMesa, EliminarMesa
 
 
 class GestionEvento(QtWidgets.QMainWindow):
@@ -35,13 +36,15 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.btnAnyadirParticipante.clicked.connect(self.abrir_crear_participante)
         self.btnEliminarParticipante.clicked.connect(self.abrir_eliminar_participante)
         
-        # Correccion del error: Usar el nombre de boton existente en el UI (btnAnyadirMesa)
         # para la funcionalidad de Actualizar Mesas.
-        self.btnAnyadirMesa.clicked.connect(self.abrir_actualizar_evento_para_mesas)
-        self.btnEliminarMesa.clicked.connect(self.eliminar_mesa)
+        self.btnAnyadirMesa.clicked.connect(self.abrir_anyadir_mesas)
+        self.btnEliminarMesa.clicked.connect(self.abrir_eliminar_mesa)
 
         # Conexiones de las listas
         self.listWidgetMesas.currentItemChanged.connect(self._manejar_cambio_mesa_seleccionada)
+        
+        # Conecta la senal de cambio de seleccion de mesas para actualizar la UI
+        self.listWidgetMesas.currentItemChanged.connect(self.actualizar_estado_boton_eliminar_mesa)
 
         # CONFIGURACION DE DRAG & DROP
         # Lista derecha: Participantes sin mesa
@@ -58,6 +61,9 @@ class GestionEvento(QtWidgets.QMainWindow):
 
         # La lista de mesas no acepta drops
         self.listWidgetMesas.setAcceptDrops(False)
+        
+        # Deshabilitar el boton de eliminar mesa al inicio
+        self.btnEliminarMesa.setEnabled(False)
 
         # CARGA INICIAL DE DATOS
         self.cargar_info_evento()
@@ -67,17 +73,81 @@ class GestionEvento(QtWidgets.QMainWindow):
 
         print("Consultando evento")
 
+    # --- Metodo para la gestion de UI de Mesas ---
+    
+    def actualizar_estado_boton_eliminar_mesa(self):
+        """Habilita/Deshabilita el boton Eliminar Mesa si una mesa especifica (no 'TODOS...') esta seleccionada."""
+        current_item = self.listWidgetMesas.currentItem()
+        
+        # 1. Comprobar si hay un item seleccionado
+        if current_item is None:
+            self.btnEliminarMesa.setEnabled(False)
+            self.btnEliminarMesa.setText("Eliminar Mesa")
+            return
+            
+        nombre_mesa_seleccionada = current_item.text().strip().upper()
+        
+        # 2. Comprobar si es una mesa valida y no el titulo "TODOS LOS PARTICIPANTES"
+        if nombre_mesa_seleccionada.startswith("MESA ") and nombre_mesa_seleccionada != "TODOS LOS PARTICIPANTES":
+            try:
+                # Extraer el numero de mesa
+                numero_mesa_sel = int(nombre_mesa_seleccionada.split(' ')[1])
+                # La mesa seleccionada debe existir (su numero debe ser <= num_mesas total)
+                if numero_mesa_sel <= self.evento_obj.get_num_mesas():
+                    self.btnEliminarMesa.setEnabled(True)
+                    self.btnEliminarMesa.setText(f"Eliminar Mesa {numero_mesa_sel}")
+                else:
+                    self.btnEliminarMesa.setEnabled(False)
+                    self.btnEliminarMesa.setText("Eliminar Mesa")
+            except (ValueError, IndexError):
+                self.btnEliminarMesa.setEnabled(False)
+                self.btnEliminarMesa.setText("Eliminar Mesa")
+        else:
+            self.btnEliminarMesa.setEnabled(False)
+            self.btnEliminarMesa.setText("Eliminar Mesa")
+            
     # --- Funcionalidad de Mesas ---
     
-    def abrir_actualizar_evento_para_mesas(self):
-        # Reusa el pop-up de ActualizarEvento para modificar la cantidad de mesas
-        # No se pasa main_window ya que GestionEvento se encarga de recargar la informacion
-        self.popup_actualizar_evento = ActualizarEvento(main_window=None, nombreEvento=self.nombreEvento)
+    def abrir_anyadir_mesas(self):
+        # Usamos el nuevo pop-up AnyadirMesa
+        self.popup_anyadir_mesa = AnyadirMesa(gestion_window=self)
         
         # Conecta la senal finished para recargar las mesas y participantes
-        self.popup_actualizar_evento.finished.connect(self.recargar_datos_tras_actualizacion)
-        self.popup_actualizar_evento.show()
+        self.popup_anyadir_mesa.finished.connect(self.recargar_datos_tras_actualizacion)
+        self.popup_anyadir_mesa.show()
+
+    # abrir el pop-up de Eliminar Mesa
+    def abrir_eliminar_mesa(self):
+        # Obtener la mesa seleccionada, como se hace para actualizar participante
+        item_seleccionado = self.listWidgetMesas.currentItem()
         
+        if not item_seleccionado or item_seleccionado.text().strip().upper() == "TODOS LOS PARTICIPANTES":
+            QMessageBox.warning(self, "Seleccion Requerida", "Por favor, selecciona una mesa especifica para eliminar.")
+            return
+
+        nombre_mesa_seleccionada = item_seleccionado.text().strip()
+        
+        try:
+            mesa_a_eliminar_num = int(nombre_mesa_seleccionada.split(' ')[1])
+            
+            # 1. Comprobar que el numero de mesa es valido
+            if mesa_a_eliminar_num <= 0 or mesa_a_eliminar_num > self.evento_obj.get_num_mesas():
+                QMessageBox.critical(self, "Error", f"Mesa {mesa_a_eliminar_num} no valida o no existente.")
+                return
+            
+        except (ValueError, IndexError):
+            QMessageBox.critical(self, "Error", "Error al obtener el numero de mesa seleccionado.")
+            return
+            
+        # Pasar el numero de mesa seleccionado al pop-up
+        # MODIFICACION: Se pasa el numero de mesa seleccionado al pop-up
+        self.popup_eliminar_mesa = EliminarMesa(gestion_window=self, mesa_a_eliminar_num=mesa_a_eliminar_num)
+        
+        # Conecta la senal finished para recargar las mesas y participantes
+        self.popup_eliminar_mesa.finished.connect(self.recargar_datos_tras_actualizacion)
+        self.popup_eliminar_mesa.show()
+        
+    
     def recargar_datos_tras_actualizacion(self):
         # Vuelve a buscar el evento actualizado y recarga las vistas
         self.evento_obj = event_manager.buscar_evento(self.nombreEvento)
@@ -85,62 +155,8 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.cargar_mesas_en_listwidget()
         self.refrescar_listas_mesas_tab()
         self.cargar_participantes_en_tabla()
+        self.actualizar_estado_boton_eliminar_mesa() # Actualizar estado del boton
         
-    def eliminar_mesa(self):
-        item_seleccionado = self.listWidgetMesas.currentItem()
-        
-        if not item_seleccionado:
-            QMessageBox.warning(self, "Advertencia", "Selecciona una mesa para eliminar")
-            return
-            
-        nombre_mesa_str = item_seleccionado.text().strip()
-
-        if nombre_mesa_str.upper() == "TODOS LOS PARTICIPANTES":
-            QMessageBox.warning(self, "Advertencia", "No puedes eliminar 'TODOS LOS PARTICIPANTES'")
-            return
-            
-        try:
-            # Obtener el numero de mesa
-            numero_mesa_a_eliminar = int(nombre_mesa_str.split(' ')[1])
-            
-            # Buscar el objeto mesa
-            mesa_obj = next(m for m in self.mesas_del_evento if m.numero == numero_mesa_a_eliminar)
-        except (ValueError, IndexError, StopIteration):
-            QMessageBox.critical(self, "Error", f"No se pudo identificar la mesa: {nombre_mesa_str}")
-            return
-
-        # 1. Chequeo de participantes
-        participantes_en_mesa = participante_manager.cargar_participantes_por_mesa(self.nombreEvento, numero_mesa_a_eliminar)
-        if participantes_en_mesa:
-            respuesta = QMessageBox.question(self, "Confirmacion", 
-                                             f"La {nombre_mesa_str} tiene {len(participantes_en_mesa)} participantes asignados. \n\n¿Deseas moverlos a 'Sin Mesa' y reducir el numero total de mesas?", 
-                                             QMessageBox.Yes | QMessageBox.No)
-            if respuesta == QMessageBox.No:
-                return
-
-            # Mover participantes a "Sin Mesa"
-            for p in participantes_en_mesa:
-                self.desasignar_participante_de_mesa(p.nombre)
-
-        # 2. Actualizar el numero de mesas del Evento
-        self.evento_obj.num_mesas = str(self.evento_obj.get_num_mesas() - 1)
-        
-        nuevos_datos_evento = [
-            self.evento_obj.nombre, 
-            self.evento_obj.fecha, 
-            self.evento_obj.ubicacion, 
-            self.evento_obj.organizador, 
-            self.evento_obj.num_mesas
-        ]
-
-        if event_manager.actualizar_evento(self.nombreEvento, nuevos_datos_evento):
-            QMessageBox.information(self, "Mesa Eliminada", f"{nombre_mesa_str} ha sido eliminada. El numero total de mesas ha sido reducido")
-            # Recargar despues de modificar el manager para que se actualice el UI de gestion
-            self.recargar_datos_tras_actualizacion() 
-        else:
-            QMessageBox.critical(self, "Error", "No se pudo actualizar el numero de mesas del evento")
-            
-    # --- FIN Funcionalidad de Mesas ---
 
 
     # EVENT FILTER - Metodo que gestiona tanto la funcion de arrastrar como la de soltar
@@ -355,7 +371,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         tabla = self.tablaParticipantes
         tabla.setRowCount(len(participantes_lista))
         tabla.setColumnCount(4)
-        column_headers = [f'{header}', 'Acompañantes', 'No Sentar Con', 'Mesa']
+        column_headers = [f'{header}', 'Acompanantes', 'No Sentar Con', 'Mesa']
         tabla.setHorizontalHeaderLabels(column_headers)
 
         # Bucle que por cada lista y objeto de la lista de participantes, rellena la tabla con los datos
