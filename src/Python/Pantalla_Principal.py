@@ -9,8 +9,8 @@ from Gestion_Evento import GestionEvento
 # Importamos la clase Evento para referencia, aunque el manager ya la devuelve
 from Evento import Evento 
 
-TEMA_PANTALLA_PRINCIPAL=("""
-                         /* Color de Fondo de la Ventana Principal */
+TEMA_PANTALLA_PRINCIPAL=("""       
+/* Color de Fondo de la Ventana Principal */
 QMainWindow, QWidget#centralwidget {
     background-color: #B0E0E6; /* Azul claro suave para el fondo general (como el Aqua Pale) */
 }
@@ -19,14 +19,16 @@ QMainWindow, QWidget#centralwidget {
 /* 1. ESTILO DE LA TABLA (QTableWidget) */
 /* -------------------------------------- */
 QTableWidget {
-    background-color: #D2F0FF; /* Azul Cielo más intenso para el fondo de la tabla */
+    background-color: #A5E0FF; /* Azul Cielo más intenso para el fondo de la tabla */
     border: none;
+    color:black;
     gridline-color: #6495ED; /* Color de las líneas de la cuadrícula */
+
 }
 
 /* Estilo de la Cabecera Horizontal (NOMBRE DEL EVENTO, ORGANIZADOR, etc.) */
 QHeaderView::section {
-    background-color: #00CED1; /* Azul Cian brillante */
+    background-color: #4AC1FF; /* Azul Cian brillante */
     color: white;
     font-weight: bold;
     padding: 6px;
@@ -35,12 +37,12 @@ QHeaderView::section {
 
 /* Estilo para las Filas de la Tabla (ItemView) */
 QTableWidget::item {
-    background-color: #87CEFA; /* Fondo de las celdas (Azul Cielo) */
+    background-color: #A5E0FF; /* Fondo de las celdas (Azul Cielo) */
     padding: 5px;
 }
 /* Estilo para las Filas Seleccionadas */
 QTableWidget::item:selected {
-    background-color: #4682B4; /* Azul Acero para la selección */
+    background-color: #83D4FF; /* Azul Acero para la selección */
     color: white;
 }
 
@@ -75,20 +77,77 @@ TEMA_OSCURO=("""
                 QHeaderView::section{background-color:#404040;color:#ffffff;}
                 QPushButton{background-color:#e0e0e0;color:#000000;}
                 QComboBox{background-color:#404040;color:#ffffff;}
-                QLineEdit{background-color:#404040;color:#ffffff;}
+                QLineEdit{background-color:#404040;color:#aaaaaa;}
                 QMenuBar{background-color:#404040;color:#ffffff;}
             """)
 
-TEMA_CLARO=("""
-                QMainWindow{background-color:#ffffff;}
-                QWidget{background-color:#ffffff;color:#000000;}
-                QTableWidget{background-color:#ffffff;color:#000000;}
-                QHeaderView::section{background-color:#e0e0e0;color:#000000;}
-                QPushButton{background-color:#e0e0e0;color:#000000;}
-                QComboBox{background-color:#ffffff;color:#000000;}
-                QLineEdit{background-color:#ffffff;color:#000000;}
-                QMenuBar{background-color:#f0f0f0;color:#000000;}
-            """)
+TEMA_GREENTONIC=("""
+/* Color de Fondo de la Ventana Principal */
+QMainWindow, QWidget#centralwidget {
+    background-color: #E0FFE0; /* Verde muy pálido/Menta para el fondo general */
+    color: #1E1E1E; /* Texto oscuro */
+}
+
+/* -------------------------------------- */
+/* 1. ESTILO DE LA TABLA (QTableWidget) */
+/* -------------------------------------- */
+QTableWidget {
+     background-color: #F0FFF0; /* Blanco más puro para el fondo de la tabla */
+    border: 1px solid #90EE90; /* Borde verde claro */
+    color: black;
+    gridline-color: #ADFF2F; /* Verde Lima (Acento refrescante para las líneas) */
+}
+
+/* Estilo de la Cabecera Horizontal (Headers) */
+QHeaderView::section {
+    background-color: #3CB371; /* Verde Medio Mar (Un verde más profundo para el contraste) */
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+    border: 1px solid #2E8B57; /* Borde verde oscuro */
+}
+
+/* Estilo para las Filas de la Tabla (ItemView) */
+QTableWidget::item {
+    background-color: #F0FFF0; /* Fondo de las celdas (Blanco) */
+    padding: 5px;
+}
+/* Estilo para las Filas Seleccionadas */
+QTableWidget::item:selected {
+    background-color: #98FB98; /* Verde Menta Claro para la selección */
+    color: black; /* Texto oscuro sobre selección clara */
+}
+
+/* -------------------------------------- */
+/* 2. ESTILO DEL BUSCADOR (QLineEdit) */
+/* -------------------------------------- */
+QLineEdit#lneBuscador { /* Usa tu objectName real */
+    background-color: #FFFFFF; /* Blanco limpio */
+    border: 2px solid #66CDAA; /* Borde suave de color Aguamarina */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 5px;
+    margin-right: 10px;
+    color: #1E1E1E;
+}
+
+/* -------------------------------------- */
+/* 3. ESTILO DE LOS BOTONES DE ACCIÓN */
+/* -------------------------------------- */
+QPushButton {
+    /* Estilos base comunes */
+    background-color: #6B8E23; /* Verde Oliva Oscuro como color primario */
+    color: black; /* Texto blanco para alto contraste */
+    border: none;
+    border-radius: 12px;
+    padding: 8px 15px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #8FBC8F; /* Verde Claro al pasar el ratón */
+    color: #1E1E1E; /* Texto oscuro en hover */
+    border: 1px solid #3CB371;
+}
+""")
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -100,13 +159,9 @@ class MainWindow(QtWidgets.QMainWindow):
         ui_path = os.path.join(parent_dir, "ui", "PantallaPrincipal.ui")
         uic.loadUi(ui_path, self)
         self.setWindowTitle("Gestor de Eventos")
-        # El tema inicial se sobrescribe después, pero lo dejo por si quieres cambiarlo
-        # self.setStyleSheet(TEMA_PANTALLA_PRINCIPAL) 
+        # Asignando el tema al iniciar la pantalla
+        self.setStyleSheet(TEMA_PANTALLA_PRINCIPAL) 
        
-        
-        
-        # Asignando el tema claro al iniciar la pantalla
-        self.setStyleSheet(TEMA_CLARO)
         
         # Mapeo de botones
         self.lneBuscador.textChanged.connect(self.buscar_evento)
@@ -132,12 +187,13 @@ class MainWindow(QtWidgets.QMainWindow):
         esta_seleccionado = len(self.tablaEventos.selectedIndexes()) > 0
         self.btnConsultarEvento.setEnabled(esta_seleccionado)
 
-
     def cambiar_tema(self, tema):
         if tema == "Oscuro":
             self.setStyleSheet(TEMA_OSCURO)
+        elif tema == ('GreenTonic'):
+            self.setStyleSheet(TEMA_GREENTONIC)
         else:
-            self.setStyleSheet(TEMA_CLARO)
+            self.setStyleSheet(TEMA_PANTALLA_PRINCIPAL)
 
     def obtener_evento_seleccionado(self):
         # Comprueba y obtiene la fila seleccionada en tablaEventos
@@ -185,6 +241,7 @@ class MainWindow(QtWidgets.QMainWindow):
             # Abrimos la ventana de gestion y le pasamos el nombre del evento
             self.gestion_window = GestionEvento(nombreEvento=nombreEvento)
             self.gestion_window.show()
+            self.gestion_window.setStyleSheet(TEMA_PANTALLA_PRINCIPAL)
             self.close()
 
     def abrir_Actualizar_Evento(self):
@@ -223,6 +280,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Configurar la tabla
         self.tablaEventos.setRowCount(len(eventos_lista))
         self.tablaEventos.setColumnCount(5) 
+        self.tablaEventos.resizeColumnsToContents()
         
         # Llenar la tabla con los datos
         for row_index, evento_obj in enumerate(eventos_lista):
@@ -237,6 +295,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.tablaEventos.setItem(row_index, 3, QtWidgets.QTableWidgetItem(evento_obj.ubicacion))
             # Mesas
             self.tablaEventos.setItem(row_index, 4, QtWidgets.QTableWidgetItem(evento_obj.num_mesas))
+            self.tablaEventos.resizeColumnsToContents()
             
         self.tablaEventos.setHorizontalHeaderLabels(['Nombre', 'Fecha', 'Organizador', 'Ubicacion', 'Mesas'])
         # Ocultando el indice vertical (los numeros de fila)
