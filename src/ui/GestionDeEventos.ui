@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
+   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,2,3">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0,0">
       <item>
@@ -100,15 +100,21 @@ QPushButton#btnVolver:hover {
            <bool>true</bool>
           </property>
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>240</width>
+            <height>240</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
-            <width>2000</width>
-            <height>200</height>
+            <width>240</width>
+            <height>240</height>
            </size>
           </property>
           <property name="sizeIncrement">
@@ -415,7 +421,7 @@ QPushButton#btnVolver:hover {
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -438,7 +444,7 @@ QPushButton#btnVolver:hover {
       <widget class="QWidget" name="tabListaDeParticipantes">
        <attribute name="icon">
         <iconset resource="../Imagenes/imagenes.qrc">
-         <normaloff>:/icons/logoGT.png</normaloff>:/icons/logoGT.png</iconset>
+         <normaloff>:/icons/persona.png</normaloff>:/icons/persona.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Participantes</string>
@@ -732,6 +738,9 @@ QPushButton#btnGenerarInforme:hover {
                 <pointsize>14</pointsize>
                </font>
               </property>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
               <row>
                <property name="text">
                 <string>1</string>
@@ -793,7 +802,7 @@ QPushButton#btnGenerarInforme:hover {
       <widget class="QWidget" name="tabDistribucionDeMesas">
        <attribute name="icon">
         <iconset resource="../Imagenes/imagenes.qrc">
-         <normaloff>:/images/boda.jpg</normaloff>:/images/boda.jpg</iconset>
+         <normaloff>:/icons/mesa.png</normaloff>:/icons/mesa.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Mesas</string>
@@ -1216,7 +1225,6 @@ QListWidget#listWidget_SinMesa::item:selected {
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../Imagenes/imagenes.qrc"/>
   <include location="../Imagenes/imagenes.qrc"/>
  </resources>
  <connections/>

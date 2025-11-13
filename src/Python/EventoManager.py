@@ -91,6 +91,8 @@ class EventoManager:
             pass
         return None 
     
+    
+    
     def actualizar_evento(self, nombre_original, nuevos_datos: list):
         # nuevos_datos DEBE ser una lista en formato [Nombre, Fecha, Ubicacion, Organizador, Num_Mesas]
         eventosActualizados = []
