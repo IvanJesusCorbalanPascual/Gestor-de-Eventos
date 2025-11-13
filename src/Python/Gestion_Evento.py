@@ -3,6 +3,7 @@
 import sys
 import os
 import csv
+import math
 from PyQt5 import QtWidgets, uic, QtCore
 from EventoManager import event_manager
 from PopUp_participante import CrearParticipante, ActualizarParticipante, EliminarParticipante
@@ -13,6 +14,7 @@ from Evento import Evento
 from Mesas import Mesa
 from PopUp_evento import ActualizarEvento
 from PopUp_Mesa import AnyadirMesa, EliminarMesa
+from AsignadorMesas import AsignadorMesas
 
 
 class GestionEvento(QtWidgets.QMainWindow):
@@ -30,12 +32,15 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.nombreEvento = nombreEvento
         self.evento_obj = event_manager.buscar_evento(self.nombreEvento)
         self.mesas_del_evento = []
+        self.asignador_mesas = AsignadorMesas() # Objeto asignador de mesas
+        self.lista_participantes = [] # Cadena de participantes
 
         # Mapeo de botones
         self.btnVolver.clicked.connect(self.volver_principal)
         self.btnActualizarParticipante.clicked.connect(self.abrir_actualizar_participante)
         self.btnAnyadirParticipante.clicked.connect(self.abrir_crear_participante)
         self.btnEliminarParticipante.clicked.connect(self.abrir_eliminar_participante)
+        self.btnAsignacionAutomatica.clicked.connect(self.ejecutar_asignacion_mesas)
         
         # para la funcionalidad de Actualizar Mesas.
         self.btnAnyadirMesa.clicked.connect(self.abrir_anyadir_mesas)
@@ -76,13 +81,82 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.refrescar_listas_mesas_tab()
 
         print("Consultando evento")
-
-    # --- Metodo para la gestion de UI de Mesas ---
     
+    def ejecutar_asignacion_mesas(self):
+        # Carga todos los participantes del evento desde el CSV
+        
+        try:
+           
+            lista_participantes = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
+            if not lista_participantes:
+                QMessageBox.warning(self, "Sin Participantes", "No hay participantes cargados en este evento para asignar.")
+                return
+        except Exception as e:
+            QMessageBox.critical(self, "Error de Carga", f"No se pudieron cargar los participantes: {e}")
+            return
+        
+        # Obtiene los datos del evento (número de mesas)
+        if not self.evento_obj:
+            QMessageBox.critical(self, "Error de Evento", "No se pudo cargar la información del evento.")
+            return
+            
+        num_mesas_total = self.evento_obj.get_num_mesas()
+        if num_mesas_total <= 0:
+            QMessageBox.warning(self, "Sin Mesas", "El evento no tiene mesas. Por favor, añada mesas antes de asignar.")
+            return
+        
+        tamano_mesa=10
+        print("Hola")
+        solucion = self.asignador_mesas.asignar_mesas(
+            lista_participantes, 
+            tamano_mesa, 
+            num_mesas_total
+        )
+        print("Adios")
+
+        if solucion is None:
+            print("No se puedo llevar a cabo la asignacion automatica")
+            return
+        
+        exitos = 0
+        errores = 0
+        for participante in lista_participantes:
+            if participante.nombre in solucion:
+                mesa_asignada = solucion[participante.nombre]
+                participante.mesa_asignada = mesa_asignada
+                
+                # Preparando la lista (CSV)
+                datos_actualizados_lista = participante.to_list()
+                
+                # El manager se encarga de gestionar el cambio
+                if participante_manager.actualizar_participante(self.nombreEvento, participante.nombre, datos_actualizados_lista):
+                    exitos += 1
+                else:
+                    errores += 1
+                    print(f"Error al guardar la asignación para {participante.nombre}")
+            else:
+                # Esto no debería pasar si el solver tuvo éxito
+                errores += 1
+                print(f"¡Advertencia! {participante.nombre} no fue encontrado en la solución.")
+        
+        if errores > 0:
+            QMessageBox.warning(self, "Error al Guardar", f"Se asignaron las mesas, pero hubo {errores} errores al guardar los datos en el CSV.")
+        else:
+            QMessageBox.information(self, "Asignación Completada", f"Se asignaron y guardaron exitosamente {exitos} participantes.")
+
+        # Finalmente cargando los participantes a la tabla
+        self.cargar_participantes_en_tabla()
+
+        # Refrescando la lista de mesas
+        self.refrescar_listas_mesas_tab()
+        
+        print("Asignación automática finalizada y UI refrescada.")
+        
+    # --- Metodo para la gestion de UI de Mesas ---
     def actualizar_estado_boton_eliminar_mesa(self):
         """Habilita/Deshabilita el boton Eliminar Mesa si una mesa especifica (no 'TODOS...') esta seleccionada."""
         current_item = self.listWidgetMesas.currentItem()
-        
+        ""
         # 1. Comprobar si hay un item seleccionado
         if current_item is None:
             self.btnEliminarMesa.setEnabled(False)
