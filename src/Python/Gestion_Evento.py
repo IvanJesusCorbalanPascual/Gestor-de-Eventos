@@ -16,7 +16,7 @@ from Evento import Evento
 from Mesas import Mesa
 from PopUp_evento import ActualizarEvento
 from PopUp_Mesa import AnyadirMesa, EliminarMesa
-from AsignadorMesas import AsignadorMesas
+from AsignacionAutomatica import ejecutar_asignacion_automatica # Importacion de la funcion de asignacion
 
 
 class GestionEvento(QtWidgets.QMainWindow):
@@ -28,10 +28,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "GestionDeEventos.ui")
-        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
-        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
-        self.setWindowTitle(f"Gestion del Evento: {nombreEvento}")
 
         # Creando la Variables principales
         self.nombreEvento = nombreEvento
@@ -39,28 +36,27 @@ class GestionEvento(QtWidgets.QMainWindow):
         # Nota: self.nombreParticipante no esta definido en el constructor
         self.participante_obj = participante_manager.buscar_participante(self.nombreEvento, self.nombreParticipante) if hasattr(self, 'nombreParticipante') else None
         self.mesas_del_evento = []
-        self.asignador_mesas = AsignadorMesas() # Objeto asignador de mesas
-        self.lista_participantes = [] # Cadena de participantes
 
         # Mapeo de botones
         self.btnVolver.clicked.connect(self.volver_principal)
         self.btnActualizarParticipante.clicked.connect(self.abrir_actualizar_participante)
         self.btnAnyadirParticipante.clicked.connect(self.abrir_crear_participante)
         self.btnEliminarParticipante.clicked.connect(self.abrir_eliminar_participante)
-        self.btnAsignacionAutomatica.clicked.connect(self.ejecutar_asignacion_mesas)
         
         # para la funcionalidad de Actualizar Mesas.
         self.btnAnyadirMesa.clicked.connect(self.abrir_anyadir_mesas)
         self.btnEliminarMesa.clicked.connect(self.abrir_eliminar_mesa)
 
-        # Conexion boton generar informe
+        # Conexion para generar el informe CSV
         self.btnGenerarInforme.clicked.connect(self.generar_informe_csv)
         
-        # Conexión para el LineEdit del buscador
-        # CORRECCIÓN: Usar el objectName correcto 'lneBuscadorParticipante' del .ui
+        # Conexion para el boton de asignacion automatica
+        self.btnAsignacionAutomatica.clicked.connect(self.ejecutar_asignacion_automatica_ui)
+        
+        # Conexion para filtrar participantes por texto
         self.lneBuscadorParticipante.textChanged.connect(self.filtrar_participantes) 
             
-        # Conexiones de las listas
+        # Conexion para gestionar el cambio de mesa seleccionada
         self.listWidgetMesas.currentItemChanged.connect(self._manejar_cambio_mesa_seleccionada)
         
         # Conecta la senal de cambio de seleccion de mesas para actualizar la UI
@@ -91,7 +87,14 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.cargar_participantes_en_tabla()
         self.refrescar_listas_mesas_tab()
 
-        print("Consultando evento")
+        print("[DEBUG] Gestion_Evento.py: Instancia de GestionEvento inicializada.")
+
+    # METODO PARA LA ASIGNACION AUTOMATICA
+    def ejecutar_asignacion_automatica_ui(self):
+        # Llama a la funcion externa de asignacion y pasa la ventana actual para el refresco
+        ejecutar_asignacion_automatica(self, self.nombreEvento)
+        
+    # --- Metodo para la gestion de UI de Mesas ---
     
     def ejecutar_asignacion_mesas(self):
         # Carga todos los participantes del evento desde el CSV
@@ -295,8 +298,7 @@ class GestionEvento(QtWidgets.QMainWindow):
             QMessageBox.warning(self, "Accion Invalida", "No puedes asignar un participante a 'TODOS LOS PARTICIPANTES'. Selecciona una mesa especifica")
             return
 
-        # Finalmente asignando el participante a la mesa con el metodo asignar_participante_a_mesa
-        print(f"[ACTION] Asignar: '{nombre_participante}' -> '{nombre_mesa}'")
+        # Llama a la funcion de asignacion
         self.asignar_participante_a_mesa(nombre_participante, nombre_mesa)
 
     def handle_drop_on_sin_mesa_list(self, event):
@@ -318,9 +320,6 @@ class GestionEvento(QtWidgets.QMainWindow):
     def asignar_participante_a_mesa(self, nombre_participante, nombre_mesa):
         try:
             numero_mesa = int(nombre_mesa.split(' ')[1])
-            # Se busca el objeto Mesa para comprobar capacidad (la capacidad es 10 por defecto para todas las mesas)
-            # Esta linea puede fallar si self.mesas_del_evento esta vacio o si el objeto mesa no tiene atributo 'numero'
-            mesa_obj = next(m for m in self.mesas_del_evento if getattr(m, 'numero', None) == numero_mesa)
             
             # Chequeo de capacidad
             participantes_actuales = participante_manager.cargar_participantes_por_mesa(self.nombreEvento, numero_mesa)
@@ -340,41 +339,6 @@ class GestionEvento(QtWidgets.QMainWindow):
             QMessageBox.critical(self, "Error", f"No se pudo encontrar al participante '{nombre_participante}'")
             return
         
-
-        print(f"Comprobando incompatibilidades de {participante_obj.nombre} en {nombre_mesa}")
-
-        lista_incompatibilidad_arrastrado_str = participante_obj.no_sentar_con or ""
-        lista_incompatibilidad_arrastrado = [n.strip() for n in re.split(r'[,;]+', lista_incompatibilidad_arrastrado_str) if n.strip()]
-
-        for p_en_mesa in participantes_actuales:
-            
-            # Comprueba si el que arrastramos tiene incompatibilidad con alguien de la mesa y cancela la asignación si es así
-            if p_en_mesa.nombre in lista_incompatibilidad_arrastrado:
-                mensaje_error = (
-                    f"¡No es posible asignar a {participante_obj.nombre}!\n\n"
-                    f"Motivo: No quiere sentarse con {p_en_mesa.nombre}, que ya está en esta mesa."
-                )
-                QMessageBox.warning(self, "¡Existe un Conflicto!", mensaje_error)
-                return
-            
-            lista_incompatibilidad_en_mesa_str = p_en_mesa.no_sentar_con or ""
-            lista_incompatibilidad_en_mesa = [n.strip() for n in re.split(r'[,;]+', lista_incompatibilidad_en_mesa_str) if n.strip()]
-
-            if participante_obj.nombre in lista_incompatibilidad_en_mesa:
-                mensaje_error = (
-                    f"¡No es posible asignar a {participante_obj.nombre}!\n\n"
-                    f"Motivo: {p_en_mesa.nombre} ya esta en esta mesa y no quiere sentarse con él."
-                )
-                QMessageBox.warning(self, "¡Existe un Conflicto!", mensaje_error)
-                return
-            
-            print("No hay conflictos, asignando..")
-            
-
-
-        
-        # Si no hay chequeo de incompatibilidad, se asigna directamente
-
         participante_obj.mesa_asignada = numero_mesa
         nuevos_datos_list = [
             participante_obj.evento,
