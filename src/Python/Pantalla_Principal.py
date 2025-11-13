@@ -154,7 +154,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
-        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # Guardando la ruta del icono en la variable icon_path
         self.setWindowIcon(QIcon(icon_path)) # Icono de ventana
         ui_path = os.path.join(parent_dir, "ui", "PantallaPrincipal.ui")
         uic.loadUi(ui_path, self)
