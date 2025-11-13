@@ -116,13 +116,16 @@ class ParticipanteManager:
 
                 # Se encarga de guardar el encabezado, a menos que el archivo este vacio
                 try:
-                    participantesMantenidos.append(next(reader))
+                    # Se lee el encabezado y se añade a la lista
+                    encabezado = next(reader)
+                    participantesMantenidos.append(encabezado)
                 except StopIteration:
+                    # Archivo vacio, no hay nada que eliminar
                     return False
         
                 for row in reader:
                         # Si tiene el mismo evento y mismo nombre, lo borra, si no, conservamos la fila
-                        if row[0] == nombre_evento and row[1] == nombre_participante:
+                        if row and row[0] == nombre_evento and row[1] == nombre_participante:
                             eliminado = True
                         else:
                             participantesMantenidos.append(row)
@@ -133,7 +136,7 @@ class ParticipanteManager:
                     writer.writerows(participantesMantenidos)
                 return True
         
-            return False
+            return False # No se encontró el participante a eliminar
     
         except (IOError, FileNotFoundError) as e:
             print(f"No se ha podido eliminar un participante: {e}")
