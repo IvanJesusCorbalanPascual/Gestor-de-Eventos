@@ -28,25 +28,19 @@ class GestionEvento(QtWidgets.QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "GestionDeEventos.ui")
-        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
-        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
-        self.setWindowTitle(f"Gestion del Evento: {nombreEvento}")
 
         # Variables principales
         self.nombreEvento = nombreEvento
         self.evento_obj = event_manager.buscar_evento(self.nombreEvento)
         self.participante_obj = None # Inicializa el participante seleccionado
         self.mesas_del_evento = []
-        self.asignador_mesas = AsignadorMesas() # Objeto asignador de mesas
-        self.lista_participantes = [] # Cadena de participantes
 
         # Mapeo de botones a metodos de la clase
         self.btnVolver.clicked.connect(self.volver_principal)
         self.btnActualizarParticipante.clicked.connect(self.abrir_actualizar_participante)
         self.btnAnyadirParticipante.clicked.connect(self.abrir_crear_participante)
         self.btnEliminarParticipante.clicked.connect(self.abrir_eliminar_participante)
-        self.btnAsignacionAutomatica.clicked.connect(self.ejecutar_asignacion_mesas)
         
         # Conexiones para Mesas
         self.btnAnyadirMesa.clicked.connect(self.abrir_anyadir_mesas)
