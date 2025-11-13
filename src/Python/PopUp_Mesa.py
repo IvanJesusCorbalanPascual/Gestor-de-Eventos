@@ -1,6 +1,7 @@
 import sys
 import os
 from PyQt5 import QtWidgets, uic
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMessageBox, QDialog
 from EventoManager import event_manager
 from ParticipanteManager import participante_manager
@@ -21,6 +22,8 @@ class AnyadirMesa(QtWidgets.QDialog):
         
         # Carga de la UI
         ui_path = os.path.join(UI_DIR, "AnyadirMesa.ui")
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         try:
              uic.loadUi(ui_path, self)
         except FileNotFoundError:
@@ -87,6 +90,8 @@ class EliminarMesa(QtWidgets.QDialog):
         
         # Carga de la UI
         ui_path = os.path.join(UI_DIR, "EliminarMesa.ui")
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         try:
              uic.loadUi(ui_path, self)
         except FileNotFoundError:

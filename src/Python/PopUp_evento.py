@@ -2,10 +2,11 @@ import sys
 import os
 import csv
 from PyQt5 import QtWidgets, uic, QtCore
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QDateTime
 from PyQt5.QtWidgets import QFileDialog
 from EventoManager import event_manager
-from Evento import Evento 
+from Evento import Evento
 from ParticipanteManager import participante_manager 
 from Participante import Participante
 
@@ -17,9 +18,11 @@ class ActualizarEvento(QtWidgets.QMainWindow):
 
         self.main_window = main_window
         self.nombre_evento_original = nombreEvento
-
+        
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         ui_path = os.path.join(parent_dir, "ui", "ActualizarEvento.ui")
         uic.loadUi(ui_path, self)
         self.setWindowTitle("Actualizar Evento")
@@ -111,8 +114,11 @@ class CrearEvento(QtWidgets.QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "CrearEvento.ui")
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
         print("Creando evento")
+        self.setWindowTitle("Creacion Evento")
 
         self.btnCrearEvento.clicked.connect(self.crear_nuevo_evento)
         self.btnCancelar.clicked.connect(self.volver_principal)
@@ -224,7 +230,10 @@ class EliminarEvento(QtWidgets.QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "EliminarEvento.ui")
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
+        self.setWindowTitle(f"Eliminar Evento {nombreEvento}")
 
         self.nombreEvento = nombreEvento
         self.mainWindow = mainWindow

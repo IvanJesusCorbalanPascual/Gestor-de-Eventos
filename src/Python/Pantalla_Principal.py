@@ -274,6 +274,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # Configurar la tabla
         self.tablaEventos.setRowCount(len(eventos_lista))
         self.tablaEventos.setColumnCount(5) 
+        header = self.tablaEventos.horizontalHeader()
+        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)   
         
         # Llenar la tabla con los datos
         for row_index, evento_obj in enumerate(eventos_lista):

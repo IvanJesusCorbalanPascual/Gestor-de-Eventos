@@ -1,9 +1,6 @@
 <RCC>
-  <qresource prefix="/images">
-    <file>boda.jpg</file>
-    <file>papus.png</file>
-  </qresource>
   <qresource prefix="/icons">
+    <file>iconoEvento.png</file>
     <file>mesa.png</file>
     <file>persona.png</file>
     <file>logoGT.png</file>
