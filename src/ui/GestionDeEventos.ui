@@ -421,7 +421,7 @@ QPushButton#btnVolver:hover {
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -706,14 +706,14 @@ QPushButton#btnAsignacionAutomatica:hover {
                 </property>
                 <property name="styleSheet">
                  <string notr="true">QWidget {
-    background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
+    background-color: #E6E0F8; /* Un azul cian o turquesa muy pálido */
 	font-weight: bold;
 border-radius: 12px; /* Bordes Redondeados para todos los botones */
-	border: 2px solid #4AEDFF; /* Borde sutil */
+	border: 2px solid #C0B0E0; /* Borde sutil */
 font-weight: bold;
 }
 QPushButton#btnGenerarInforme:hover {
-    background-color: #4AEDFF;
+    background-color: #C0B0E0;
 }</string>
                 </property>
                 <property name="text">
