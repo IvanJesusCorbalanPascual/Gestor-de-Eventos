@@ -3,8 +3,6 @@ from EventoManager import event_manager
 from ParticipanteManager import participante_manager
 from PyQt5.QtWidgets import QMessageBox
 
-print("[DEBUG] AsignacionAutomatica.py: Importaciones completadas (Modo Heuristico Mejorado).")
-
 # --- CLASES Y LOGICA DE ASIGNACION HEURISTICA ---
 
 class Mesa:
@@ -31,7 +29,7 @@ class Mesa:
         # 2a. Chequea si el NUEVO participante tiene enemigos en la mesa
         for nombre_enemigo in nuevo_participante.get_enemistades():
             if nombre_enemigo in self.nombres_participantes:
-                # Falla si hay un enemigo en la mesa
+                # Falla si hay un enemigo
                 return False, 0 
         
         # 2b. Chequea si ALGUN participante en la MESA tiene al nuevo como enemigo
@@ -42,7 +40,7 @@ class Mesa:
                 return False, 0 
                 
         # 3. CALCULO DE AMISTAD (Soft Constraint)
-        # Suma 10 puntos por cada amigo del nuevo que ya este en la mesa.
+        # Suma 10 puntos por cada amigo en la mesa.
         for nombre_amigo in nuevo_participante.get_amistades():
             if nombre_amigo in self.nombres_participantes:
                 amistad_score += 10 
@@ -64,20 +62,19 @@ class Mesa:
 
 def asignar_mesas_heuristicas(participantes: list[Participante], num_mesas: int, capacidad_mesa: int):
     """
-    Asigna mesas a los participantes usando una heuristica mejorada:
+    Asigna mesas a los participantes usando una heuristica.
     1. Respetar incompatibilidades.
     2. Maximizar amistades.
     3. Balancear mesas.
     """
-    print("[DEBUG] AsignacionAutomatica.py: Inicia asignacion_mesas_heuristicas (Mejorada).")
     
-    # 1. Inicializa las mesas y un mapa para busqueda rapida
+    # Inicializa mesas
     mesas = [Mesa(i + 1, capacidad_mesa) for i in range(num_mesas)]
     participante_map = {p.nombre: p for p in participantes}
 
-    # 2. Define la prioridad de asignacion (mayor prioridad = mas restricciones)
+    # Define prioridad de asignacion (mayor prioridad = mas restricciones)
     def prioridad_participante(p: Participante):
-        # Doble peso a las enemistades (para priorizar hard constraints)
+        # Doble peso a las enemistades para priorizar hard constraints
         peso_enemigo = len(p.get_enemistades()) * 2 
         peso_amigo = len(p.get_amistades())
         return peso_enemigo + peso_amigo
@@ -93,26 +90,26 @@ def asignar_mesas_heuristicas(participantes: list[Participante], num_mesas: int,
         
         # --- BUSQUEDA DE LA MEJOR MESA DISPONIBLE ---
         
-        # Paso 1: Itera y calcula el score para cada mesa
+        # calcula el score para cada mesa
         for mesa in mesas:
             es_valida, score = mesa.puede_aceptar(p, participante_map)
             
             if es_valida:
-                # Prioriza la mesa con el mejor score de amistad.
+                # Prioriza la mesa con mejor score de amistad
                 if score > mejor_score:
                     mejor_score = score
                     mejor_mesa = mesa
-                # Desempate: Si el score es igual, prioriza mesas con menos gente (para balancear)
+                # Score igual, prioriza mesas con menos gente
                 elif score == mejor_score and (mejor_mesa is None or len(mesa.participantes) < len(mejor_mesa.participantes)):
                     mejor_mesa = mesa
         
-        # Paso 2: Ejecuta la asignacion
+        # Ejecuta la asignacion
         if mejor_mesa is not None:
             mejor_mesa.asignar(p)
         else:
             participantes_no_asignados.append(p.nombre)
             
-    # 3. Devuelve la solucion en formato {nombre: mesa_numero}
+    # Devuelve la solucion
     solucion = {}
     for mesa in mesas:
         for p in mesa.participantes:
@@ -125,15 +122,14 @@ def ejecutar_asignacion_automatica(gestion_evento_window, nombre_evento: str):
     """
     Coordina la ejecucion de la asignacion automatica usando la heuristica.
     """
-    print("[DEBUG] AsignacionAutomatica.py: Inicia ejecutar_asignacion_automatica (Heuristico).")
     
     evento = event_manager.buscar_evento(nombre_evento)
     
-    # Obtiene el numero de mesas y capacidad (fija a 10)
+    # Obtiene numero de mesas y capacidad
     num_mesas = evento.get_num_mesas()
     capacidad_mesa = 10 
     
-    # Validacion: Chequea que haya mesas
+    # Chequea que haya mesas
     if num_mesas == 0:
         QMessageBox.warning(gestion_evento_window, "Advertencia", "El evento no tiene mesas definidas. Anade mesas antes de la asignacion automatica.")
         return
@@ -151,7 +147,7 @@ def ejecutar_asignacion_automatica(gestion_evento_window, nombre_evento: str):
     participantes_actualizados = 0
     participantes_asignados = len(solucion)
     
-    # 1. Aplica la solucion a los objetos Participante y los guarda
+    # Aplica la solucion a los objetos Participante y los guarda
     for p in todos_participantes:
         numero_mesa_asignada = solucion.get(p.nombre)
         
@@ -160,7 +156,7 @@ def ejecutar_asignacion_automatica(gestion_evento_window, nombre_evento: str):
         else:
             p.mesa_asignada = None # No asignado
         
-        # 2. Prepara los datos para actualizar el CSV
+        # Prepara los datos para actualizar el CSV
         nuevos_datos_list = [
             p.evento,
             p.nombre,
@@ -169,11 +165,11 @@ def ejecutar_asignacion_automatica(gestion_evento_window, nombre_evento: str):
             str(p.mesa_asignada) if p.mesa_asignada is not None else ''
         ]
 
-        # 3. Guarda en el CSV 
+        # Guarda en el CSV 
         if participante_manager.actualizar_participante(nombre_evento, p.nombre, nuevos_datos_list):
             participantes_actualizados += 1
 
-    # 4. Muestra el resultado
+    # Muestra el resultado
     if participantes_no_asignados:
         mensaje = f"Asignacion completada. Se asignaron {participantes_asignados} participantes, pero {len(participantes_no_asignados)} no pudieron ser asignados debido a conflictos de incompatibilidad o falta de capacidad."
         QMessageBox.warning(gestion_evento_window, "Asignacion Heuristica (Alerta)", mensaje)
@@ -187,7 +183,6 @@ def ejecutar_asignacion_automatica(gestion_evento_window, nombre_evento: str):
 
 def encontrar_incompatibilidades(participantes: list[Participante]):
     """ (Funcion de reporte interna). Busca pares de participantes con enemistad mutua."""
-    print("[DEBUG] AsignacionAutomatica.py: Inicia encontrar_incompatibilidades.")
     conflictos = []
     participante_map = {p.nombre: p for p in participantes}
     

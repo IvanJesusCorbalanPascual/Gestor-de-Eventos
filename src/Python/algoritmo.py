@@ -11,13 +11,13 @@ def asignar_mesas(participantes, tamano_mesa):
     nombres = [p.nombre for p in participantes]
     num_mesas = len(participantes) // tamano_mesa + 1
 
-    # Variables: mesa asignada a cada persona
+    # Variables de la mesa asignada a cada persona
     mesas = {
         nombre: model.NewIntVar(0, num_mesas - 1, nombre)
         for nombre in nombres
     }
 
-    # Restricciones de amistad y enemistad
+    # Restricciones amistad/enemistad
     for p in participantes:
         for amigo in p.amistades:
             if amigo in mesas:
@@ -26,10 +26,9 @@ def asignar_mesas(participantes, tamano_mesa):
             if enemigo in mesas:
                 model.Add(mesas[p.nombre] != mesas[enemigo])
 
-    # Restricción de tamaño máximo por mesa
-    # Usamos variables booleanas para controlar cuántas personas hay en cada mesa
+    # Restriccion tamano maximo mesa
     for m in range(num_mesas):
-        # Para cada mesa, creamos indicadores de quién está allí
+        # Indicadores de personas en la mesa
         indicators = []
         for nombre in nombres:
             b = model.NewBoolVar(f"{nombre}_en_mesa_{m}")
