@@ -348,6 +348,9 @@ QPushButton#btnEliminarEvento:hover {
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
       <column>
        <property name="text">
         <string>Nombre</string>
