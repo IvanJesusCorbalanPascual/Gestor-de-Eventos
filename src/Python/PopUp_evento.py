@@ -229,7 +229,7 @@ class EliminarEvento(QtWidgets.QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "EliminarEvento.ui")
-        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # Guardando la ruta del icono en la variable icon_path
         self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
         self.setWindowTitle(f"Eliminar Evento {nombreEvento}")

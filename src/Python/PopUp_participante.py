@@ -17,7 +17,7 @@ class CrearParticipante(QtWidgets.QDialog):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "AñadirParticipante.ui")
-        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # Guardando la ruta del icono en la variable icon_path
         self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
         self.setWindowTitle("Crear Participante")
@@ -36,12 +36,12 @@ class CrearParticipante(QtWidgets.QDialog):
         acompanyantes = self.lneAcompanyantes.text().strip()
         no_sentar_con = self.lneNoSentarCon.text().strip()
 
-        # Comprobacion minima de campos requeridos: Nombre
+        # La comprobación minima de campos requeridos es ek binvre
         if not nombre:
             QtWidgets.QMessageBox.warning(self, "Error", "El nombre del participante no puede estar vacio")
             return
 
-        # 1. Crea el objeto Participante (mesa_asignada es None por defecto)
+        # Crea el objeto Participante, siendo mesa_asignada None por defecto
         nuevo_participante = Participante(
             evento=self.nombreEvento, 
             nombre=nombre, 
@@ -49,13 +49,13 @@ class CrearParticipante(QtWidgets.QDialog):
             no_sentar_con=no_sentar_con
         )
         
-        # 2. Guardar el objeto en el CSV a traves del manager
+        # Guarda el objeto en el CSV a traves del manager
         if participante_manager.guardar_participante(nuevo_participante):
 
-            # Mostrar mensaje y actualizar la tabla en la ventana de gestion
+            # Muestra el mensaje y actualiza la tabla en la ventana de gestion
             QtWidgets.QMessageBox.information(self, "Participante Creado", f"Participante '{nombre}' añadido al evento '{self.nombreEvento}'")
             
-            # Recargando la tabla con los participantes tras cada operacion
+            # Recarga la tabla con los participantes tras cada operacion
             self.gestion_evento_window.cargar_participantes_en_tabla()
             self.gestion_evento_window.refrescar_listas_mesas_tab()  
             
@@ -82,7 +82,7 @@ class ActualizarParticipante(QtWidgets.QDialog):
         uic.loadUi(ui_path, self)
         self.setWindowTitle(f"Actualizar Participante: {nombre_participante}")
 
-        # 1. Cargamos los datos actuales al iniciar
+        # Carga los datos actuales al iniciar
         self.cargar_datos_actuales()
         
         # Conexion de los botones
@@ -112,7 +112,7 @@ class ActualizarParticipante(QtWidgets.QDialog):
             self.close()
 
     def confirmar_actualizacion(self):
-        # Obtener los nuevos datos del UI
+        # Obtiene los nuevos datos del UI
         nuevoNombre = self.lneActualizarNombreParticipante.text().strip()
         nuevosAcompanyantes = self.lneActualizarAcompanyantes.text().strip()
         nuevosNoSentarCon = self.lneActualizarNoSentarCon.text().strip()

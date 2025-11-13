@@ -33,7 +33,6 @@ class Participante:
 
     @staticmethod
     def from_csv_row(row):
-        # print("[DEBUG] Participante.py: from_csv_row llamado.")
         # Crea un objeto Participante a partir de una fila del CSV
         if len(row) >= 4:
             mesa = None

@@ -27,7 +27,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         # Cargando la interfaz
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
-        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # Guardando la ruta del icono en la variable icon_path
         self.setWindowIcon(QIcon(icon_path)) # Icono de ventana
         ui_path = os.path.join(parent_dir, "ui", "GestionDeEventos.ui")
         uic.loadUi(ui_path, self)
@@ -210,7 +210,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.popup_anyadir_mesa.finished.connect(self.recargar_datos_tras_actualizacion)
         self.popup_anyadir_mesa.show()
 
-    # abrir el pop-up de Eliminar Mesa
+    # Abrir el pop-up de Eliminar Mesa
     def abrir_eliminar_mesa(self):
         # Obtener la mesa seleccionada, como se hace para actualizar participante
         item_seleccionado = self.listWidgetMesas.currentItem()
@@ -224,7 +224,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         try:
             mesa_a_eliminar_num = int(nombre_mesa_seleccionada.split(' ')[1])
             
-            # 1. Comprobar que el numero de mesa es valido
+            # Comprueba que el numero de mesa es valido
             if mesa_a_eliminar_num <= 0 or mesa_a_eliminar_num > self.evento_obj.get_num_mesas():
                 QMessageBox.critical(self, "Error", f"Mesa {mesa_a_eliminar_num} no valida o no existente.")
                 return
@@ -234,7 +234,6 @@ class GestionEvento(QtWidgets.QMainWindow):
             return
             
         # Pasar el numero de mesa seleccionado al pop-up
-        # MODIFICACION: Se pasa el numero de mesa seleccionado al pop-up
         self.popup_eliminar_mesa = EliminarMesa(gestion_window=self, mesa_a_eliminar_num=mesa_a_eliminar_num)
         
         # Conecta la senal finished para recargar las mesas y participantes
@@ -256,7 +255,7 @@ class GestionEvento(QtWidgets.QMainWindow):
     # EVENT FILTER - Metodo que gestiona tanto la funcion de arrastrar como la de soltar
     def eventFilter(self, source, event):
         # Drop sobre la lista de participantes EN MESA (medio)
-        if source == self.listWidgetParticipantes.viewport(): #viewport es el area real donde se dibujan los items de la lista
+        if source == self.listWidgetParticipantes.viewport(): # Viewport es el area real donde se dibujan los items de la lista
             if event.type() == QtCore.QEvent.DragEnter:
                 event.acceptProposedAction()
                 
@@ -277,7 +276,7 @@ class GestionEvento(QtWidgets.QMainWindow):
 
         return super(GestionEvento, self).eventFilter(source, event)
 
-    # Logica de drop: ASIGNAR participante a mesa (drop en la lista MEDIA)
+    # Asigna el participante a mesa (drop en la lista MEDIA)
     def handle_drop_on_participantes_list(self, event):
         # Logica que se ejecuta cuando soltamos un item en la lista de PARTICIPANTES (medio)
         try:
@@ -323,14 +322,14 @@ class GestionEvento(QtWidgets.QMainWindow):
         try:
             numero_mesa = int(nombre_mesa.split(' ')[1])
             
-            # Chequeo de capacidad
+            # Comprueba la capacidad
             participantes_actuales = participante_manager.cargar_participantes_por_mesa(self.nombreEvento, numero_mesa)
             if len(participantes_actuales) >= 10: 
                 QMessageBox.warning(self, "Advertencia", f"La {nombre_mesa} ya esta llena (Capacidad: 10). No se puede asignar a {nombre_participante}")
                 return
                 
         except (ValueError, IndexError, StopIteration):
-            # En caso de StopIteration, significa que no se encontro la mesa_obj en self.mesas_del_evento.
+            # StopIteration, significa que no se encontro la mesa_obj en self.mesas_del_evento.
             # Podria intentar buscar el objeto mesa de otra manera o asumir que existe ya que se pasa en nombre_mesa.
             QMessageBox.critical(self, "Error", f"'{nombre_mesa}' no es un objeto de mesa valido")
             return
@@ -466,7 +465,7 @@ class GestionEvento(QtWidgets.QMainWindow):
             tabla.setItem(fila, 0, QTableWidgetItem(participante_obj.nombre))
             tabla.setItem(fila, 1, QTableWidgetItem(participante_obj.acompanyantes))
             tabla.setItem(fila, 2, QTableWidgetItem(participante_obj.no_sentar_con))
-            # si la mesa tiene un numero, lo coge, sino le asigna por default "PENDIENTE"
+            # Si la mesa tiene un numero, lo coge, sino le asigna por default "PENDIENTE"
             mesa_str = str(participante_obj.mesa_asignada) if participante_obj.mesa_asignada else "PENDIENTE" 
             tabla.setItem(fila, 3, QTableWidgetItem(mesa_str))
 
