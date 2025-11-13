@@ -1206,8 +1206,6 @@ QListWidget#listWidgetParticipantesSinMesas { /* Asegúrate de reemplazar con el
     border-radius: 5px;
     font-size: 14px;
     padding: 5px;
-    /* Alinear el contenido general de la vista */
-    qproperty-alignment: AlignCenter; 
 }
 
 /* Estilo para el hover */
