@@ -139,7 +139,6 @@ class ParticipanteManager:
             print(f"No se ha podido eliminar un participante: {e}")
             return False
 
-    # NUEVO METODO: Renumeracion de mesas tras eliminacion
     def renumerar_mesas_tras_eliminacion(self, nombre_evento: str, mesa_eliminada: int) -> bool:
         """
         Elimina la mesa asignada a los participantes de la mesa_eliminada 
@@ -158,10 +157,10 @@ class ParticipanteManager:
                     return False
 
                 for row in reader:
-                    # Solo procesar filas del evento correcto
+                    # Procesando filas del evento
                     if row[0] == nombre_evento:
                         
-                        # La mesa esta en la columna 4 (indice 4)
+                        # La mesa esta en la columna 4
                         mesa_actual_str = row[4].strip() if len(row) > 4 else ''
                         
                         try:
@@ -173,11 +172,11 @@ class ParticipanteManager:
                             
                         # Logica de reasignacion/renumeracion
                         if mesa_actual_num == mesa_eliminada:
-                            # 1. Mesa eliminada: Se desasigna (mesa = '')
+                            # Mesa eliminada (mesa: '')
                             row[4] = ''
                             actualizado = True
                         elif mesa_actual_num > mesa_eliminada:
-                            # 2. Mesas superiores: Se decrementa el numero de mesa
+                            # Mesas superiores: Se decrementa el numero de mesa
                             row[4] = str(mesa_actual_num - 1)
                             actualizado = True
 

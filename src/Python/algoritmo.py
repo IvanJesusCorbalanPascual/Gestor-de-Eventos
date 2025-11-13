@@ -5,14 +5,6 @@ class Persona:
         self.amistades = amistades or []
         self.enemistades = enemistades or []
 
-personas = [
-    Persona("Ana", amistades=["Luis"]),
-    Persona("Luis", amistades=["Ana", "Sofía"]),
-    Persona("Marta", enemistades=["Pedro"]),
-    Persona("Pedro", enemistades=["Marta"]),
-    Persona("Sofía", amistades=["Luis"], enemistades=["Marta"]),
-]
-
 def asignar_mesas(participantes, tamano_mesa):
     model = cp_model.CpModel()
 
@@ -58,6 +50,3 @@ def asignar_mesas(participantes, tamano_mesa):
         return {nombre: solver.Value(mesas[nombre]) for nombre in nombres}
     else:
         return None
-    
-sol = asignar_mesas(personas, tamano_mesa=3)
-print(sol)

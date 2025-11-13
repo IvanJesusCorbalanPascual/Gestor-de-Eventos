@@ -191,6 +191,16 @@
         <property name="locale">
          <locale language="English" country="UnitedStates"/>
         </property>
+        <property name="dateTime">
+         <datetime>
+          <hour>23</hour>
+          <minute>59</minute>
+          <second>59</second>
+          <year>2025</year>
+          <month>11</month>
+          <day>13</day>
+         </datetime>
+        </property>
         <property name="calendarPopup">
          <bool>true</bool>
         </property>
@@ -502,7 +512,7 @@ QPushButton#btnCrearEvento:hover {
      <x>0</x>
      <y>0</y>
      <width>707</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

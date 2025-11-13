@@ -161,6 +161,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle("Gestor de Eventos")
         # Asignando el tema al iniciar la pantalla
         self.setStyleSheet(TEMA_PANTALLA_PRINCIPAL) 
+        # Configuracion inicial de la tabla
+        header = self.tablaEventos.horizontalHeader()
+        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch) 
        
         
         # Mapeo de botones
@@ -221,9 +224,9 @@ class MainWindow(QtWidgets.QMainWindow):
         tabla = self.tablaEventos
         consultaToLow = consulta.lower().strip()
 
-        # Bucle que recorre todos los Eventos (Filas) buscando un texto que coincida
-        # con el de la consulta realizada por el usuario, si coincide lo deja visible, sino
-        # lo esconde 
+        """Bucle que recorre todos los Eventos (Filas) buscando un texto que coincida
+        con el de la consulta realizada por el usuario, si coincide lo deja visible, sino
+        lo esconde""" 
         for fila in range(tabla.rowCount()):
             itemTarea = tabla.item(fila,0)
 
@@ -274,8 +277,6 @@ class MainWindow(QtWidgets.QMainWindow):
         # Configurar la tabla
         self.tablaEventos.setRowCount(len(eventos_lista))
         self.tablaEventos.setColumnCount(5) 
-        header = self.tablaEventos.horizontalHeader()
-        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)   
         
         # Llenar la tabla con los datos
         for row_index, evento_obj in enumerate(eventos_lista):
@@ -294,3 +295,5 @@ class MainWindow(QtWidgets.QMainWindow):
         # Ocultando el indice vertical (los numeros de fila)
         self.tablaEventos.verticalHeader().setVisible(False)
         self.tablaEventos.resizeColumnsToContents()
+        header = self.tablaEventos.horizontalHeader()
+        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)

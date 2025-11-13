@@ -770,79 +770,6 @@ QPushButton#btnGenerarInforme:hover {
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="btnAsignacionAutomatica">
-                <property name="minimumSize">
-                 <size>
-                  <width>240</width>
-                  <height>40</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Alef</family>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <italic>false</italic>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QWidget {
-    background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
-	font-weight: bold;
-border-radius: 12px; /* Bordes Redondeados para todos los botones */
-	border: 2px solid #4AEDFF; /* Borde sutil */
-font-weight: bold;
-}
-QPushButton#btnAsignacionAutomatica:hover {
-    background-color: #4AEDFF;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Asignacion Automática</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btnGenerarInforme">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>40</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Arial</family>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QWidget {
-    background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
-	font-weight: bold;
-border-radius: 12px; /* Bordes Redondeados para todos los botones */
-	border: 2px solid #4AEDFF; /* Borde sutil */
-font-weight: bold;
-}
-QPushButton#btnGenerarInforme:hover {
-    background-color: #4AEDFF;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Generar Informe</string>
-                </property>
-               </widget>
-              </item>
              </layout>
             </item>
             <item>
@@ -1110,13 +1037,11 @@ QListWidget#listWidgetMesas { /* Usa el objectName real de tu lista de Mesas */
     border-radius: 8px; /* Bordes más suaves */
     font-size: 15px; /* Ligeramente más grande */
     padding: 5px;
-text-align: center;
 
 }
 
 /* Centrado del texto en TODOS los ítems de QListWidget (horizontal) */
 QListWidget#listWidgetMesas::item {
-    text-align: center;
     /* Estilo base de los ítems: el color que querías para todas las mesas */
     background-color: #B0E0E6; /* Azul claro suave (como el de tu imagen) */
     color: #1E1E1E; /* Texto oscuro para contraste */
@@ -1134,7 +1059,6 @@ QListWidget#listWidgetMesas::item:selected {
     background: #4682B4; /* Azul Acero (color de selección fuerte) */
     color: white;
     font-weight: bold; /* Destacar el seleccionado */
-text-align: center;
 }</string>
               </property>
               <property name="dragEnabled">
@@ -1225,11 +1149,6 @@ QListWidget#listWidgetParticipantes {
     /* Removido: qproperty-alignment no es válido para QListWidget */
 }
 
-/* Centrado del texto en TODOS los ítems de QListWidget (horizontal) */
-QListWidget#listWidgetParticipantes::item {
-    text-align: center;
-}
-
 /* Estilo para el hover */
 QListWidget#listWidgetParticipantes::item:hover {
     background: #EFEFEF; /* Gris muy suave en hover */
@@ -1242,16 +1161,6 @@ QListWidget#listWidgetParticipantes::item:selected {
     border-left: 5px solid #4A90E2; /* Barra de color primario a la izquierda para destacar */
 }</string>
               </property>
-              <item>
-               <property name="text">
-                <string>a</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>s</string>
-               </property>
-              </item>
              </widget>
             </item>
            </layout>
@@ -1299,12 +1208,6 @@ QListWidget#listWidgetParticipantesSinMesas { /* Asegúrate de reemplazar con el
     padding: 5px;
     /* Alinear el contenido general de la vista */
     qproperty-alignment: AlignCenter; 
-}
-
-/* 2. LISTA DETALLE (Participantes sin mesa) */
-QListWidget#listWidgetParticipantesSinMesas::item {
-    /* Opción 2: Alinear el texto dentro del ítem */
-    text-align: center;
 }
 
 /* Estilo para el hover */

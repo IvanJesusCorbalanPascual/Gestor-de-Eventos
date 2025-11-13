@@ -27,13 +27,15 @@ class GestionEvento(QtWidgets.QMainWindow):
         # Cargando la interfaz
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path)) # Icono de ventana
         ui_path = os.path.join(parent_dir, "ui", "GestionDeEventos.ui")
         uic.loadUi(ui_path, self)
+        self.setWindowTitle(f"Gestion del Evento: {nombreEvento}")
 
         # Creando la Variables principales
         self.nombreEvento = nombreEvento
         self.evento_obj = event_manager.buscar_evento(self.nombreEvento)
-        # Nota: self.nombreParticipante no esta definido en el constructor
         self.participante_obj = participante_manager.buscar_participante(self.nombreEvento, self.nombreParticipante) if hasattr(self, 'nombreParticipante') else None
         self.mesas_del_evento = []
 
@@ -43,15 +45,15 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.btnAnyadirParticipante.clicked.connect(self.abrir_crear_participante)
         self.btnEliminarParticipante.clicked.connect(self.abrir_eliminar_participante)
         
-        # para la funcionalidad de Actualizar Mesas.
+        # Funcionalidad de Actualizar Mesas.
         self.btnAnyadirMesa.clicked.connect(self.abrir_anyadir_mesas)
         self.btnEliminarMesa.clicked.connect(self.abrir_eliminar_mesa)
-
         # Conexion para generar el informe CSV
         self.btnGenerarInforme.clicked.connect(self.generar_informe_csv)
         
         # Conexion para el boton de asignacion automatica
         self.btnAsignacionAutomatica.clicked.connect(self.ejecutar_asignacion_automatica_ui)
+        
         
         # Conexion para filtrar participantes por texto
         self.lneBuscadorParticipante.textChanged.connect(self.filtrar_participantes) 
@@ -469,6 +471,8 @@ class GestionEvento(QtWidgets.QMainWindow):
             tabla.setItem(fila, 3, QTableWidgetItem(mesa_str))
 
         tabla.resizeColumnsToContents()
+        header = self.tablaParticipantes.horizontalHeader()
+        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
     def cargar_participantes_en_tabla(self):
         # Este metodo carga todos los participantes sin filtro
@@ -476,7 +480,6 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.cargar_tabla_con_participantes(participantes_lista)
         print("Lista de participantes cargada")
 
-    # NUEVO METODO: Filtrar participantes basado en el texto del buscador
     def filtrar_participantes(self):
         # El widget existe debido a la corrección del objectName
         texto_busqueda = self.lneBuscadorParticipante.text().lower().strip()

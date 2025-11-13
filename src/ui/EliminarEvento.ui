@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>470</width>
-    <height>225</height>
+    <width>493</width>
+    <height>226</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
         <property name="font">
          <font>
           <family>Palatino Linotype</family>
-          <pointsize>10</pointsize>
+          <pointsize>14</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
@@ -48,25 +48,48 @@
         </property>
         <item>
          <widget class="QPushButton" name="btnBorrar">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>60</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Alef</family>
             <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
            <string notr="true">QWidget {
     background-color: rgb(255, 168, 165); /* Un rojo pastel o rosa muy claro */
-	padding:20px;
+	
+	border: 2px solid #F08080; /* Borde sutil */
+	font-weight: bold;
+	padidng:20px;
+}
+QPushButton#btnBorrar:hover {
+    background-color: #F08080;
 }</string>
           </property>
           <property name="text">
-           <string>BORRAR</string>
+           <string>BORRAR EVENTO</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="btnCancelarEliminar">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Alef</family>
@@ -95,8 +118,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>470</width>
-     <height>26</height>
+     <width>493</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

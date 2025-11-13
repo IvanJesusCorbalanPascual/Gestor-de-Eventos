@@ -203,10 +203,10 @@ class CrearEvento(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(self, "Error", "Por favor, complete todos los campos")
             return
 
-        # 1. Creamos el objeto Evento
+        # Creamos el objeto Evento
         nuevo_evento = Evento(nombre, fecha_obj, ubicacion, organizador, str(num_mesas))
         
-        # 2. Guardar el objeto en el CSV a traves del manager
+        # Guardar el objeto en el CSV a traves del manager
         if event_manager.guardar_evento(nuevo_evento):
 
             mensaje_csv = ""
@@ -222,7 +222,6 @@ class CrearEvento(QtWidgets.QMainWindow):
             self.close()
         else:
             QtWidgets.QMessageBox.critical(self, "Error de Guardado", "No se pudo guardar el evento en la base de datos")
-
 
 class EliminarEvento(QtWidgets.QMainWindow):
     def __init__(self, nombreEvento, mainWindow):
@@ -250,9 +249,7 @@ class EliminarEvento(QtWidgets.QMainWindow):
     def confirmar_eliminacion(self):
         # Eliminados el evento del CSV llamando al manager
         if event_manager.eliminar_evento(self.nombreEvento):
-            # Pendiente: eliminar tambien los participantes asociados a este evento
 
-            # Muestra un mensaje mostrando que ha funcionado
             QtWidgets.QMessageBox.information(self, "Evento Eliminado", f"Se ha eliminado el evento '{self.nombreEvento}' exitosamente")
 
             # Actualiza la tabla en la ventana principal
