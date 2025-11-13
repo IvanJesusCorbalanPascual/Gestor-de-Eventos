@@ -89,8 +89,6 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.cargar_participantes_en_tabla()
         self.refrescar_listas_mesas_tab()
 
-        print("[DEBUG] Gestion_Evento.py: Instancia de GestionEvento inicializada.")
-
     # METODO PARA LA ASIGNACION AUTOMATICA
     def ejecutar_asignacion_automatica_ui(self):
         # Llama a la funcion externa de asignacion y pasa la ventana actual para el refresco
@@ -122,13 +120,11 @@ class GestionEvento(QtWidgets.QMainWindow):
             return
         
         tamano_mesa=10
-        print("Hola")
         solucion = self.asignador_mesas.asignar_mesas(
             lista_participantes, 
             tamano_mesa, 
             num_mesas_total
         )
-        print("Adios")
 
         if solucion is None:
             print("No se puedo llevar a cabo la asignacion automatica")
@@ -165,8 +161,6 @@ class GestionEvento(QtWidgets.QMainWindow):
 
         # Refrescando la lista de mesas
         self.refrescar_listas_mesas_tab()
-        
-        print("Asignación automática finalizada y UI refrescada.")
         
     # --- Metodo para la gestion de UI de Mesas ---
     def actualizar_estado_boton_eliminar_mesa(self):
@@ -499,7 +493,6 @@ class GestionEvento(QtWidgets.QMainWindow):
             
         # Recargar la tabla con la lista filtrada
         self.cargar_tabla_con_participantes(participantes_filtrados)
-        print(f"Lista de participantes filtrada por: '{texto_busqueda}'")
 
     # Pop Up's
     def abrir_crear_participante(self):
@@ -553,8 +546,6 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.popup_eliminar.show()
 
     def generar_informe_csv(self):
-        print("Iniciando a generar el informe de CSV")
-
         # Comprueba que el objeto evento esta cargado
         evento = self.evento_obj
         if not evento:

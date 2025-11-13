@@ -117,7 +117,6 @@ class CrearEvento(QtWidgets.QMainWindow):
         icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
         self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
-        print("Creando evento")
         self.setWindowTitle("Creacion Evento")
 
         self.btnCrearEvento.clicked.connect(self.crear_nuevo_evento)
@@ -135,7 +134,6 @@ class CrearEvento(QtWidgets.QMainWindow):
             self.csv_path_adjuntado = file_path
             file_name = os.path.basename(file_path)
             self.btnAdjuntarCSV.setText(f"Adjuntado: {file_name}")
-            print(f"El archivo CSV adjuntado es: {file_name}")
 
     def importar_participantes_csv(self, file_path, nombre_evento):
         contador = 0
@@ -170,8 +168,6 @@ class CrearEvento(QtWidgets.QMainWindow):
         except Exception as e:
             print(f"Error de procesamiento en el CSV: {e}")
             return f"Error de procesamiento en el CSV: {e}"
-        
-        print(f"Se han importado {contador} participantes.")
         return contador
 
     def crear_nuevo_evento(self):
@@ -190,7 +186,6 @@ class CrearEvento(QtWidgets.QMainWindow):
  
             if num_mesas <= 0:
                 raise ValueError("El numero debe ser positivo")
-            print(f"Numero de mesas valido: {num_mesas}")
 
         except ValueError:
 
