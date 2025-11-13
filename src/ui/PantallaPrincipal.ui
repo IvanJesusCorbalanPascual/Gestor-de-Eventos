@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>936</width>
-    <height>467</height>
+    <width>1373</width>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -342,7 +342,7 @@ QPushButton#btnEliminarEvento:hover {
       <property name="font">
        <font>
         <family>MS Shell Dlg 2</family>
-        <pointsize>18</pointsize>
+        <pointsize>14</pointsize>
        </font>
       </property>
       <property name="styleSheet">

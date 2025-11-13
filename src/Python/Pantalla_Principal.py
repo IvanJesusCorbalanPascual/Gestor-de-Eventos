@@ -8,16 +8,16 @@ from EventoManager import event_manager
 from Gestion_Evento import GestionEvento 
 from Evento import Evento 
 
-# Constantes con los estilos sin tildes
+# Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
 TEMA_PANTALLA_PRINCIPAL=("""       
 /* Color de Fondo de la Ventana Principal */
 QMainWindow, QWidget#centralwidget {
     background-color: #B0E0E6; /* Azul claro suave para el fondo general (como el Aqua Pale) */
 }
 
-/* -------------------------------------- */
+
 /* 1. ESTILO DE LA TABLA (QTableWidget) */
-/* -------------------------------------- */
+
 QTableWidget {
     background-color: #A5E0FF; /* Azul Cielo mas intenso para el fondo de la tabla */
     border: none;
@@ -46,9 +46,9 @@ QTableWidget::item:selected {
     color: white;
 }
 
-/* -------------------------------------- */
+
 /* 2. ESTILO DEL BUSCADOR (QLineEdit) */
-/* -------------------------------------- */
+
 QLineEdit#lneBuscador { /* Usa tu objectName real */
     background-color: #E0FFFF; /* Azul Celeste muy claro */
     border: 2px solid #87CEFA; /* Borde sutil */
@@ -57,9 +57,9 @@ QLineEdit#lneBuscador { /* Usa tu objectName real */
     margin-right: 10px; /* Margen para separarlo de los botones */
 }
 
-/* -------------------------------------- */
+
 /* 3. ESTILO DE LOS BOTONES DE ACCION */
-/* -------------------------------------- */
+
 QPushButton {
     /* Estilos base comunes */
     border: none;
@@ -69,7 +69,7 @@ QPushButton {
     color: black;
 }
 """)
-# Constantes que almacenan los estilos para utilizarlos mas comodamente en el resto del codigo
+
 TEMA_OSCURO=("""
                 QMainWindow{background-color:#2d2d2d;}
                 QWidget{background-color:#2d2d2d;color:#ffffff;}
@@ -88,9 +88,9 @@ QMainWindow, QWidget#centralwidget {
     color: #1E1E1E; /* Texto oscuro */
 }
 
-/* -------------------------------------- */
+
 /* 1. ESTILO DE LA TABLA (QTableWidget) */
-/* -------------------------------------- */
+
 QTableWidget {
      background-color: #F0FFF0; /* Blanco mas puro para el fondo de la tabla */
     border: 1px solid #90EE90; /* Borde verde claro */
@@ -118,9 +118,9 @@ QTableWidget::item:selected {
     color: black; /* Texto oscuro sobre seleccion clara */
 }
 
-/* -------------------------------------- */
+
 /* 2. ESTILO DEL BUSCADOR (QLineEdit) */
-/* -------------------------------------- */
+
 QLineEdit#lneBuscador { /* Usa tu objectName real */
     background-color: #FFFFFF; /* Blanco limpio */
     border: 2px solid #66CDAA; /* Borde suave de color Aguamarina */
@@ -130,9 +130,9 @@ QLineEdit#lneBuscador { /* Usa tu objectName real */
     color: #1E1E1E;
 }
 
-/* -------------------------------------- */
+
 /* 3. ESTILO DE LOS BOTONES DE ACCION */
-/* -------------------------------------- */
+
 QPushButton {
     /* Estilos base comunes */
     background-color: #6B8E23; /* Verde Oliva Oscuro como color primario */
@@ -274,6 +274,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # Configurar la tabla
         self.tablaEventos.setRowCount(len(eventos_lista))
         self.tablaEventos.setColumnCount(5) 
+        header = self.tablaEventos.horizontalHeader()
+        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)   
         
         # Llenar la tabla con los datos
         for row_index, evento_obj in enumerate(eventos_lista):
