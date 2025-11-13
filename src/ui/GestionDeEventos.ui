@@ -451,7 +451,7 @@ QPushButton#btnVolver:hover {
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -763,6 +763,79 @@ font-weight: bold;
 }
 QPushButton#btnGenerarInforme:hover {
     background-color: #C0B0E0;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Generar Informe</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnAsignacionAutomatica">
+                <property name="minimumSize">
+                 <size>
+                  <width>240</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Alef</family>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <italic>false</italic>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QWidget {
+    background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
+	font-weight: bold;
+border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #4AEDFF; /* Borde sutil */
+font-weight: bold;
+}
+QPushButton#btnAsignacionAutomatica:hover {
+    background-color: #4AEDFF;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Asignacion Automática</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnGenerarInforme">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QWidget {
+    background-color: rgb(204, 255, 255); /* Un azul cian o turquesa muy pálido */
+	font-weight: bold;
+border-radius: 12px; /* Bordes Redondeados para todos los botones */
+	border: 2px solid #4AEDFF; /* Borde sutil */
+font-weight: bold;
+}
+QPushButton#btnGenerarInforme:hover {
+    background-color: #4AEDFF;
 }</string>
                 </property>
                 <property name="text">
