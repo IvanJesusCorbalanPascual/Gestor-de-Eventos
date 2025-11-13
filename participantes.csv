@@ -62,49 +62,49 @@ Taller_Python_Basico,Óscar Flores,Irene Díaz,Irene Díaz,9
 Taller_Python_Basico,Marta Pérez,,Óscar Flores,10
 Taller_Python_Basico,Fernando Blanco,,Jesús Martín,
 
-Jornada_Innovacion,Guillermo Soria,Marina Díez,Sergio Montes,1
-Jornada_Innovacion,Marina Díez,Guillermo Soria,Álvaro Gil,1
-Jornada_Innovacion,Sergio Montes,,Guillermo Soria,2
-Jornada_Innovacion,Álvaro Gil,,Marina Díez,2
+Jornada_Innovacion,Guillermo Soria,Marina Díez,Sergio Montes,2
+Jornada_Innovacion,Marina Díez,Guillermo Soria,Álvaro Gil,2
+Jornada_Innovacion,Sergio Montes,,Guillermo Soria,10
+Jornada_Innovacion,Álvaro Gil,,Marina Díez,11
 Jornada_Innovacion,Elena Castro,Daniel Pérez,Sergio Montes,3
 Jornada_Innovacion,Daniel Pérez,Elena Castro,Carla Núñez,3
-Jornada_Innovacion,Carla Núñez,,Daniel Pérez,4
+Jornada_Innovacion,Carla Núñez,,Daniel Pérez,12
 Jornada_Innovacion,Jorge López,Raquel Sanz,Carla Núñez,4
 Jornada_Innovacion,Raquel Sanz,Jorge López,Jorge López,5
-Jornada_Innovacion,Antonio Martín,,Raquel Sanz,5
-Jornada_Innovacion,Laura Vidal,Fernando Ruíz,"Antonio Martín, Guillermo Soria",6
-Jornada_Innovacion,Fernando Ruíz,Laura Vidal,Fernando Ruíz,6
-Jornada_Innovacion,Sofía Torres,,Fernando Ruíz,7
-Jornada_Innovacion,Iván Gómez,Teresa Valls,Sofía Torres,7
-Jornada_Innovacion,Teresa Valls,Iván Gómez,Iván Gómez,8
-Jornada_Innovacion,Pedro Cano,,Teresa Valls,8
-Jornada_Innovacion,Nuria Díaz,Jesús Herrera,Pedro Cano,9
+Jornada_Innovacion,Antonio Martín,,Raquel Sanz,13
+Jornada_Innovacion,Laura Vidal,Fernando Ruíz,"Antonio Martín, Guillermo Soria",1
+Jornada_Innovacion,Fernando Ruíz,Laura Vidal,Fernando Ruíz,1
+Jornada_Innovacion,Sofía Torres,,Fernando Ruíz,14
+Jornada_Innovacion,Iván Gómez,Teresa Valls,Sofía Torres,6
+Jornada_Innovacion,Teresa Valls,Iván Gómez,Iván Gómez,7
+Jornada_Innovacion,Pedro Cano,,Teresa Valls,15
+Jornada_Innovacion,Nuria Díaz,Jesús Herrera,Pedro Cano,8
 Jornada_Innovacion,Jesús Herrera,Nuria Díaz,Nuria Díaz,9
-Jornada_Innovacion,Marta Blanco,,Jesús Herrera,10
-Jornada_Innovacion,Víctor López,,Elena Castro,
+Jornada_Innovacion,Marta Blanco,,Jesús Herrera,16
+Jornada_Innovacion,Víctor López,,Elena Castro,17
 
 Evento_Aniversario_2025,Rubén Nieto,Ana Torres,Sofía Vidal,1
 Evento_Aniversario_2025,Ana Torres,Rubén Nieto,Marcos Soto,1
-Evento_Aniversario_2025,Sofía Vidal,,Ana Torres,2
-Evento_Aniversario_2025,Marcos Soto,,Rubén Nieto,2
-Evento_Aniversario_2025,Laura Vega,Daniel Gil,Sofía Vidal,3
-Evento_Aniversario_2025,Daniel Gil,Laura Vega,Javier Ramos,3
-Evento_Aniversario_2025,Javier Ramos,,Daniel Gil,4
-Evento_Aniversario_2025,Carla Ruiz,Pedro Martín,Javier Ramos,4
-Evento_Aniversario_2025,Pedro Martín,Carla Ruiz,Carla Ruiz,5
-Evento_Aniversario_2025,Elena Pérez,,Pedro Martín,5
-Evento_Aniversario_2025,Pablo Cruz,Nerea Blanco,Elena Pérez,6
-Evento_Aniversario_2025,Nerea Blanco,Pablo Cruz,Pablo Cruz,6
-Evento_Aniversario_2025,Álvaro López,,Nerea Blanco,7
-Evento_Aniversario_2025,Marta Díaz,Sergio Montes,Álvaro López,7
-Evento_Aniversario_2025,Sergio Montes,Marta Díaz,Sergio Montes,8
-Evento_Aniversario_2025,Iván González,,Marta Díaz,8
-Evento_Aniversario_2025,Paula Soler,"David Cano, Rosa Marín",Iván González,9
-Evento_Aniversario_2025,David Cano,"Paula Soler, Rosa Marín",Paula Soler,9
-Evento_Aniversario_2025,Rosa Marín,"Paula Soler, David Cano",David Cano,10
+Evento_Aniversario_2025,Sofía Vidal,,Ana Torres,
+Evento_Aniversario_2025,Marcos Soto,,Rubén Nieto,
+Evento_Aniversario_2025,Laura Vega,Daniel Gil,Sofía Vidal,2
+Evento_Aniversario_2025,Daniel Gil,Laura Vega,Javier Ramos,2
+Evento_Aniversario_2025,Javier Ramos,,Daniel Gil,3
+Evento_Aniversario_2025,Carla Ruiz,Pedro Martín,Javier Ramos,3
+Evento_Aniversario_2025,Pedro Martín,Carla Ruiz,Carla Ruiz,4
+Evento_Aniversario_2025,Elena Pérez,,Pedro Martín,4
+Evento_Aniversario_2025,Pablo Cruz,Nerea Blanco,Elena Pérez,5
+Evento_Aniversario_2025,Nerea Blanco,Pablo Cruz,Pablo Cruz,5
+Evento_Aniversario_2025,Álvaro López,,Nerea Blanco,6
+Evento_Aniversario_2025,Marta Díaz,Sergio Montes,Álvaro López,6
+Evento_Aniversario_2025,Sergio Montes,Marta Díaz,Sergio Montes,7
+Evento_Aniversario_2025,Iván González,,Marta Díaz,7
+Evento_Aniversario_2025,Paula Soler,"David Cano, Rosa Marín",Iván González,8
+Evento_Aniversario_2025,David Cano,"Paula Soler, Rosa Marín",Paula Soler,8
+Evento_Aniversario_2025,Rosa Marín,"Paula Soler, David Cano",David Cano,9
 Evento_Aniversario_2025,Fernando Pérez,,Laura Vega,
 
-test_100,1,2,3,1
+test_100,1S,2,3,1
 test_100,2,1,4,1
 test_100,3,4,5,2
 test_100,4,3,6,2
@@ -170,7 +170,7 @@ test_100,63,64,65,32
 test_100,64,63,66,32
 test_100,65,66,67,33
 test_100,66,65,68,33
-test_100,67,68,69,34
+test_100,67,68,69D,34
 test_100,68,67,70,34
 test_100,69,70,71,35
 test_100,70,69,72,35
