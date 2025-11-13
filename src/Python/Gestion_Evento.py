@@ -4,6 +4,7 @@ import sys
 import os
 import csv
 import math
+import re
 from PyQt5 import QtWidgets, uic, QtCore
 from EventoManager import event_manager
 from PopUp_participante import CrearParticipante, ActualizarParticipante, EliminarParticipante
@@ -334,6 +335,39 @@ class GestionEvento(QtWidgets.QMainWindow):
         if not participante_obj:
             QMessageBox.critical(self, "Error", f"No se pudo encontrar al participante '{nombre_participante}'")
             return
+        
+
+        print(f"Comprobando incompatibilidades de {participante_obj.nombre} en {nombre_mesa}")
+
+        lista_incompatibilidad_arrastrado_str = participante_obj.no_sentar_con or ""
+        lista_incompatibilidad_arrastrado = [n.strip() for n in re.split(r'[,;]+', lista_incompatibilidad_arrastrado_str) if n.strip()]
+
+        for p_en_mesa in participantes_actuales:
+            
+            # Comprueba si el que arrastramos tiene incompatibilidad con alguien de la mesa y cancela la asignación si es así
+            if p_en_mesa.nombre in lista_incompatibilidad_arrastrado:
+                mensaje_error = (
+                    f"¡No es posible asignar a {participante_obj.nombre}!\n\n"
+                    f"Motivo: No quiere sentarse con {p_en_mesa.nombre}, que ya está en esta mesa."
+                )
+                QMessageBox.warning(self, "¡Existe un Conflicto!", mensaje_error)
+                return
+            
+            lista_incompatibilidad_en_mesa_str = p_en_mesa.no_sentar_con or ""
+            lista_incompatibilidad_en_mesa = [n.strip() for n in re.split(r'[,;]+', lista_incompatibilidad_en_mesa_str) if n.strip()]
+
+            if participante_obj.nombre in lista_incompatibilidad_en_mesa:
+                mensaje_error = (
+                    f"¡No es posible asignar a {participante_obj.nombre}!\n\n"
+                    f"Motivo: {p_en_mesa.nombre} ya esta en esta mesa y no quiere sentarse con él."
+                )
+                QMessageBox.warning(self, "¡Existe un Conflicto!", mensaje_error)
+                return
+            
+            print("No hay conflictos, asignando..")
+            
+
+
         
         # Si no hay chequeo de incompatibilidad, se asigna directamente
 
