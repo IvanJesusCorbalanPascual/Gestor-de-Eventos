@@ -5,6 +5,7 @@ import os
 import csv
 import math
 from PyQt5 import QtWidgets, uic, QtCore
+from PyQt5.QtGui import QIcon
 from EventoManager import event_manager
 from PopUp_participante import CrearParticipante, ActualizarParticipante, EliminarParticipante
 from ParticipanteManager import participante_manager
@@ -26,7 +27,10 @@ class GestionEvento(QtWidgets.QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "GestionDeEventos.ui")
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
+        self.setWindowTitle(f"Gestion del Evento: {nombreEvento}")
 
         # Creando la Variables principales
         self.nombreEvento = nombreEvento
@@ -454,6 +458,8 @@ class GestionEvento(QtWidgets.QMainWindow):
         tabla.setColumnCount(4)
         column_headers = [f'{header}', 'Acompanantes', 'No Sentar Con', 'Mesa']
         tabla.setHorizontalHeaderLabels(column_headers)
+        header = self.tablaParticipantes.horizontalHeader()
+        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
         # Bucle que por cada lista y objeto de la lista de participantes, rellena la tabla con los datos
         for fila, participante_obj in enumerate(participantes_lista):

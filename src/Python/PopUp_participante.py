@@ -1,6 +1,7 @@
 import sys
 import os
 from PyQt5 import QtWidgets, uic
+from PyQt5.QtGui import QIcon
 from ParticipanteManager import participante_manager
 from Participante import Participante # Importando la clase Participante
 
@@ -8,7 +9,6 @@ class CrearParticipante(QtWidgets.QDialog):
     # Pop-up para añadir un nuevo participante a un evento
     def __init__(self, gestion_evento_window, nombreEvento):
         super(CrearParticipante, self).__init__()
-
         # Guarda la referencia a la ventana de gestion del evento para actualizar la tabla
         self.gestion_evento_window = gestion_evento_window
         # Guarda el nombre del evento actual
@@ -17,7 +17,10 @@ class CrearParticipante(QtWidgets.QDialog):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "AñadirParticipante.ui")
+        icon_path = os.path.join(parent_dir,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         uic.loadUi(ui_path, self)
+        self.setWindowTitle("Crear Participante")
         
         # Mapeo de botones
         self.btnCrear.clicked.connect(self.crear_nuevo_participante)
@@ -73,8 +76,11 @@ class ActualizarParticipante(QtWidgets.QDialog):
         # Carga la UI de ActualizarParticipante
         dir_actual = os.path.dirname(os.path.abspath(__file__))
         dir_padre = os.path.dirname(dir_actual)
+        icon_path = os.path.join(dir_padre,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         ui_path = os.path.join(dir_padre, "ui", "ActualizarParticipante.ui")
         uic.loadUi(ui_path, self)
+        self.setWindowTitle(f"Actualizar Participante: {nombre_participante}")
 
         # 1. Cargamos los datos actuales al iniciar
         self.cargar_datos_actuales()
@@ -153,6 +159,8 @@ class EliminarParticipante(QtWidgets.QDialog):
         # Carga la UI de EliminarParticipante
         dir_actual = os.path.dirname(os.path.abspath(__file__))
         dir_padre = os.path.dirname(dir_actual)
+        icon_path = os.path.join(dir_padre,"Imagenes", "logoGT.png") # guardando la ruta del icono en la variable icon_path
+        self.setWindowIcon(QIcon(icon_path))  # Estableciendo el icono de la ventana
         ui_path = os.path.join(dir_padre, "ui", "EliminarParticipante.ui")
         uic.loadUi(ui_path, self)
 

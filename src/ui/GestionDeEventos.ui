@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1053</width>
-    <height>815</height>
+    <width>1371</width>
+    <height>849</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -107,7 +107,7 @@ QPushButton#btnVolver:hover {
           </property>
           <property name="minimumSize">
            <size>
-            <width>240</width>
+            <width>270</width>
             <height>240</height>
            </size>
           </property>
@@ -130,15 +130,13 @@ QPushButton#btnVolver:hover {
            <bool>false</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">QLabel {
-}
-</string>
+           <string notr="true">margin-left:30;</string>
           </property>
           <property name="text">
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="../Imagenes/imagenes.qrc">:/icons/logoGT.png</pixmap>
+           <pixmap resource="../Imagenes/imagenes.qrc">:/icons/iconoEvento.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -183,7 +181,7 @@ QPushButton#btnVolver:hover {
               <property name="font">
                <font>
                 <family>Palatino Linotype</family>
-                <pointsize>24</pointsize>
+                <pointsize>36</pointsize>
                </font>
               </property>
               <property name="autoFillBackground">
@@ -204,7 +202,7 @@ QPushButton#btnVolver:hover {
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0,1">
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0,0">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0,0">
               <item>
@@ -212,7 +210,9 @@ QPushButton#btnVolver:hover {
                 <property name="font">
                  <font>
                   <family>Palatino Linotype</family>
-                  <pointsize>10</pointsize>
+                  <pointsize>16</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
@@ -222,6 +222,12 @@ QPushButton#btnVolver:hover {
               </item>
               <item>
                <widget class="QLabel" name="lblOrganizador">
+                <property name="font">
+                 <font>
+                  <family>Mongolian Baiti</family>
+                  <pointsize>16</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Ivan</string>
                 </property>
@@ -259,7 +265,9 @@ QPushButton#btnVolver:hover {
                 <property name="font">
                  <font>
                   <family>Palatino Linotype</family>
-                  <pointsize>10</pointsize>
+                  <pointsize>16</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
@@ -269,6 +277,12 @@ QPushButton#btnVolver:hover {
               </item>
               <item>
                <widget class="QLabel" name="lblFecha">
+                <property name="font">
+                 <font>
+                  <family>Mongolian Baiti</family>
+                  <pointsize>16</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>10.12.2026</string>
                 </property>
@@ -309,7 +323,9 @@ QPushButton#btnVolver:hover {
                   <property name="font">
                    <font>
                     <family>Palatino Linotype</family>
-                    <pointsize>10</pointsize>
+                    <pointsize>16</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
                    </font>
                   </property>
                   <property name="text">
@@ -319,6 +335,12 @@ QPushButton#btnVolver:hover {
                 </item>
                 <item>
                  <widget class="QLabel" name="lblUbicacion">
+                  <property name="font">
+                   <font>
+                    <family>Mongolian Baiti</family>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Altorreal</string>
                   </property>
@@ -353,7 +375,9 @@ QPushButton#btnVolver:hover {
                   <property name="font">
                    <font>
                     <family>Palatino Linotype</family>
-                    <pointsize>10</pointsize>
+                    <pointsize>16</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
                    </font>
                   </property>
                   <property name="text">
@@ -363,6 +387,12 @@ QPushButton#btnVolver:hover {
                 </item>
                 <item>
                  <widget class="QLabel" name="lblMesas">
+                  <property name="font">
+                   <font>
+                    <family>Mongolian Baiti</family>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>50</string>
                   </property>
@@ -633,6 +663,12 @@ QPushButton#btnEliminarParticipante:hover {
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <family>Mongolian Baiti</family>
+                  <pointsize>16</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Buscar Participante</string>
                 </property>
@@ -645,6 +681,19 @@ QPushButton#btnEliminarParticipante:hover {
                   <width>200</width>
                   <height>16777215</height>
                  </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QLineEdit#lneBuscadorParticipante {
+    background-color: #E0FFFF; /* Azul Celeste muy claro */
+    border: 2px solid #87CEFA; /* Borde sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 5px;
+    margin-right: 10px; /* Margen para separarlo de los botones */
+}
+QLineEdit#lneBuscadorParticipante:hover {
+    background-color: #B9FFFF;
+}
+</string>
                 </property>
                </widget>
               </item>
@@ -970,6 +1019,7 @@ QPushButton#btnEliminarMesa:hover {
              <widget class="QListWidget" name="listWidgetMesas">
               <property name="font">
                <font>
+                <family>Segoe UI</family>
                 <pointsize>-1</pointsize>
                </font>
               </property>
