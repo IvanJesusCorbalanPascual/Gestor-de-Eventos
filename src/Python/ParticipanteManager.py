@@ -161,7 +161,7 @@ class ParticipanteManager:
 
                 for row in reader:
                     # Procesando filas del evento
-                    if row[0] == nombre_evento:
+                    if row and row[0] == nombre_evento:
                         
                         # La mesa esta en la columna 4
                         mesa_actual_str = row[4].strip() if len(row) > 4 else ''
