@@ -1,113 +1,206 @@
 Evento,Nombre,Acompanyantes,NoSentarCon,Mesa_Asignada
-test_100,Antonio,Maria,Jose,1
-test_100,Jose,Rosa,Antonio,3
-test_100,Maria,Antonio,Rosa,1
-test_100,Rosa,Jose,Maria,3
-test_100,Hugo,"Pepo, Adriano",Maria,2
-test_100,Pepo,Adriano,Carlos,2
-test_100,Adriano,Pepo,Carlos,2
-test_100,Carlos,Antonio,"Pepo, Hugo",1
-test_100,Sergio,Marcatos,Hugo,4
-test_100,Marcatos,Carlos,Hugo,4
-test_100,P11,P12,Hugo,5
-test_100,P12,P11,Hugo,5
-test_100,P13,,Carlos,26
-test_100,P14,P15,,43
-test_100,P15,P14,,43
-test_100,P16,,Hugo,27
-test_100,P17,P18,P19,6
-test_100,P18,P17,P19,6
-test_100,P19,P20,P17,7
-test_100,P20,P19,P17,7
-test_100,P21,P22,,44
-test_100,P22,P21,,44
-test_100,P23,,Carlos,28
-test_100,P24,P25,,45
-test_100,P25,P24,,45
-test_100,P26,,Hugo,29
-test_100,P27,P28,P29,8
-test_100,P28,P27,P29,8
-test_100,P29,P30,P27,9
-test_100,P30,P29,P27,9
-test_100,P31,P32,,46
-test_100,P37,P38,P39,11
-test_100,P34,P35,,47
-test_100,P35,P34,,47
-test_100,P36,,Hugo,30
-test_100,P37,P38,P39,11
-test_100,P38,P37,P39,10
-test_100,P39,P40,P37,12
-test_100,P40,P39,P37,12
-test_100,P41,P42,,48
-test_100,P42,P41,,48
-test_100,P43,,Carlos,31
-test_100,P44,P45,,49
-test_100,P45,P44,,49
-test_100,P46,,Hugo,32
-test_100,P47,P48,P49,13
-test_100,P48,P47,P49,13
-test_100,P49,P50,P47,14
-test_100,P50,P49,P47,14
-test_100,P51,P52,,50
-test_100,P52,P51,,50
-test_100,P53,,Carlos,33
-test_100,P54,P55,,51
-test_100,P55,P54,,51
-test_100,P56,,Hugo,34
-test_100,P57,P58,P59,15
-test_100,P58,P57,P59,15
-test_100,P59,P60,P57,16
-test_100,P60,P59,P57,16
-test_100,P63,,Carlos,35
-test_100,P66,,Hugo,36
-test_100,P67,P68,P69,17
-test_100,P68,P67,P69,17
-test_100,P69,P70,P67,18
-test_100,P70,P69,P67,18
-test_100,P71,P72,,52
-test_100,P72,P71,,52
-test_100,P73,,Carlos,37
-test_100,P74,P75,,53
-test_100,P75,P74,,53
-test_100,P76,,Hugo,38
-test_100,P77,P78,P79,19
-test_100,P78,P77,P79,19
-test_100,P79,P80,P77,20
-test_100,P80,P79,P77,20
-test_100,P81,P82,,54
-test_100,P82,P81,,54
-test_100,P83,,Carlos,39
-test_100,P84,P85,,55
-test_100,P85,P84,,55
-test_100,P86,,Hugo,40
-test_100,P87,P88,P89,21
-test_100,P88,P87,P89,21
-test_100,P89,P90,P87,22
-test_100,P90,P89,P87,22
-test_100,P91,P92,,56
-test_100,P92,P91,,56
-test_100,P93,,Carlos,41
-test_100,P94,P95,,57
-test_100,P95,P94,,57
-test_100,P96,,Hugo,42
-test_100,P97,P98,P99,23
-test_100,P98,P97,P99,23
-test_100,P99,P100,P97,24
-test_100,P100,P99,P97,24
-test_100,1,1,1,25
-aa,antonia,2000-01-01 00:00:00,jose,
-aa,test_100,2000-01-01 00:00:00,jose,
-aa,a,2000-01-01 00:00:00,a,
-aa,aa,2000-01-01 00:00:00,aa,
-aaaa,a,a,a,1
-antoniaa,Antonio,Ivan,Segio,1
-a,ba,a,c,3
-a,ba,a,c,3
-a,c,d,"a, b",1
-a,d,c,"a, f",1
-a,f,,,4
-a,a,a,a,
-s,a,a,a,
-s,a,a,a,
-s,a,a,a,
-s,Antonio Lopez Cortes,si si,no no,4
+Conferencia_IA_2026,Andrés Gómez,,Javier Ruíz,1
+Conferencia_IA_2026,Javier Ruíz,Andrea Flores,Andrés Gómez,1
+Conferencia_IA_2026,Andrea Flores,Javier Ruíz,Carlos Díaz,1
+Conferencia_IA_2026,Carlos Díaz,,Andrea Flores,2
+Conferencia_IA_2026,Marta Vidal,Pedro Sanz,Carlos Díaz,2
+Conferencia_IA_2026,Pedro Sanz,Marta Vidal,Lucas Martín,2
+Conferencia_IA_2026,Lucas Martín,,Pedro Sanz,3
+Conferencia_IA_2026,Silvia Pérez,Mario Santos,Marina Fernández,3
+Conferencia_IA_2026,Mario Santos,Silvia Pérez,Silvia Pérez,3
+Conferencia_IA_2026,Marina Fernández,,Mario Santos,4
+Conferencia_IA_2026,Raúl Ramos,Laura Soto,"Marina Fernández, Javier Ruíz",4
+Conferencia_IA_2026,Laura Soto,Raúl Ramos,Andrés Gómez,4
+Conferencia_IA_2026,Daniela Ortiz,,Raúl Ramos,5
+Conferencia_IA_2026,Borja Castro,Fátima Reyes,Daniela Ortiz,5
+Conferencia_IA_2026,Fátima Reyes,Borja Castro,Daniela Ortiz,5
+Conferencia_IA_2026,Hugo Jiménez,,Fátima Reyes,6
+Conferencia_IA_2026,Irene Núñez,Óscar López,Hugo Jiménez,6
+Conferencia_IA_2026,Óscar López,Irene Núñez,Irene Núñez,6
+Conferencia_IA_2026,Paula Herrera,,Óscar López,7
+Conferencia_IA_2026,Iván Pardo,,Laura Soto,
+
+Cena_Gala_Anual,Alberto Sanz,Elena López,Pedro García,1
+Cena_Gala_Anual,Elena López,Alberto Sanz,Lucía Morales,1
+Cena_Gala_Anual,Pedro García,,Alberto Sanz,2
+Cena_Gala_Anual,Lucía Morales,,Elena López,2
+Cena_Gala_Anual,Pablo Torres,Sofía Vega,Pedro García,3
+Cena_Gala_Anual,Sofía Vega,Pablo Torres,Lucía Morales,3
+Cena_Gala_Anual,David Ruíz,,Sofía Vega,4
+Cena_Gala_Anual,Mónica Pérez,Ricardo Díaz,David Ruíz,4
+Cena_Gala_Anual,Ricardo Díaz,Mónica Pérez,Mónica Pérez,5
+Cena_Gala_Anual,Carmen Flores,,Ricardo Díaz,5
+Cena_Gala_Anual,Ángel Castro,Beatriz Soler,"Carmen Flores, Alberto Sanz",6
+Cena_Gala_Anual,Beatriz Soler,Ángel Castro,Ángel Castro,6
+Cena_Gala_Anual,Natalia Cruz,,Beatriz Soler,7
+Cena_Gala_Anual,Javier Montes,Vanesa Gil,Natalia Cruz,7
+Cena_Gala_Anual,Vanesa Gil,Javier Montes,Javier Montes,8
+Cena_Gala_Anual,Guillermo Rey,,Vanesa Gil,8
+Cena_Gala_Anual,Sara Blanco,Héctor Marín,Guillermo Rey,9
+Cena_Gala_Anual,Héctor Marín,Sara Blanco,Sara Blanco,9
+Cena_Gala_Anual,Rosa Ramos,,Héctor Marín,10
+Cena_Gala_Anual,Fernando Vidal,,Pablo Torres,
+
+Taller_Python_Basico,Miguel Herrero,Ana Soria,Carlos Núñez,1
+Taller_Python_Basico,Ana Soria,Miguel Herrero,Laura Vega,1
+Taller_Python_Basico,Carlos Núñez,,Miguel Herrero,2
+Taller_Python_Basico,Laura Vega,,Ana Soria,2
+Taller_Python_Basico,Jesús Martín,Elena Prieto,Carlos Núñez,3
+Taller_Python_Basico,Elena Prieto,Jesús Martín,Daniel Rico,3
+Taller_Python_Basico,Daniel Rico,,Elena Prieto,4
+Taller_Python_Basico,Sofía Muñoz,Javier Gil,Daniel Rico,4
+Taller_Python_Basico,Javier Gil,Sofía Muñoz,Sofía Muñoz,5
+Taller_Python_Basico,María López,,Javier Gil,5
+Taller_Python_Basico,Ricardo Castro,Nerea Sanz,"María López, Miguel Herrero",6
+Taller_Python_Basico,Nerea Sanz,Ricardo Castro,Ricardo Castro,6
+Taller_Python_Basico,Pablo Torres,,Nerea Sanz,7
+Taller_Python_Basico,Lucía Ramos,Adrián Vega,Pablo Torres,7
+Taller_Python_Basico,Adrián Vega,Lucía Ramos,Adrián Vega,8
+Taller_Python_Basico,Víctor Ruíz,,Lucía Ramos,8
+Taller_Python_Basico,Irene Díaz,Óscar Flores,Víctor Ruíz,9
+Taller_Python_Basico,Óscar Flores,Irene Díaz,Irene Díaz,9
+Taller_Python_Basico,Marta Pérez,,Óscar Flores,10
+Taller_Python_Basico,Fernando Blanco,,Jesús Martín,
+
+Jornada_Innovacion,Guillermo Soria,Marina Díez,Sergio Montes,1
+Jornada_Innovacion,Marina Díez,Guillermo Soria,Álvaro Gil,1
+Jornada_Innovacion,Sergio Montes,,Guillermo Soria,2
+Jornada_Innovacion,Álvaro Gil,,Marina Díez,2
+Jornada_Innovacion,Elena Castro,Daniel Pérez,Sergio Montes,3
+Jornada_Innovacion,Daniel Pérez,Elena Castro,Carla Núñez,3
+Jornada_Innovacion,Carla Núñez,,Daniel Pérez,4
+Jornada_Innovacion,Jorge López,Raquel Sanz,Carla Núñez,4
+Jornada_Innovacion,Raquel Sanz,Jorge López,Jorge López,5
+Jornada_Innovacion,Antonio Martín,,Raquel Sanz,5
+Jornada_Innovacion,Laura Vidal,Fernando Ruíz,"Antonio Martín, Guillermo Soria",6
+Jornada_Innovacion,Fernando Ruíz,Laura Vidal,Fernando Ruíz,6
+Jornada_Innovacion,Sofía Torres,,Fernando Ruíz,7
+Jornada_Innovacion,Iván Gómez,Teresa Valls,Sofía Torres,7
+Jornada_Innovacion,Teresa Valls,Iván Gómez,Iván Gómez,8
+Jornada_Innovacion,Pedro Cano,,Teresa Valls,8
+Jornada_Innovacion,Nuria Díaz,Jesús Herrera,Pedro Cano,9
+Jornada_Innovacion,Jesús Herrera,Nuria Díaz,Nuria Díaz,9
+Jornada_Innovacion,Marta Blanco,,Jesús Herrera,10
+Jornada_Innovacion,Víctor López,,Elena Castro,
+
+Evento_Aniversario_2025,Rubén Nieto,Ana Torres,Sofía Vidal,1
+Evento_Aniversario_2025,Ana Torres,Rubén Nieto,Marcos Soto,1
+Evento_Aniversario_2025,Sofía Vidal,,Ana Torres,2
+Evento_Aniversario_2025,Marcos Soto,,Rubén Nieto,2
+Evento_Aniversario_2025,Laura Vega,Daniel Gil,Sofía Vidal,3
+Evento_Aniversario_2025,Daniel Gil,Laura Vega,Javier Ramos,3
+Evento_Aniversario_2025,Javier Ramos,,Daniel Gil,4
+Evento_Aniversario_2025,Carla Ruiz,Pedro Martín,Javier Ramos,4
+Evento_Aniversario_2025,Pedro Martín,Carla Ruiz,Carla Ruiz,5
+Evento_Aniversario_2025,Elena Pérez,,Pedro Martín,5
+Evento_Aniversario_2025,Pablo Cruz,Nerea Blanco,Elena Pérez,6
+Evento_Aniversario_2025,Nerea Blanco,Pablo Cruz,Pablo Cruz,6
+Evento_Aniversario_2025,Álvaro López,,Nerea Blanco,7
+Evento_Aniversario_2025,Marta Díaz,Sergio Montes,Álvaro López,7
+Evento_Aniversario_2025,Sergio Montes,Marta Díaz,Sergio Montes,8
+Evento_Aniversario_2025,Iván González,,Marta Díaz,8
+Evento_Aniversario_2025,Paula Soler,"David Cano, Rosa Marín",Iván González,9
+Evento_Aniversario_2025,David Cano,"Paula Soler, Rosa Marín",Paula Soler,9
+Evento_Aniversario_2025,Rosa Marín,"Paula Soler, David Cano",David Cano,10
+Evento_Aniversario_2025,Fernando Pérez,,Laura Vega,
+
+test_100,1,2,3,1
+test_100,2,1,4,1
+test_100,3,4,5,2
+test_100,4,3,6,2
+test_100,5,6,7,3
+test_100,6,5,8,3
+test_100,7,8,9,4
+test_100,8,7,10,4
+test_100,9,10,11,5
+test_100,10,9,12,5
+test_100,11,12,13,6
+test_100,12,11,14,6
+test_100,13,14,15,7
+test_100,14,13,16,7
+test_100,15,16,17,8
+test_100,16,15,18,8
+test_100,17,18,19,9
+test_100,18,17,20,9
+test_100,19,20,21,10
+test_100,20,19,22,10
+test_100,21,22,23,11
+test_100,22,21,24,11
+test_100,23,24,25,12
+test_100,24,23,26,12
+test_100,25,26,27,13
+test_100,26,25,28,13
+test_100,27,28,29,14
+test_100,28,27,30,14
+test_100,29,30,31,15
+test_100,30,29,32,15
+test_100,31,32,33,16
+test_100,32,31,34,16
+test_100,33,34,35,17
+test_100,34,33,36,17
+test_100,35,36,37,18
+test_100,36,35,38,18
+test_100,37,38,39,19
+test_100,38,37,40,19
+test_100,39,40,41,20
+test_100,40,39,42,20
+test_100,41,42,43,21
+test_100,42,41,44,21
+test_100,43,44,45,22
+test_100,44,43,46,22
+test_100,45,46,47,23
+test_100,46,45,48,23
+test_100,47,48,49,24
+test_100,48,47,50,24
+test_100,49,50,51,25
+test_100,50,49,52,25
+test_100,51,52,53,26
+test_100,52,51,54,26
+test_100,53,54,55,27
+test_100,54,53,56,27
+test_100,55,56,57,28
+test_100,56,55,58,28
+test_100,57,58,59,29
+test_100,58,57,60,29
+test_100,59,60,61,30
+test_100,60,59,62,30
+test_100,61,62,63,31
+test_100,62,61,64,31
+test_100,63,64,65,32
+test_100,64,63,66,32
+test_100,65,66,67,33
+test_100,66,65,68,33
+test_100,67,68,69,34
+test_100,68,67,70,34
+test_100,69,70,71,35
+test_100,70,69,72,35
+test_100,71,72,73,36
+test_100,72,71,74,36
+test_100,73,74,75,37
+test_100,74,73,76,37
+test_100,75,76,77,38
+test_100,76,75,78,38
+test_100,77,78,79,39
+test_100,78,77,80,39
+test_100,79,80,81,40
+test_100,80,79,82,40
+test_100,81,82,83,41
+test_100,82,81,84,41
+test_100,83,84,85,42
+test_100,84,83,86,42
+test_100,85,86,87,43
+test_100,86,85,88,43
+test_100,87,88,89,44
+test_100,88,87,90,44
+test_100,89,90,91,45
+test_100,90,89,92,45
+test_100,91,92,93,46
+test_100,92,91,94,46
+test_100,93,94,95,47
+test_100,94,93,96,47
+test_100,95,96,97,48
+test_100,96,95,98,48
+test_100,97,98,,50
+test_100,98,97,,50
+test_100,99,100,1,49
+test_100,100,99,2,49
