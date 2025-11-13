@@ -4,6 +4,8 @@
     <file>papus.png</file>
   </qresource>
   <qresource prefix="/icons">
+    <file>mesa.png</file>
+    <file>persona.png</file>
     <file>logoGT.png</file>
   </qresource>
 </RCC>

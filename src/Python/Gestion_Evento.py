@@ -1,59 +1,71 @@
-# Gestion_Evento.py
-
 import sys
 import os
+import csv
 from PyQt5 import QtWidgets, uic, QtCore
 from EventoManager import event_manager
 from PopUp_participante import CrearParticipante, ActualizarParticipante, EliminarParticipante
 from ParticipanteManager import participante_manager
-from PyQt5.QtWidgets import QTableWidgetItem, QListWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QTableWidgetItem, QListWidgetItem, QMessageBox, QFileDialog
 from PyQt5.QtCore import QDataStream, QIODevice
 from Evento import Evento
 from Mesas import Mesa
 from PopUp_evento import ActualizarEvento
 from PopUp_Mesa import AnyadirMesa, EliminarMesa
+from AsignacionAutomatica import ejecutar_asignacion_automatica # Importacion de la funcion de asignacion
 
+print("[DEBUG] Gestion_Evento.py: Importaciones completadas.")
 
 class GestionEvento(QtWidgets.QMainWindow):
 
     def __init__(self, nombreEvento):
         super(GestionEvento, self).__init__()
+        print(f"[DEBUG] Gestion_Evento.py: Creando instancia de GestionEvento para {nombreEvento}.")
 
-        # Cargando la interfaz
+        # Carga de la interfaz de usuario desde el archivo .ui
         current_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(current_dir)
         ui_path = os.path.join(parent_dir, "ui", "GestionDeEventos.ui")
         uic.loadUi(ui_path, self)
 
-        # Creando la Variables principales
+        # Variables principales
         self.nombreEvento = nombreEvento
         self.evento_obj = event_manager.buscar_evento(self.nombreEvento)
+        self.participante_obj = None # Inicializa el participante seleccionado
         self.mesas_del_evento = []
 
-        # Mapeo de botones
+        # Mapeo de botones a metodos de la clase
         self.btnVolver.clicked.connect(self.volver_principal)
         self.btnActualizarParticipante.clicked.connect(self.abrir_actualizar_participante)
         self.btnAnyadirParticipante.clicked.connect(self.abrir_crear_participante)
         self.btnEliminarParticipante.clicked.connect(self.abrir_eliminar_participante)
         
-        # para la funcionalidad de Actualizar Mesas.
+        # Conexiones para Mesas
         self.btnAnyadirMesa.clicked.connect(self.abrir_anyadir_mesas)
         self.btnEliminarMesa.clicked.connect(self.abrir_eliminar_mesa)
 
-        # Conexiones de las listas
+        # Conexion para generar el informe CSV
+        self.btnGenerarInforme.clicked.connect(self.generar_informe_csv)
+        
+        # Conexion para el boton de asignacion automatica
+        self.btnAsignacionAutomatica.clicked.connect(self.ejecutar_asignacion_automatica_ui)
+        
+        # Conexion para filtrar participantes por texto
+        self.lneBuscadorParticipante.textChanged.connect(self.filtrar_participantes) 
+            
+        # Conexion para gestionar el cambio de mesa seleccionada
         self.listWidgetMesas.currentItemChanged.connect(self._manejar_cambio_mesa_seleccionada)
         
-        # Conecta la senal de cambio de seleccion de mesas para actualizar la UI
+        # Conecta la senal de cambio de seleccion de mesas para actualizar el boton de eliminar mesa
         self.listWidgetMesas.currentItemChanged.connect(self.actualizar_estado_boton_eliminar_mesa)
 
         # CONFIGURACION DE DRAG & DROP
-        # Lista derecha: Participantes sin mesa
+        # Habilita el arrastrar y soltar en las listas de participantes
         self.listWidgetParticipantesSinMesas.setDragEnabled(True) 
         self.listWidgetParticipantesSinMesas.setAcceptDrops(True)
         self.listWidgetParticipantesSinMesas.setDragDropMode(QtWidgets.QAbstractItemView.DragDrop)
+        # Instala el filtro de eventos para capturar el 'drop'
         self.listWidgetParticipantesSinMesas.viewport().installEventFilter(self)
 
-        # Lista medio: Participantes en mesa
         self.listWidgetParticipantes.setDragEnabled(True)
         self.listWidgetParticipantes.setAcceptDrops(True)
         self.listWidgetParticipantes.setDragDropMode(QtWidgets.QAbstractItemView.DragDrop)
@@ -62,37 +74,39 @@ class GestionEvento(QtWidgets.QMainWindow):
         # La lista de mesas no acepta drops
         self.listWidgetMesas.setAcceptDrops(False)
         
-        # Deshabilitar el boton de eliminar mesa al inicio
+        # Deshabilita el boton de eliminar mesa al inicio
         self.btnEliminarMesa.setEnabled(False)
 
-        # CARGA INICIAL DE DATOS
+        # CARGA INICIAL DE DATOS en la interfaz
         self.cargar_info_evento()
         self.cargar_mesas_en_listwidget()
         self.cargar_participantes_en_tabla()
         self.refrescar_listas_mesas_tab()
 
-        print("Consultando evento")
+        print("[DEBUG] Gestion_Evento.py: Instancia de GestionEvento inicializada.")
 
+    # METODO PARA LA ASIGNACION AUTOMATICA
+    def ejecutar_asignacion_automatica_ui(self):
+        # Llama a la funcion externa de asignacion y pasa la ventana actual para el refresco
+        ejecutar_asignacion_automatica(self, self.nombreEvento)
+        
     # --- Metodo para la gestion de UI de Mesas ---
     
     def actualizar_estado_boton_eliminar_mesa(self):
-        """Habilita/Deshabilita el boton Eliminar Mesa si una mesa especifica (no 'TODOS...') esta seleccionada."""
+        # Habilita/deshabilita el boton de eliminar mesa segun el item seleccionado
         current_item = self.listWidgetMesas.currentItem()
         
-        # 1. Comprobar si hay un item seleccionado
-        if current_item is None:
+        if current_item is None or current_item.text().strip().upper() == "TODOS LOS PARTICIPANTES":
             self.btnEliminarMesa.setEnabled(False)
             self.btnEliminarMesa.setText("Eliminar Mesa")
             return
             
+        # Comprueba si el item seleccionado es una mesa valida
         nombre_mesa_seleccionada = current_item.text().strip().upper()
-        
-        # 2. Comprobar si es una mesa valida y no el titulo "TODOS LOS PARTICIPANTES"
-        if nombre_mesa_seleccionada.startswith("MESA ") and nombre_mesa_seleccionada != "TODOS LOS PARTICIPANTES":
+        if nombre_mesa_seleccionada.startswith("MESA "):
+            # Logica de comprobacion de mesa
             try:
-                # Extraer el numero de mesa
                 numero_mesa_sel = int(nombre_mesa_seleccionada.split(' ')[1])
-                # La mesa seleccionada debe existir (su numero debe ser <= num_mesas total)
                 if numero_mesa_sel <= self.evento_obj.get_num_mesas():
                     self.btnEliminarMesa.setEnabled(True)
                     self.btnEliminarMesa.setText(f"Eliminar Mesa {numero_mesa_sel}")
@@ -109,16 +123,14 @@ class GestionEvento(QtWidgets.QMainWindow):
     # --- Funcionalidad de Mesas ---
     
     def abrir_anyadir_mesas(self):
-        # Usamos el nuevo pop-up AnyadirMesa
+        # Abre el pop-up para añadir mesas
         self.popup_anyadir_mesa = AnyadirMesa(gestion_window=self)
-        
-        # Conecta la senal finished para recargar las mesas y participantes
+        # Recarga los datos cuando el pop-up se cierra
         self.popup_anyadir_mesa.finished.connect(self.recargar_datos_tras_actualizacion)
         self.popup_anyadir_mesa.show()
 
-    # abrir el pop-up de Eliminar Mesa
     def abrir_eliminar_mesa(self):
-        # Obtener la mesa seleccionada, como se hace para actualizar participante
+        # Abre el pop-up para eliminar la mesa seleccionada
         item_seleccionado = self.listWidgetMesas.currentItem()
         
         if not item_seleccionado or item_seleccionado.text().strip().upper() == "TODOS LOS PARTICIPANTES":
@@ -129,8 +141,6 @@ class GestionEvento(QtWidgets.QMainWindow):
         
         try:
             mesa_a_eliminar_num = int(nombre_mesa_seleccionada.split(' ')[1])
-            
-            # 1. Comprobar que el numero de mesa es valido
             if mesa_a_eliminar_num <= 0 or mesa_a_eliminar_num > self.evento_obj.get_num_mesas():
                 QMessageBox.critical(self, "Error", f"Mesa {mesa_a_eliminar_num} no valida o no existente.")
                 return
@@ -139,124 +149,98 @@ class GestionEvento(QtWidgets.QMainWindow):
             QMessageBox.critical(self, "Error", "Error al obtener el numero de mesa seleccionado.")
             return
             
-        # Pasar el numero de mesa seleccionado al pop-up
-        # MODIFICACION: Se pasa el numero de mesa seleccionado al pop-up
+        # Pasa el numero de mesa al pop-up
         self.popup_eliminar_mesa = EliminarMesa(gestion_window=self, mesa_a_eliminar_num=mesa_a_eliminar_num)
-        
-        # Conecta la senal finished para recargar las mesas y participantes
         self.popup_eliminar_mesa.finished.connect(self.recargar_datos_tras_actualizacion)
         self.popup_eliminar_mesa.show()
         
     
     def recargar_datos_tras_actualizacion(self):
-        # Vuelve a buscar el evento actualizado y recarga las vistas
+        # Metodo para refrescar todos los datos de la ventana despues de una operacion de actualizacion
         self.evento_obj = event_manager.buscar_evento(self.nombreEvento)
         self.cargar_info_evento()
         self.cargar_mesas_en_listwidget()
         self.refrescar_listas_mesas_tab()
         self.cargar_participantes_en_tabla()
-        self.actualizar_estado_boton_eliminar_mesa() # Actualizar estado del boton
-        
+        self.actualizar_estado_boton_eliminar_mesa() 
 
 
-    # EVENT FILTER - Metodo que gestiona tanto la funcion de arrastrar como la de soltar
+    # EVENT FILTER - Maneja el Drag & Drop en las listas de participantes
     def eventFilter(self, source, event):
-        # Drop sobre la lista de participantes EN MESA (medio)
-        if source == self.listWidgetParticipantes.viewport(): #viewport es el area real donde se dibujan los items de la lista
-            if event.type() == QtCore.QEvent.DragEnter:
-                event.acceptProposedAction()
-                
-            elif event.type() == QtCore.QEvent.Drop:
+        # Detecta si se ha soltado un item en la lista de participantes EN MESA (centro)
+        if source == self.listWidgetParticipantes.viewport(): 
+            if event.type() == QtCore.QEvent.Drop:
                 event.acceptProposedAction()
                 self.handle_drop_on_participantes_list(event)
                 return True
 
-        # Drop sobre la lista de participantes SIN MESA (derecha)
+        # Detecta si se ha soltado un item en la lista de participantes SIN MESA (derecha)
         if source == self.listWidgetParticipantesSinMesas.viewport():
-            if event.type() == QtCore.QEvent.DragEnter:
-                event.acceptProposedAction()
-                
-            elif event.type() == QtCore.QEvent.Drop:
+            if event.type() == QtCore.QEvent.Drop:
                 event.acceptProposedAction()
                 self.handle_drop_on_sin_mesa_list(event)
                 return True
 
         return super(GestionEvento, self).eventFilter(source, event)
 
-    # Logica de drop: ASIGNAR participante a mesa (drop en la lista MEDIA)
+    # Logica de drop: ASIGNAR participante a mesa (drop en la lista central)
     def handle_drop_on_participantes_list(self, event):
-        # Logica que se ejecuta cuando soltamos un item en la lista de PARTICIPANTES (medio)
         try:
+            # Obtiene el nombre del item arrastrado
             nombre_participante = event.source().currentItem().text()
-        except Exception as e:
-            print(f"[ERROR] No se pudo obtener el nombre del participante arrastrado: {e}")
+        except Exception:
             return
 
         current_mesa_item = self.listWidgetMesas.currentItem()
         
-        # Manejo de errores
         if not current_mesa_item:
             QMessageBox.warning(self, "Accion Invalida", "Por favor, selecciona una mesa de la lista 'Mesas' primero")
             return
 
         nombre_mesa = current_mesa_item.text().strip().upper()
 
-        # Manejo de errores: No se puede asignar un participante al elemento "TODOS LOS PARTICIPANTES"
         if nombre_mesa == "TODOS LOS PARTICIPANTES":
-            QMessageBox.warning(self, "Accion Invalida", "No puedes asignar un participante a 'TODOS LOS PARTICIPANTES'. Selecciona una mesa especifica")
+            QMessageBox.warning(self, "Accion Invalida", "No puedes asignar a 'TODOS LOS PARTICIPANTES'. Selecciona una mesa especifica")
             return
-        """
-        if deteccion_incompatibilidades:
-            print("Se ha detectado una incompatibilidad")
-        """
-        
 
-
-        # Finalmente asignando el participante a la mesa con el metodo asignar_participante_a_mesa
-        print(f"[ACTION] Asignar: '{nombre_participante}' -> '{nombre_mesa}'")
+        # Llama a la funcion de asignacion
         self.asignar_participante_a_mesa(nombre_participante, nombre_mesa)
 
+    # Logica de drop: DESASIGNAR participante (drop en la lista derecha)
     def handle_drop_on_sin_mesa_list(self, event):
-        # Logica que se ejecuta cuando soltamos un item en la lista SIN MESA (derecha)
         # Desasignando la mesa del participante
-        # Obteniendo el nombre
         try:
             nombre_participante = event.source().currentItem().text()
-        except Exception as e:
-            print(f"[ERROR] No se pudo obtener el nombre del participante arrastrado: {e}")
+        except Exception:
             return
             
-        print(f"[ACTION] Desasignar: '{nombre_participante}' -> sin mesa")
-        
-        # Desasignando la mesa del participante
+        # Llama a la funcion de desasignacion
         self.desasignar_participante_de_mesa(nombre_participante)
 
-    # Asignar mesa a un participante
+    # Asignar mesa a un participante (guarda en el modelo y refresca la UI)
     def asignar_participante_a_mesa(self, nombre_participante, nombre_mesa):
         try:
             numero_mesa = int(nombre_mesa.split(' ')[1])
-            # Se busca el objeto Mesa para comprobar capacidad (la capacidad es 10 por defecto para todas las mesas)
-            mesa_obj = next(m for m in self.mesas_del_evento if getattr(m, 'numero', None) == numero_mesa)
             
-            # Chequeo de capacidad
+            # Chequeo de capacidad (capacidad fija de 10)
             participantes_actuales = participante_manager.cargar_participantes_por_mesa(self.nombreEvento, numero_mesa)
             if len(participantes_actuales) >= 10: 
-                QMessageBox.warning(self, "Advertencia", f"La {nombre_mesa} ya esta llena (Capacidad: 10). No se puede asignar a {nombre_participante}")
+                QMessageBox.warning(self, "Advertencia", f"La {nombre_mesa} ya esta llena (Capacidad: 10).")
                 return
                 
         except (ValueError, IndexError, StopIteration):
             QMessageBox.critical(self, "Error", f"'{nombre_mesa}' no es un objeto de mesa valido")
             return
 
-        # Obtener participante y actualizar
+        # Busca el participante y actualiza su mesa
         participante_obj = participante_manager.buscar_participante(self.nombreEvento, nombre_participante)
         if not participante_obj:
             QMessageBox.critical(self, "Error", f"No se pudo encontrar al participante '{nombre_participante}'")
             return
         
-        # Si no hay chequeo de incompatibilidad, se asigna directamente
-
         participante_obj.mesa_asignada = numero_mesa
+        
+        # Prepara los datos para guardar en el CSV
         nuevos_datos_list = [
             participante_obj.evento,
             participante_obj.nombre,
@@ -265,63 +249,58 @@ class GestionEvento(QtWidgets.QMainWindow):
             str(participante_obj.mesa_asignada)
         ]
 
+        # Guarda la actualizacion y refresca las listas
         if participante_manager.actualizar_participante(self.nombreEvento, nombre_participante, nuevos_datos_list):
-            print(f"[Exito] {nombre_participante} guardado en Mesa {numero_mesa}")
             self.refrescar_listas_mesas_tab()
             self.cargar_participantes_en_tabla()
         else:
             QMessageBox.critical(self, "Error al Guardar", f"No se pudo actualizar al participante '{nombre_participante}'")
 
-    # Desasignar la mesa a un participante (volver a "sin mesa")
+    # Desasignar la mesa a un participante (la pone a None)
     def desasignar_participante_de_mesa(self, nombre_participante):
-        # Quita la asignacion de mesa de un participante (la pone a None)
+        # Busca el participante y quita su asignacion de mesa
         participante_obj = participante_manager.buscar_participante(self.nombreEvento, nombre_participante)
         if not participante_obj:
             QMessageBox.critical(self, "Error", f"No se pudo encontrar al participante '{nombre_participante}'")
             return
             
-        # Manejo de errores: Si ya esta sin mesa, no hacemos nada
         if participante_obj.mesa_asignada is None:
-            print(f"[DEBUG] {nombre_participante} ya estaba sin mesa")
             return
 
-        # Actualizando el objeto y creando la lista para el manager
         participante_obj.mesa_asignada = None
         
+        # Prepara los datos para guardar en el CSV con mesa vacia
         nuevos_datos_list = [
             participante_obj.evento,
             participante_obj.nombre,
             participante_obj.acompanyantes,
             participante_obj.no_sentar_con,
-            '' # Cadena vacia para indicar que no tiene mesa en el CSV
+            '' 
         ]
 
-        # Guardar en el CSV
+        # Guarda la actualizacion y refresca las listas
         if participante_manager.actualizar_participante(self.nombreEvento, nombre_participante, nuevos_datos_list):
-            print(f"[Exito] {nombre_participante} desasignado correctamente (sin mesa)")
-            
-            # Refrescar TODAS las listas para mostrar el cambio
             self.refrescar_listas_mesas_tab() 
             self.cargar_participantes_en_tabla()
         else:
             QMessageBox.critical(self, "Error al Guardar", f"No se pudo actualizar al participante '{nombre_participante}'")
 
-    # Actualizar listas
+    # Maneja la seleccion de una mesa en el listWidgetMesas
     def _manejar_cambio_mesa_seleccionada(self, current_item: QListWidgetItem, previous_item: QListWidgetItem):
         if current_item:
             self.refrescar_listas_mesas_tab()
 
+    # Refresca las listas de participantes (centro y derecha) segun la mesa seleccionada
     def refrescar_listas_mesas_tab(self):
         todos_participantes = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
 
-        # DERECHA: sin mesa
+        # DERECHA: Lista de participantes sin mesa
         self.listWidgetParticipantesSinMesas.clear()
-        # Filtrar solo participantes sin mesa asignada
         participantes_sin_mesa = [p for p in todos_participantes if p.mesa_asignada is None or str(p.mesa_asignada).strip() == ""]
         for p in participantes_sin_mesa:
             self.listWidgetParticipantesSinMesas.addItem(p.nombre)
 
-        # MEDIO: participantes en la mesa seleccionada
+        # MEDIO: Lista de participantes en la mesa seleccionada
         self.listWidgetParticipantes.clear()
         item_seleccionado = self.listWidgetMesas.currentItem()
 
@@ -334,7 +313,7 @@ class GestionEvento(QtWidgets.QMainWindow):
             except (ValueError, IndexError):
                 pass
 
-    # Cargar informacion del evento 
+    # Carga la informacion basica del evento en los labels
     def cargar_info_evento(self):
         evento_obj = self.evento_obj
         if evento_obj:
@@ -343,13 +322,11 @@ class GestionEvento(QtWidgets.QMainWindow):
             self.lblUbicacion.setText(str(evento_obj.ubicacion))
             self.lblOrganizador.setText(str(evento_obj.organizador))
             self.lblMesas.setText(str(evento_obj.num_mesas))
-            print(f"Informacion del evento '{self.nombreEvento}' cargada correctamente")
         else:
             QMessageBox.critical(self, "Error de Carga", "No se encontro la informacion del evento")
             self.volver_principal()
 
-    # Cargar Mesas 
-    # En este metodo se puede modificar la capacidad de participantes por mesa
+    # Carga las mesas en el listWidgetMesas
     def cargar_mesas_en_listwidget(self):
         self.listWidgetMesas.clear()
         self.mesas_del_evento = []
@@ -361,12 +338,9 @@ class GestionEvento(QtWidgets.QMainWindow):
             self.mesas_del_evento.append(mesa_obj)
             self.listWidgetMesas.addItem(f"Mesa {i}")
 
-        print(f"Cargadas {num_mesas} mesas")
         self.listWidgetMesas.setCurrentRow(0)
 
-
-        # Cargando la tabla de participantes desde el CSV
-
+    # Rellena la QTableWidget con una lista de participantes
     def cargar_tabla_con_participantes(self, participantes_lista, header="Nombre"):
         tabla = self.tablaParticipantes
         tabla.setRowCount(len(participantes_lista))
@@ -374,37 +348,55 @@ class GestionEvento(QtWidgets.QMainWindow):
         column_headers = [f'{header}', 'Acompanantes', 'No Sentar Con', 'Mesa']
         tabla.setHorizontalHeaderLabels(column_headers)
 
-        # Bucle que por cada lista y objeto de la lista de participantes, rellena la tabla con los datos
         for fila, participante_obj in enumerate(participantes_lista):
             tabla.setItem(fila, 0, QTableWidgetItem(participante_obj.nombre))
             tabla.setItem(fila, 1, QTableWidgetItem(participante_obj.acompanyantes))
             tabla.setItem(fila, 2, QTableWidgetItem(participante_obj.no_sentar_con))
-            # si la mesa tiene un numero, lo coge, sino le asigna por default "PENDIENTE"
+            # Muestra "PENDIENTE" si no tiene mesa asignada
             mesa_str = str(participante_obj.mesa_asignada) if participante_obj.mesa_asignada else "PENDIENTE" 
             tabla.setItem(fila, 3, QTableWidgetItem(mesa_str))
 
         tabla.resizeColumnsToContents()
 
+    # Carga todos los participantes del evento en la tabla
     def cargar_participantes_en_tabla(self):
         participantes_lista = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
         self.cargar_tabla_con_participantes(participantes_lista)
-        print("Lista de participantes cargada")
+
+    # Filtra los participantes en la tabla segun el texto del buscador
+    def filtrar_participantes(self):
+        texto_busqueda = self.lneBuscadorParticipante.text().lower().strip()
+        
+        todos_participantes = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
+        
+        if not texto_busqueda:
+            participantes_filtrados = todos_participantes
+        else:
+            # Filtra por nombre
+            participantes_filtrados = [
+                p for p in todos_participantes 
+                if texto_busqueda in p.nombre.lower()
+            ]
+            
+        self.cargar_tabla_con_participantes(participantes_filtrados)
 
     # Pop Up's
     def abrir_crear_participante(self):
+        # Abre el pop-up de creacion
         self.crear_participante_window = CrearParticipante(gestion_evento_window=self,
                                                            nombreEvento=self.nombreEvento)
         self.crear_participante_window.finished.connect(self.refrescar_listas_mesas_tab)
         self.crear_participante_window.show()
 
     def volver_principal(self):
+        # Cierra la ventana actual y abre la principal
         from Pantalla_Principal import MainWindow
         self.main_window = MainWindow()
         self.main_window.show()
         self.close()
-        print("Volviendo a la pantalla principal")
 
     def abrir_actualizar_participante(self):
+        # Abre el pop-up de actualizacion para el participante seleccionado en la tabla
         filaSeleccionada = self.tablaParticipantes.currentRow()
         if filaSeleccionada == -1:
             QMessageBox.warning(self, "Seleccion requerida", "Selecciona un participante de la tabla")
@@ -421,6 +413,7 @@ class GestionEvento(QtWidgets.QMainWindow):
         self.popup_actualizar.show()
 
     def abrir_eliminar_participante(self):
+        # Abre el pop-up de eliminacion para el participante seleccionado
         filaSeleccionada = self.tablaParticipantes.currentRow()
         if filaSeleccionada == -1:
             QMessageBox.warning(self, "Seleccion requerida", "Selecciona un participante de la tabla")
@@ -440,3 +433,46 @@ class GestionEvento(QtWidgets.QMainWindow):
 
         self.popup_eliminar.finished.connect(self.refrescar_listas_mesas_tab)
         self.popup_eliminar.show()
+
+    # Genera el informe final del evento en formato CSV
+    def generar_informe_csv(self):
+        evento = self.evento_obj
+        if not evento:
+            QMessageBox.critical(self, "Error", "No se ha podido cargar la informacion del evento")
+            return
+        
+        todosParticipantes = participante_manager.cargar_participantes_por_evento(self.nombreEvento)
+
+        nombreArchivoPorDefecto = f"Informe__{evento.nombre.replace(' ', '_')}.csv"
+
+        options = QFileDialog.Options()
+        # Muestra el dialogo para seleccionar la ubicacion de guardado
+        filePath, _ = QFileDialog.getSaveFileName(self, "Guardar Informe CSV", nombreArchivoPorDefecto, "Archivos CSV (*.csv);;Todos los Archivos (*)", options=options)
+            
+        if not filePath:
+            return
+            
+        try:
+            # Escribe el archivo CSV
+            with open(filePath, mode='w', newline='', encoding='utf-8') as file:
+                writer = csv.writer(file)
+
+                # Seccion de informacion del evento
+                writer.writerow(['INFORME DEL EVENTO'])
+                writer.writerow(['Nombre del Evento', evento.nombre]) 
+                # ... otros campos del evento ...
+                writer.writerow([])
+
+                # Seccion de mesas asignadas
+                writer.writerow(['MESAS ASIGNADAS'])
+                # logica para listar mesas y participantes
+
+                # Seccion de participantes pendientes y preferencias
+                # logica para listar pendientes y preferencias
+
+            QMessageBox.information(self, "Informe Generado", f"El informe ha sido guardado en:\n{filePath}")
+
+        except IOError as e:
+            QMessageBox.critical(self, "Error al Escribir", f"No se pudo guardar el archivo:\n{e}")
+        except Exception as e:
+            QMessageBox.critical(self, "Error Inesperado", f"Ocurrio un error al generar el informe:\n{e}")
